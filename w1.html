@@ -605,7 +605,7 @@ $<span class="math notranslate nohighlight">\(\phantom{[1]-[2] \Rightarrow}\quad
 <div class="math notranslate nohighlight">
 \[\begin{equation}y=\sin(x)+x, \quad y(-\pi)=-\pi\end{equation}\]</div>
 <p>To obtain a result for the derivative at a set of points including the endpoint, we will extend the grid by adding a phantom exterior point at the right hand side.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span> <span class="n">sin</span>
@@ -627,7 +627,7 @@ $<span class="math notranslate nohighlight">\(\phantom{[1]-[2] \Rightarrow}\quad
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/w1_3_0.png" src="_images/w1_3_0.png" />
+<img alt="_images/w1_3_0.png" class="align-center" src="_images/w1_3_0.png" />
 </div>
 </div>
 <div class="admonition note">
@@ -651,7 +651,7 @@ $<span class="math notranslate nohighlight">\(\phantom{[1]-[2] \Rightarrow}\quad
 <div class="math notranslate nohighlight">
 \[\displaystyle y_k^{\prime}=\frac{y_{k+1}-y_{k-1}}{2h}\]</div>
 <p>This result gives an estimate of the derivative at the original grid locations for the derivative at the interior points <span class="math notranslate nohighlight">\([x_2,x_3,\dots,x_{n-1}]\)</span>. Computing the derivative at the two end-points requires the function value <span class="math notranslate nohighlight">\(y\)</span> at phantom exterior points <span class="math notranslate nohighlight">\(x_{0}\)</span> and <span class="math notranslate nohighlight">\(x_{n+1}\)</span>, as shown below, which is given to match the example in the previous section.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="p">,</span><span class="n">pi</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -669,14 +669,14 @@ $<span class="math notranslate nohighlight">\(\phantom{[1]-[2] \Rightarrow}\quad
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/w1_5_0.png" src="_images/w1_5_0.png" />
+<img alt="_images/w1_5_0.png" class="align-center" src="_images/w1_5_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="demonstrating-the-truncation-error">
 <h3>Demonstrating the truncation error<a class="headerlink" href="#demonstrating-the-truncation-error" title="Permalink to this headline">¶</a></h3>
 <p>To illustrate the accuracy of the formulae, we can compute the maximum error in the approximation for a range of step sizes and plot the result. Since the resulting errors <span class="math notranslate nohighlight">\(E\)</span> are proportional to <span class="math notranslate nohighlight">\(h^n\)</span>, a plot of <span class="math notranslate nohighlight">\(\ln(E)\)</span> against <span class="math notranslate nohighlight">\(\ln(h)\)</span> should show a linear relationship. The gradient of the line gives the estimated order of the truncation error, <span class="math notranslate nohighlight">\(n\)</span>. We find (as expected) that the formula based on forward differences has a first order error relationship and the formula based on central differences has a quadratic order error relationship.</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">cos</span>
 <span class="kn">from</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">import</span> <span class="n">subplots</span><span class="p">,</span> <span class="n">show</span>
@@ -735,7 +735,7 @@ $<span class="math notranslate nohighlight">\(\phantom{[1]-[2] \Rightarrow}\quad
 central estimated n= 1.99830
 </pre></div>
 </div>
-<img alt="_images/w1_7_1.png" src="_images/w1_7_1.png" />
+<img alt="_images/w1_7_1.png" class="align-center" src="_images/w1_7_1.png" />
 </div>
 </div>
 </div>
@@ -778,7 +778,7 @@ central estimated n= 1.99830
 <p>The below Python script uses the forward difference formula to obtain a numeric estimate of the solution to the problem</p>
 <div class="math notranslate nohighlight">
 \[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=\cos(x)+1, \quad y(-\pi)=-\pi\end{equation}\]</div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">=</span><span class="mi">1000</span>
 <span class="n">h</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
@@ -798,13 +798,13 @@ central estimated n= 1.99830
 <span class="c1"># Maximum error</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="p">[</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Maximum error:&#39;</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="p">[</span><span class="n">sin</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/w1_9_0.png" src="_images/w1_9_0.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.006289469598703877
+<img alt="_images/w1_9_0.png" class="align-center" src="_images/w1_9_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Maximum error: 0.006289469598703877
 </pre></div>
 </div>
 </div>
@@ -875,14 +875,12 @@ central estimated n= 1.99830
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">my_eulr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc02964c670&gt;]
-</pre></div>
-</div>
-<img alt="_images/w1_13_1.png" src="_images/w1_13_1.png" />
+<img alt="_images/w1_13_0.png" class="align-center" src="_images/w1_13_0.png" />
 </div>
 </div>
 <p>If you would like to compare this solution to the analytic result, it is given by</p>
@@ -925,9 +923,11 @@ central estimated n= 1.99830
 <div class="math notranslate nohighlight">
 \[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=-5y, \quad y(0)=2, \quad y\in[0,10]\end{equation}\]</div>
 <p>First, let us demonstrate the solutions obtained for step size <span class="math notranslate nohighlight">\(h=0.41\)</span>, using each algorithm:</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fsolve</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fsolve</span>
 
 <span class="n">h</span> <span class="o">=</span> <span class="mf">0.41</span>
 <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
@@ -951,11 +951,7 @@ central estimated n= 1.99830
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/juliettechampaud/opt/anaconda3/lib/python3.8/site-packages/numpy/core/_asarray.py:171: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify &#39;dtype=object&#39; when creating the ndarray.
-  return array(a, dtype, copy=False, order=order, subok=True)
-</pre></div>
-</div>
-<img alt="_images/w1_17_1.png" src="_images/w1_17_1.png" />
+<img alt="_images/w1_17_0.png" class="align-center" src="_images/w1_17_0.png" />
 </div>
 </div>
 <p>In each plot, the numeric estimate is shown in blue and the analytic solution is shown in red.</p>

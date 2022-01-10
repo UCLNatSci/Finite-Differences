@@ -17,42 +17,29 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-h = 0.41
-x=np.arange(0,10,h)
-f = lambda x,y: -5*y
-ye = my_eulr(f,x,2)
-yi = my_eulri(f,x,2)
+:tags: ["hide-input"]
+import numpy as np
+from math import pi, sin
+import matplotlib.pyplot as plt
 
-xsol = np.linspace(0,10,1001)
-ysol = 2*np.exp(-5*xsol)
+x = np.linspace(-pi,pi,100)
+h = x[1]-x[0]
+xx = np.insert(x,len(x), pi+h)
+yy = list(map(lambda a: sin(a), xx)) + xx
 
-fig,ax = plt.subplots(2,1)
-ax[0].plot(x,ye,'b',xsol,ysol,'r')
-ax[0].set_title('Explicit Method')
-ax[0].set_xlim(0,10)
-ax[1].plot(x, yi, 'b', xsol, ysol, 'r')
-ax[1].set_title('Implicit Method')
-ax[1].set_xlim(0,10)
-fig.tight_layout()
+fd = (yy[1:]-yy[:-1])/h
+
+plt.plot(x, fd)
+plt.xlabel('x')
+plt.title('Estimated derivative of sin(x)+x')
+plt.ylim(0,2)
 plt.show()
 ------------------
 
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m<ipython-input-9-709ab7c372e1>[0m in [0;36m<module>[0;34m[0m
-[1;32m      3[0m [0mf[0m [0;34m=[0m [0;32mlambda[0m [0mx[0m[0;34m,[0m[0my[0m[0;34m:[0m [0;34m-[0m[0;36m5[0m[0;34m*[0m[0my[0m[0;34m[0m[0;34m[0m[0m
-[1;32m      4[0m [0mye[0m [0;34m=[0m [0mmy_eulr[0m[0;34m([0m[0mf[0m[0;34m,[0m[0mx[0m[0;34m,[0m[0;36m2[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m----> 5[0;31m [0myi[0m [0;34m=[0m [0mmy_eulri[0m[0;34m([0m[0mf[0m[0;34m,[0m[0mx[0m[0;34m,[0m[0;36m2[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m      6[0m [0;34m[0m[0m
-[1;32m      7[0m [0mxsol[0m [0;34m=[0m [0mnp[0m[0;34m.[0m[0mlinspace[0m[0;34m([0m[0;36m0[0m[0;34m,[0m[0;36m10[0m[0;34m,[0m[0;36m1001[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;36m  File [0;32m"<ipython-input-2-1d52bbbd3cca>"[0;36m, line [0;32m1[0m
+[0;31m    :tags: ["hide-input"][0m
+[0m    ^[0m
+[0;31mSyntaxError[0m[0;31m:[0m invalid syntax
 
-[0;32m<ipython-input-8-32750d1e4345>[0m in [0;36mmy_eulri[0;34m(f, x, y0)[0m
-[1;32m      9[0m [0;34m[0m[0m
-[1;32m     10[0m         [0mF[0m [0;34m=[0m [0;32mlambda[0m [0my2[0m[0;34m:[0m [0;34m([0m[0my2[0m[0;34m-[0m[0my1[0m[0;34m-[0m[0mh[0m[0;34m*[0m[0mf[0m[0;34m([0m[0mx2[0m[0;34m,[0m [0my2[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0;32m---> 11[0;31m         [0my[0m[0;34m.[0m[0mappend[0m[0;34m([0m[0mfsolve[0m[0;34m([0m[0mF[0m[0;34m,[0m[0my1[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
-[0m[1;32m     12[0m [0;34m[0m[0m
-[1;32m     13[0m     [0;32mreturn[0m [0my[0m[0;34m[0m[0;34m[0m[0m
-
-[0;31mNameError[0m: name 'fsolve' is not defined
-NameError: name 'fsolve' is not defined
+SyntaxError: invalid syntax (<ipython-input-2-1d52bbbd3cca>, line 1)
 
