@@ -42,7 +42,7 @@ parse:
     - colon_fence
     - deflist
     - linkify
-    - replacements
+    #- replacements
     - smartquotes
     - substitution
   myst_dmath_double_inline: true
@@ -52,7 +52,7 @@ sphinx:
     html_css_files:
       - "_static/mystyle.css"
   extra_extensions:
-    # - sphinx_exercise
+     - sphinx_exercise
 
 header-includes:
   - \usepackage{esint}

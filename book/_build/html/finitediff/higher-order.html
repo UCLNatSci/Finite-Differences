@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Higher order problems (examples) &#8212; Finite Differences</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyle.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/_static/mystyle.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Finite Differences</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Finite Differences
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite-intro.html">
+   1. Basic concept
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="formulae.html">
+   2. Additional formulae
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="implementation.html">
+   3. Differentiation
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/finitediff/higher-order.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffinitediff/higher-order.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-1-a-clamped-ode">
+   Problem 1 : A clamped ODE
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-2-1d-heat-equation-with-dirichlet-boundary-conditions">
+   Problem 2 : 1D heat equation with Dirichlet boundary conditions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-3-simple-harmonic-motion">
+   Problem 3: Simple harmonic motion
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="higher-order-problems-examples">
+<h1>Higher order problems (examples)<a class="headerlink" href="#higher-order-problems-examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="problem-1-a-clamped-ode">
+<h2>Problem 1 : A clamped ODE<a class="headerlink" href="#problem-1-a-clamped-ode" title="Permalink to this headline">¶</a></h2>
+<p>We will use a quadratic order scheme based on central differences to solve the problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-cee8bfd7-9385-44d4-83d3-08803b229a51">
+<span class="eqno">()<a class="headerlink" href="#equation-cee8bfd7-9385-44d4-83d3-08803b229a51" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}^2 y}{\mathrm{d}x^2} + \frac{\mathrm{d}y}{\mathrm{d}x}-6 y = 0, \qquad y(0)=1, \quad y^{\prime}(0)=0.\end{equation}\]</div>
+<p>By applying the central formulae for the first and second derivatives, and rearranging, we obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-23e751be-35b5-4a42-8a2c-92ebd2dd4c7e">
+<span class="eqno">()<a class="headerlink" href="#equation-23e751be-35b5-4a42-8a2c-92ebd2dd4c7e" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1} = \frac{y_k(2+6h^2)-y_{k-1}(1-h/2)}{1+h/2}\end{equation}\]</div>
+<p>Using a central differences formula for the boundary condition gives:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-863ce115-a980-498c-9281-bd0479224c3b">
+<span class="eqno">()<a class="headerlink" href="#equation-863ce115-a980-498c-9281-bd0479224c3b" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{y_1-y_{-1}}{h} = 0 \quad \Rightarrow \quad y_1= y_{-1}.\end{equation}\]</div>
+<p>However, this relationship involves the solution at the “fictitious” point where <span class="math notranslate nohighlight">\(x=-h\)</span>. We do not know the result at this fictitious point, but we can proceed by writing the full system of equations for all nodes including the fictitious node as a matrix and solving simultaneously using Gaussian elimination. We have</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ec9331fb-6d19-4815-9a8b-d820ec750934">
+<span class="eqno">()<a class="headerlink" href="#equation-ec9331fb-6d19-4815-9a8b-d820ec750934" title="Permalink to this equation">¶</a></span>\[\begin{equation}\left[\begin{array}{c|ccccc}-1 &amp;0 &amp;1 &amp; 0 &amp; \dots &amp; 0&amp;\\\hline0 &amp;1 &amp;0 &amp; 0 &amp; \ddots &amp;\vdots\\1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; 0 &amp; \ddots &amp;\vdots\\0 &amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; \ddots&amp;\vdots\\\vdots&amp; \vdots &amp; \ddots &amp;\ddots &amp;\ddots &amp; 0\\0 &amp; \dots &amp; 0&amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2\end{array}\right]\left[\begin{array}{cc}y_{-1}&amp;\\\hline y_0\phantom{\vdots}&amp;\\y_1&amp;\phantom{\vdots}\\y_2\phantom{\vdots}&amp;\\ \vdots&amp;\\y_N\end{array}\right]=\left[\begin{array}{cc}0&amp;\\\hline1&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\\vdots&amp;\\0\end{array}\right]\end{equation}\]</div>
+<div class="tip admonition">
+<p class="admonition-title">Hint</p>
+<p>This system is of the form <span class="math notranslate nohighlight">\(AX=B\)</span> if you are struggling to understand where the result comes from, write down the some of the simultaneous equations that you get by computing the product <span class="math notranslate nohighlight">\(AX\)</span>. You should see that each row in the system gives the equation relating a node to its neighbours using the finite difference formula. The boundary conditions are implemented in the first and second rows.</p>
+<p>You can solve the simultaneous system in Python by using the lstsq function from numpy’s linear algebra module (linalg).</p>
+<p>Set up this problem in Python (construct the matrix), for step <span class="math notranslate nohighlight">\(h=10^{-3}\)</span> and solve to obtain the solution for <span class="math notranslate nohighlight">\(y\)</span>.</p>
+</div>
+</div>
+<div class="section" id="problem-2-1d-heat-equation-with-dirichlet-boundary-conditions">
+<h2>Problem 2 : 1D heat equation with Dirichlet boundary conditions<a class="headerlink" href="#problem-2-1d-heat-equation-with-dirichlet-boundary-conditions" title="Permalink to this headline">¶</a></h2>
+<p>Use the central differences formula, to set up a system of algebraic equations for the value of the nodes <span class="math notranslate nohighlight">\([u_1,u_2,...,u_n]\)</span> in the following problem, ensuring that you enforce the boundary conditions at the endpoints</p>
+<div class="amsmath math notranslate nohighlight" id="equation-5a319120-bd24-4ce7-8468-86a6b2c65f3a">
+<span class="eqno">()<a class="headerlink" href="#equation-5a319120-bd24-4ce7-8468-86a6b2c65f3a" title="Permalink to this equation">¶</a></span>\[\begin{equation}u^{\prime\prime}(x)=\sin(2\pi x), \quad u(x_1) = 0, \quad u(x_n)=0.\end{equation}\]</div>
+<p>Solve and plot your solution.</p>
+</div>
+<div class="section" id="problem-3-simple-harmonic-motion">
+<h2>Problem 3: Simple harmonic motion<a class="headerlink" href="#problem-3-simple-harmonic-motion" title="Permalink to this headline">¶</a></h2>
+<p>We consider the equation of motion for a particle of unit mass moving in one dimension under the influence of a restoring force <span class="math notranslate nohighlight">\(F(x)=-x\)</span>. The particle is initially at rest at a displacement of <span class="math notranslate nohighlight">\(x=1\)</span>, and we will solve for motion during the first 100 seconds using discretisation with a time step <span class="math notranslate nohighlight">\(\Delta t =0.1\)</span>
+The equations are given by:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-3af83d58-e622-4916-bdc4-28ab09e477a5">
+<span class="eqno">()<a class="headerlink" href="#equation-3af83d58-e622-4916-bdc4-28ab09e477a5" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}v}{\mathrm{d}t} = -x, \qquad \frac{\mathrm{d}x}{\mathrm{d}t} = v, \qquad t\in[0,100], \qquad x(0)=1, \qquad v(0)=0.\end{equation}\]</div>
+<p>By using central difference formulas with a half-step <span class="math notranslate nohighlight">\(\Delta t/2\)</span>, we can obtain:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ddc7944c-8de4-4c45-a8e5-7ffd7d2f6185">
+<span class="eqno">()<a class="headerlink" href="#equation-ddc7944c-8de4-4c45-a8e5-7ffd7d2f6185" title="Permalink to this equation">¶</a></span>\[\begin{equation}v(t+\Delta t/2) = v(t-\Delta t/2)- x(t)\Delta t, \qquad x(t+\Delta t)=x(t)+v(t+\Delta t/2)\Delta t.\end{equation}\]</div>
+<p>This is called a “leapfrog’” method, because the successively computed solutions for <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(v\)</span> are obtained at staggered positions, as illustrated in the schematic diagram below. Use this approach to obtain solutions for <span class="math notranslate nohighlight">\(x(t)\)</span> and <span class="math notranslate nohighlight">\(v(t+\Delta t/2)\)</span>. To get your algorithm started, you can take <span class="math notranslate nohighlight">\(v_{-1/2}=0\)</span>.</p>
+<a class="reference internal image-reference" href="../_images/leapfrog.png"><img alt="leapfrog algorithm" class="align-center" src="../_images/leapfrog.png" style="height: 200px;" /></a>
+<p>Plot <span class="math notranslate nohighlight">\((v^2+x^2-1)/2\)</span>, which provides the difference between the estimated energy and exact (analytic) energy. To calculate <span class="math notranslate nohighlight">\(v(t)\)</span> you can use <span class="math notranslate nohighlight">\(v(t) = \frac{v(t-\Delta t/2)+v(t+\Delta t/2)}{2}.\)</span></p>
+<p><strong>Answers coming soon!</strong></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./finitediff"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Natural Sciences<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

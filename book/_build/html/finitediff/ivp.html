@@ -1,0 +1,588 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Initial value problems &#8212; Finite Differences</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyle.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/_static/mystyle.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Finite Differences</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Finite Differences
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite-intro.html">
+   1. Basic concept
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="formulae.html">
+   2. Additional formulae
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="implementation.html">
+   3. Differentiation
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/finitediff/ivp.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/finitediff/ivp.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffinitediff/ivp.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/finitediff/ivp.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#forward-stepping">
+   Forward stepping
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example">
+     Example
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#predicting-the-size-of-the-error">
+     Predicting the size of the error
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-autonomous-ivps">
+   Non-autonomous IVPs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forward-difference-explicit-euler-scheme">
+     Forward difference (explicit Euler scheme)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stability">
+     Stability
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#span-style-color-red-coding-challenge-span">
+   <span style="color: red;">
+    Coding challenge
+   </span>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#explicit-vs-implicit-methods">
+   Explicit vs implicit methods
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The relevant packages were imported here (numpy, math, matplotlib), therefore no longer need importing in the next sections. But make sure you do import them if you are running some of the sections independently.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Discretisation tip</p>
+<p>In the above example we allowed python to compute the grid points, by using linspace to ensure that the right-hand end point was included. However, for some applications it may not be convenient to use linspace.</p>
+<p>If you want to compute the step size <span class="math notranslate nohighlight">\(h\)</span> that will discretise a domain with the right-hand end point included, it is useful to recognise that the <span class="math notranslate nohighlight">\(x\)</span> values in the grid are in arithmetic progression. If the first term is <span class="math notranslate nohighlight">\(a\)</span>, then the last term is <span class="math notranslate nohighlight">\(a+(n-1)h\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of points. This gives the following result for an interval <span class="math notranslate nohighlight">\([a,b]\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-69b4bb5d-1e35-439c-834c-ffbcb875931f">
+<span class="eqno">()<a class="headerlink" href="#equation-69b4bb5d-1e35-439c-834c-ffbcb875931f" title="Permalink to this equation">¶</a></span>\[\begin{equation}a+(n-1)h=b \quad \Rightarrow\quad h=\frac{b-a}{n-1}\end{equation}\]</div>
+</div>
+<div class="section" id="initial-value-problems">
+<h1>Initial value problems<a class="headerlink" href="#initial-value-problems" title="Permalink to this headline">¶</a></h1>
+<p>Substitution of finite difference formulae into a differential equation results in a system of algebraic difference equations that either can be directly rearranged (this section) or solved using root-finding techniques (next section).</p>
+<div class="theorem admonition">
+<p class="admonition-title">Numeric integration</p>
+<p>The use of geometric integral approximation formulae such as the left-hand rectangle rule, mid-point rectangle rule or Simpson’s rule can also be used for numeric integration of initial value problems. The results found this way are identical to the Taylor series formulae and the geometric arguments can help to motivate the methods. However, Taylor’s theorem is required to quantify the size of the analytic error in each case.</p>
+</div>
+<div class="section" id="forward-stepping">
+<h2>Forward stepping<a class="headerlink" href="#forward-stepping" title="Permalink to this headline">¶</a></h2>
+<p>We can use the Euler forward difference formula to solve an initial value problem (IVP) of the form</p>
+<div class="amsmath math notranslate nohighlight" id="equation-928a324a-308e-4330-98e8-019ad9d9c0ec">
+<span class="eqno">()<a class="headerlink" href="#equation-928a324a-308e-4330-98e8-019ad9d9c0ec" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=f(x), \quad y(x_0)=y_0.\end{equation}\]</div>
+<p>Recalling that</p>
+<div class="math notranslate nohighlight">
+\[y(x_k+h)= y(x_k)+y^{\prime}(x_k)h+\mathcal{O}(h^2)\]</div>
+<p>and using the given differential equation to replace the derivative leads to the following iterative formula, which is known as the explicit Euler method</p>
+<div class="amsmath math notranslate nohighlight" id="equation-bc5bb201-f4dc-40d3-8d8d-43a037b0a436">
+<span class="eqno">()<a class="headerlink" href="#equation-bc5bb201-f4dc-40d3-8d8d-43a037b0a436" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}\simeq y_k + h f(x_k)\end{equation}\]</div>
+<p>The formula uses the known value <span class="math notranslate nohighlight">\((x_k,y_k)\)</span> together with the known slope at that point to project forward to the next point. The calculation is then repeated at the new point, and in this manner we keep stepping forward until we reach the end of the integration domain. We start at the given initial value <span class="math notranslate nohighlight">\((x_0,y_0)\)</span>.</p>
+<p>A graphical illustration is provided below, demonstrating how each forward step takes us in tangent to one of the family of general solution curves. The approximation would be better for smaller step size!</p>
+<a class="reference internal image-reference" href="../_images/forward1.png"><img alt="forward stepping" class="align-center" src="../_images/forward1.png" style="width: 448.0px; height: 176.4px;" /></a>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>The below Python script uses the forward difference formula to obtain a numeric estimate of the solution to the problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8d2e4e99-0c8e-4985-8a22-6f54daf44de9">
+<span class="eqno">()<a class="headerlink" href="#equation-8d2e4e99-0c8e-4985-8a22-6f54daf44de9" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=\cos(x)+1, \quad y(-\pi)=-\pi\end{equation}\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">n</span><span class="o">=</span><span class="mi">1000</span>
+<span class="n">h</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">x</span><span class="p">[[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">y</span><span class="p">[[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">[[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span>
+    <span class="n">y</span><span class="p">[[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">h</span><span class="o">*</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Estimated integral of cos(x)+1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Maximum error</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">exact</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="n">x</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Maximum error:&#39;</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">exact</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/ivp_1_0.png" class="align-center" src="../_images/ivp_1_0.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Maximum error: 0.006289469598703877
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="predicting-the-size-of-the-error">
+<h3>Predicting the size of the error<a class="headerlink" href="#predicting-the-size-of-the-error" title="Permalink to this headline">¶</a></h3>
+<p><strong>Local error</strong></p>
+<p>The trunctation error in the explicit Euler method is <span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span>. It is the size of error introduced at each step.</p>
+<p><strong>Global error</strong></p>
+<p>As we are integrating over <span class="math notranslate nohighlight">\(1/h\)</span> steps, we may therefore expect that by the time we reach the end of the integration domain the error may be <span class="math notranslate nohighlight">\(\mathcal{O}(h)\)</span>.</p>
+<p>This heuristic description is fairly accurate. However, the detailed picture is a little more complicated, as for some problems the local errors are amplified/compounded in subsequent steps, whilst in other problems the errors are damped out. We will see some examples in the next section.</p>
+</div>
+</div>
+<div class="section" id="non-autonomous-ivps">
+<h2>Non-autonomous IVPs<a class="headerlink" href="#non-autonomous-ivps" title="Permalink to this headline">¶</a></h2>
+<p>So far we have only looked at initial value problems where the derivative is given fully in terms of <span class="math notranslate nohighlight">\(x\)</span>. Differential equations which do not explicitly depend on the independent variable are called autonomous.</p>
+<p>We now consider the more general non-autonomous initial value problem given by:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-e6383c12-7cc6-4991-8c19-c207a102e9b5">
+<span class="eqno">()<a class="headerlink" href="#equation-e6383c12-7cc6-4991-8c19-c207a102e9b5" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=f(x,y), \quad y(x_0)=y_0.\end{equation}\]</div>
+<p>Schemes for solving this problem based on the forward and backward difference formulae are given below, with some discussion of their stability properties. Some further formulae will be outlined in the chapter on multi-stage methods.</p>
+<div class="section" id="forward-difference-explicit-euler-scheme">
+<h3>Forward difference (explicit Euler scheme)<a class="headerlink" href="#forward-difference-explicit-euler-scheme" title="Permalink to this headline">¶</a></h3>
+<p>Substituting the given result for the derivative into the forward difference formula result in</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7d78357d-87f0-4c4b-a269-7ed3368ad9f8">
+<span class="eqno">()<a class="headerlink" href="#equation-7d78357d-87f0-4c4b-a269-7ed3368ad9f8" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)\simeq y(x_k)+h f(x_k,y_k)\end{equation}\]</div>
+<p>This gives an explicit result for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> in terms of the values <span class="math notranslate nohighlight">\(x_k\)</span> and <span class="math notranslate nohighlight">\(y_k\)</span> from the previous step, which can be calculated straightforwardly in the same manner we used for the explicit problem. An example implementation is shown in the function code below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_eulr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y0</span><span class="p">):</span>
+
+    <span class="n">nstep</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstep</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here is a demonstration of the solution using this code for the problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-313e2dac-b038-443a-8940-2332ef8bef0d">
+<span class="eqno">()<a class="headerlink" href="#equation-313e2dac-b038-443a-8940-2332ef8bef0d" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=-y+(\cos(x)+2)y^2, \quad y(0)=0.4, \quad x\in[0,4]\end{equation}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="n">y</span><span class="o">+</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">my_eulr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="n">cb532bb02216</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="n">y</span><span class="o">+</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">y</span> <span class="o">=</span> <span class="n">my_eulr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nn">&lt;ipython-input-2-323de2c48fc8&gt;</span> in <span class="ni">my_eulr</span><span class="nt">(f, x, y0)</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstep</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="ne">----&gt; </span><span class="mi">8</span>         <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span>     <span class="k">return</span> <span class="n">y</span>
+
+<span class="nn">&lt;ipython-input-3-cb532bb02216&gt;</span> in <span class="ni">&lt;lambda&gt;</span><span class="nt">(x, y)</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="n">y</span><span class="o">+</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">y</span> <span class="o">=</span> <span class="n">my_eulr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;cos&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+<p>If you would like to compare this solution to the analytic result, it is given by</p>
+<div class="amsmath math notranslate nohighlight" id="equation-5447d64c-cccf-433f-8c26-2d9546f986f2">
+<span class="eqno">()<a class="headerlink" href="#equation-5447d64c-cccf-433f-8c26-2d9546f986f2" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{2}{4+\cos(x)-\sin(x)}\end{equation}\]</div>
+<p><u><strong>Backward difference (implicit Euler scheme)</strong></u></p>
+<div class="amsmath math notranslate nohighlight" id="equation-6f232592-bf37-4a7e-9043-9ab3602342f4">
+<span class="eqno">()<a class="headerlink" href="#equation-6f232592-bf37-4a7e-9043-9ab3602342f4" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)\simeq y(x_k)+h f(x_k,y(x_k+h))\end{equation}\]</div>
+<p>Here, things begin to get a bit more complicated, since the expression for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> is given implicitly. Usually it is not possible to rearrange the expression to obtain <span class="math notranslate nohighlight">\(y_{k+1}\)</span> explicitly, so a root-finding algorithm is required, such as the Newton-Raphson technique or a bisection or fixed point algorithm. An example implementation is shown in the code below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_eulri</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y0</span><span class="p">):</span>
+    <span class="n">nstep</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nstep</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+        <span class="n">F</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">y2</span><span class="p">:</span> <span class="p">(</span><span class="n">y2</span><span class="o">-</span><span class="n">y1</span><span class="o">-</span><span class="n">h</span><span class="o">*</span><span class="n">f</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">))</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fsolve</span><span class="p">(</span><span class="n">F</span><span class="p">,</span><span class="n">y1</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong><u>Trapezoidal rule</u></strong></p>
+<p>Taking the average of the forward and backward difference formulae gives</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2d60c5b5-8d71-4403-adb6-77e86c0c0d32">
+<span class="eqno">()<a class="headerlink" href="#equation-2d60c5b5-8d71-4403-adb6-77e86c0c0d32" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+\frac{h}{2}\biggr[f(x_k,y_k)+f(x_{k+1},y_{k+1})\biggr]\end{equation}\]</div>
+<p>This result is equivalent to approximating the integral using the trapezium rule. It can be shown that the global error in this formula is <span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span>, whilst the global errors in the explicit and implicit Euler methods are both <span class="math notranslate nohighlight">\(\mathcal{O}(h)\)</span>.</p>
+<p>The trapezoidal rule is also an implicit rule. It can be implemented using a minimal modification of the backward difference algorithm outlined above.</p>
+</div>
+<div class="section" id="stability">
+<h3>Stability<a class="headerlink" href="#stability" title="Permalink to this headline">¶</a></h3>
+<p>The implicit Euler algorithm typically requires a root-solving algorithm (expensive) and it only offers the same order accuracy as the explicit Euler algorithm, since the error goes like <span class="math notranslate nohighlight">\(h\)</span> in each case… So why do we need it?</p>
+<p>We will consider an illustrative example, provided by the problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0fc6a2d6-46f8-42fa-953b-e639603948a7">
+<span class="eqno">()<a class="headerlink" href="#equation-0fc6a2d6-46f8-42fa-953b-e639603948a7" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=-5y, \quad y(0)=2, \quad y\in[0,10]\end{equation}\]</div>
+<p>First, let us demonstrate the solutions obtained for step size <span class="math notranslate nohighlight">\(h=0.41\)</span>, using each algorithm:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">fsolve</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="mf">0.41</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:</span> <span class="o">-</span><span class="mi">5</span><span class="o">*</span><span class="n">y</span>
+<span class="n">ye</span> <span class="o">=</span> <span class="n">my_eulr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">yi</span> <span class="o">=</span> <span class="n">my_eulri</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">xsol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1001</span><span class="p">)</span>
+<span class="n">ysol</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="o">*</span><span class="n">xsol</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">ye</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="n">xsol</span><span class="p">,</span><span class="n">ysol</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Explicit Method&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">xsol</span><span class="p">,</span> <span class="n">ysol</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Implicit Method&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In each plot, the numeric estimate is shown in blue and the analytic solution is shown in red.</p>
+<p>Both the explicit and implicit Euler solutions have the same level of accuracy over a single step. However, in this example the errors in the explicit solution are amplified, whilst in the implicit solution they are damped. The implicit method is more stable for this example.</p>
+<p><strong><u>Analysis for this problem</u></strong></p>
+<p>This example can be fully analysed by hand. Since it is linear, a root finding method is not needed to implement the backward formula. We can simply rearrange to obtain an explicit solution for <span class="math notranslate nohighlight">\(y_k\)</span>. In both cases, the resulting expression for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> can be applied recursively to obtain a closed form discrete solution in terms of the step size <span class="math notranslate nohighlight">\(h\)</span> and the initial condition <span class="math notranslate nohighlight">\(y_0\)</span>. The details for each method are shown below.</p>
+<p>The <strong>explicit formula</strong> gives</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle y_{k+1}= (1-5h)y_k \quad \Rightarrow \quad y_{k+1}=(1-5h)^{k+1}y_0, \qquad x=kh\]</div>
+<p>The <strong>implicit formula</strong> gives</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle y_{k+1}=\frac{y_k}{1+5h} \quad \Rightarrow \quad y_{k+1}=\frac{y_0}{(1+5h)^{k+1}}, \qquad x=kh\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\displaystyle \lim_{h\rightarrow 0}(1\pm 5 h)^{x/h} = e^{\pm 5x}\)</span>, both of these results converge to the analytic solution <span class="math notranslate nohighlight">\(y=2e^{-5x}\)</span> in the limit of small step sizes.</p>
+<p>However, for <span class="math notranslate nohighlight">\(|1-5h|&gt;1\)</span>, the explicit Euler method displays oscillating growth (i.e. for <span class="math notranslate nohighlight">\(h&gt;2/5\)</span>).</p>
+<p>In general, for (dynamically) stable ODEs with a fast decaying or highly oscillatory mode, the explicit Euler method demands small step sizes. These types of ODE are called “stiff”. The implicit Euler method is also more stable than the trapezoidal method.</p>
+<p><strong>How is stability assessed in practical problems?</strong></p>
+<p>Comparison of the local and global errors can give us an indication of the stability properties of the algorithm. The local errors generally ought to remain proportional to the size of the neglected terms in the truncated expansion. If these errors are growing then the algorithm is not stable.</p>
+<p>The size of the error at each step depends on the method used and also the problem being solved. In particular, it depends on how large the gradient is. To account for this, and to produce a reliable result within specified error tolerances, many algorithms use adaptive step size methods, in which the error is estimated at each step by comparing the results from algorithms with different numbers of stages. The step size can then be decreased in regions where the tolerance would be exceeded. Python scipy package offers a built-in algorithm that does exactly this, called integrate.solve_ivp</p>
+</div>
+</div>
+<div class="section" id="span-style-color-red-coding-challenge-span">
+<h2><span style="color: red;">Coding challenge</span><a class="headerlink" href="#span-style-color-red-coding-challenge-span" title="Permalink to this headline">¶</a></h2>
+<p>As an alternative to using Newton-Raphson algorithm to find the root of an algebraic relationship, we can use a fixed-point iteration technique, designed for problems of the form \begin{equation}x=F(x).\end{equation}</p>
+<p>The approach proceeds by taking an initial guess <span class="math notranslate nohighlight">\(x=x_{guess}\)</span> and substituting it into the right hand side of the equation.</p>
+<p>If <span class="math notranslate nohighlight">\(|x_{guess}-F(x_{guess})|\)</span> is less than some specified tolerance then we conclude that our guess is a good approximation to the root.</p>
+<p>If the tolerance goal is not met, we use the result <span class="math notranslate nohighlight">\(F(x_{guess})\)</span> as a new guess, and repeat the process.</p>
+<p>Write your own code to find a root of <span class="math notranslate nohighlight">\(x=\cos(x)\)</span>, with an initial guess of <span class="math notranslate nohighlight">\(x=0.2\)</span>, with a tolerance of <span class="math notranslate nohighlight">\(10^{-7}\)</span>.</p>
+<p>Can you produce a plot showing the errors in each iteration?</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fixed point techniques are an important numerical analysis tool, and we will use them more when we study applications to partial differential equations.</p>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="explicit-vs-implicit-methods">
+<h2>Explicit vs implicit methods<a class="headerlink" href="#explicit-vs-implicit-methods" title="Permalink to this headline">¶</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">Big idea : Stiffness and stability</p>
+<p>Explicit algorithms tend to be easier to implement than implicit algorithms, and are less computationally demanding for a given step size.</p>
+<p>Implicit algorithms tend to exhibit better stability properties, which is particularly important for problems which are numerically “stiff”.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./finitediff"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Natural Sciences<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

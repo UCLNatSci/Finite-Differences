@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2. Additional formulae &#8212; Finite Differences</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyle.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/_static/mystyle.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Differentiation" href="implementation.html" />
+    <link rel="prev" title="1. Basic concept" href="finite-intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Finite Differences</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Finite Differences
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite-intro.html">
+   1. Basic concept
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Additional formulae
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="implementation.html">
+   3. Differentiation
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/finitediff/formulae.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/finitediff/formulae.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffinitediff/formulae.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/finitediff/formulae.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#taylor-series-recap">
+   2.1. Taylor series recap
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#definition">
+     2.1.1. Definition
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#remainder">
+     2.1.2. Remainder
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#order-of-accuracy">
+   2.2. Order of accuracy
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finite-difference-formulae">
+   2.3. Finite difference formulae
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#first-derivative-formulae">
+     2.3.1. First derivative formulae
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#second-derivative-formulae">
+   2.4. Second derivative formulae
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="additional-formulae">
+<h1><span class="section-number">2. </span>Additional formulae<a class="headerlink" href="#additional-formulae" title="Permalink to this headline">¶</a></h1>
+<p>We can truncate and manipulate Taylor’s series to obtain algebraic approximation for first and second (and higher) derivatives involving weighted averages of neighbouring points. These approximations may allow us to compute derivatives with greater accuracy for a given step size.</p>
+<div class="section" id="taylor-series-recap">
+<h2><span class="section-number">2.1. </span>Taylor series recap<a class="headerlink" href="#taylor-series-recap" title="Permalink to this headline">¶</a></h2>
+<p>We can compute a power series representation for a function <span class="math notranslate nohighlight">\(f(x)\)</span> by Taylor expansion about a chosen point <span class="math notranslate nohighlight">\(x=a\)</span>. If we keep only a finite number of terms then the <em>truncated</em> polynomial gives a good approximation in a local neighbourhood of the expansion point.</p>
+<p>The “goodness” of the approximation can be anticipated using the Lagrange remainder theorem, which places an upper bound on the size of the error. The error in the truncated expansion is found to be proportional to the next power of <span class="math notranslate nohighlight">\((x-a)\)</span> that was discarded in the expansion.</p>
+<p>A mathematical summary of these results is given below, and further details can be found in <a class="reference external" href="https://uclnatsci.github.io/Mathematics-for-Natural-Sciences/sequences_and_series/taylor_series.html">NSCI0005 Lecture Notes, Chapter 7 on Taylor Series</a></p>
+<div class="section" id="definition">
+<h3><span class="section-number">2.1.1. </span>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">¶</a></h3>
+<p>The truncated Taylor expansion of <span class="math notranslate nohighlight">\(f(x)\)</span> about point <span class="math notranslate nohighlight">\(x=a\)</span>, up to and including the term in <span class="math notranslate nohighlight">\((x-a)^n\)</span>, is given by</p>
+<div class="math notranslate nohighlight" id="equation-finitetaylor">
+<span class="eqno">(2.1)<a class="headerlink" href="#equation-finitetaylor" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
+p_n(x) &amp;= \sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k \\
+&amp; = f(a)+f^{\prime}(a)(x-a)+\frac{f^{\prime\prime}(a)}{2}(x-a)^2+\dots +\frac{f^{(n)}(a)}{n!}(x-a)^n.
+\end{align}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(f^{(k)}\)</span> denotes the <span class="math notranslate nohighlight">\(k\)</span>-th derivative of <span class="math notranslate nohighlight">\(f\)</span>.</p>
+</div>
+<div class="section" id="remainder">
+<h3><span class="section-number">2.1.2. </span>Remainder<a class="headerlink" href="#remainder" title="Permalink to this headline">¶</a></h3>
+<p>According to the Lagrange remainder theorem the error <span class="math notranslate nohighlight">\(R_n\)</span> in the truncated expansion satisfies</p>
+<div class="math notranslate nohighlight" id="equation-remainder">
+<span class="eqno">(2.2)<a class="headerlink" href="#equation-remainder" title="Permalink to this equation">¶</a></span>\[f(x) = p_n(x) + R_n(x), \qquad R_n(x) = \frac{f^{(n+1)}(\xi)(x-a)^{n+1}}{(n+1)!}, \qquad \xi\in(a,x).\]</div>
+<div class="exercise admonition" id="finitediff/formulae-exercise-0">
+<p class="admonition-title"><span class="caption-number">Exercise 2.1 </span> (Hand derivation)</p>
+<div class="section" id="exercise-content">
+<p>Use the Lagrange remainder theorem to compute an upper bound for the size of the error in the quadratic expansion of <span class="math notranslate nohighlight">\(\sin(x)\)</span> about <span class="math notranslate nohighlight">\(x=\frac{\pi}{3}\)</span>, at a nearby point <span class="math notranslate nohighlight">\(x=\frac{\pi}{2}\)</span>.</p>
+</div>
+</div>
+<div class="toggle docutils container">
+<p>The series expansion is found to be:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}p_2(x)=\frac{\sqrt{3}}{2}+\frac{1}{2}\biggr(x-\frac{\pi}{3}\biggr)-\frac{\sqrt{3}}{4}\biggr(x-\frac{\pi}{3}\biggr)^2\end{equation*}\]</div>
+<p>And from Lagrange’s formula, the error in the expansion at <span class="math notranslate nohighlight">\(x=\frac{\pi}{2}\)</span> is given by:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}R(\xi)= \biggr|\frac{\cos(\xi)(\frac{\pi}{2}-\frac{\pi}{3})^3}{6}\biggr| \end{equation*}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(|\cos(\xi)|\)</span> is bounded above by <span class="math notranslate nohighlight">\(1\)</span> on the given domain, Lagrange’s remainder theorem gives an upper bound of</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}\frac{\pi^3}{6^4}=0.0239246\end{equation*}\]</div>
+<p>The exact error is</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}\biggr|\sin\left(\frac{\pi}{2}\right)-p_2\left(\frac{\pi}{2}\right)\biggr| = 0.0091119\end{equation*}\]</div>
+</div>
+</div>
+</div>
+<div class="section" id="order-of-accuracy">
+<h2><span class="section-number">2.2. </span>Order of accuracy<a class="headerlink" href="#order-of-accuracy" title="Permalink to this headline">¶</a></h2>
+<p>Assuming that the Taylor series expansion is to be used in the neighbourhood of the expansion point means that <span class="math notranslate nohighlight">\((x-a)\)</span> is a small quantity. We say that the degree <span class="math notranslate nohighlight">\(n\)</span> series has “order <span class="math notranslate nohighlight">\((x-a)^n\)</span> accuracy” and we may write</p>
+<div class="amsmath math notranslate nohighlight" id="equation-11b9caaf-21f3-4e4c-9a90-46f6a7d87f01">
+<span class="eqno">(2.3)<a class="headerlink" href="#equation-11b9caaf-21f3-4e4c-9a90-46f6a7d87f01" title="Permalink to this equation">¶</a></span>\[\begin{equation}f(x)=p_n(x)+\mathcal{O}((x-a))^{n+1}),\end{equation}\]</div>
+<p>where the “big-O” notation describes the size of the error terms.</p>
+<p>This finding can be used to describe the size of the error in the finite difference approximation presented in the last section in equation <a class="reference internal" href="finite-intro.html#equation-finite1">(1.1)</a>.</p>
+<p>Discarding all terms of degree greater than one in Taylor’s expansion about <span class="math notranslate nohighlight">\(x=x_k\)</span> gives:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8cb6a0d4-a650-4987-87e4-e6cfb5228e58">
+<span class="eqno">(2.4)<a class="headerlink" href="#equation-8cb6a0d4-a650-4987-87e4-e6cfb5228e58" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x)= y(x_k)+y^{\prime}(x_k)(x-x_k)+\mathcal{O}((x-x_k)^2)\end{equation}\]</div>
+<p>If we label <span class="math notranslate nohighlight">\(h=(x-x_k)\)</span>, then we may rewrite the expression as shown below. The result is known as Euler’s forward difference formula or the explicit Euler method.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-836a64cf-9311-4cba-8135-f01c1521f0a0">
+<span class="eqno">(2.5)<a class="headerlink" href="#equation-836a64cf-9311-4cba-8135-f01c1521f0a0" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)= y(x_k)+y^{\prime}(x_k)h +\mathcal{O}(h^2), \qquad h\ll 1\end{equation}\]</div>
+<p>A simple rearrangement of Euler’s forward difference formula gives the previously obtained expression for the derivative at <span class="math notranslate nohighlight">\(x_k\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-8eaaaa23-1077-4690-8d4b-0bdb5d02476d">
+<span class="eqno">(2.6)<a class="headerlink" href="#equation-8eaaaa23-1077-4690-8d4b-0bdb5d02476d" title="Permalink to this equation">¶</a></span>\[\begin{equation}y^{\prime}(x_k)= \frac{y(x_k+h)-y(x_k)}{h}+\mathcal{O}(h)\end{equation}\]</div>
+<p>The result also shows that the error in this expression is order <span class="math notranslate nohighlight">\(h\)</span>, as discovered when we plotted the error against the step size.</p>
+<p>The error occurs due to working with finite approximations to infinitesimal quantities, and is a result of truncating the Taylor expansion after just two terms. We should distinguish <strong>truncation error</strong> from the previously seen <strong>roundoff errors</strong> that occur as a computational artefact due to working with finite precision arithmetic.</p>
+</div>
+<div class="section" id="finite-difference-formulae">
+<h2><span class="section-number">2.3. </span>Finite difference formulae<a class="headerlink" href="#finite-difference-formulae" title="Permalink to this headline">¶</a></h2>
+<p>We can derive other finite difference formulas that from Taylor’s series, by taking weighted sums of expansions about different points to eliminate unwanted terms in the series. Some of them are favoured because they exhibit higher order accuracy than Euler’s formula (reduced truncation error), whilst others may be favoured in practical applications for their numeric stability, computational efficiency or ease of practical implementation. A few examples of finite difference formulas are given below, though this list is far from exhaustive.</p>
+<p>You may notice that the forward, backward and central differences formulae are simply location-shifted versions of each other. However, this property does not extend to other finite difference formulae.</p>
+<div class="section" id="first-derivative-formulae">
+<h3><span class="section-number">2.3.1. </span>First derivative formulae<a class="headerlink" href="#first-derivative-formulae" title="Permalink to this headline">¶</a></h3>
+<br>
+<p><strong>Forward difference</strong> (order <span class="math notranslate nohighlight">\(h\)</span> accuracy) :</p>
+<p>The result is obtained by expanding taking <span class="math notranslate nohighlight">\(x=(x_k+h)\)</span>,  <span class="math notranslate nohighlight">\(a=x_k\)</span> in the Taylor expansion. It is called forward differences because it uses a forward step (from <span class="math notranslate nohighlight">\(x_k\)</span> to <span class="math notranslate nohighlight">\(x_{k+1}\)</span>) to estimate the derivative.</p>
+<div class="math notranslate nohighlight" id="equation-forwards1">
+<span class="eqno">(2.7)<a class="headerlink" href="#equation-forwards1" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
+y_{k+1}&amp;=y_k + h y^{\prime}_k + \frac{h^2}{2!}y^{\prime\prime}_k +\frac{h^3}{3!}y^{\prime\prime\prime}_k + \frac{h^4}{4!}y^{(4)}_k + \frac{h^5}{5!}y^{(5)}_k + \dots \qquad \text{where }  y_{k+1}=y(x_k+h)\\
+&amp;\Rightarrow \quad y^{\prime}_k= \frac{y_{k+1}-y_k}{h} + h\left[-\frac{1}{2}y^{\prime\prime}_k - \frac{h}{3!}y^{\prime\prime\prime}_k - \frac{h^2}{4!}y^{(4)}_k - \frac{h^3}{5!}y^{(5)}_k + \dots\right]
+\end{align}\end{split}\]</div>
+<p>The forward difference formula gives an estimate of the derivative at the interior points <span class="math notranslate nohighlight">\([x_1,x_2,x_3,\dots,x_{n-1}]\)</span>. Computing the derivative at <span class="math notranslate nohighlight">\(x_n\)</span> requires the function value <span class="math notranslate nohighlight">\(y\)</span> at the exterior point <span class="math notranslate nohighlight">\(x_{n+1}\)</span> as discussed previously.</p>
+<br>
+<p><strong>Backward difference</strong> (order <span class="math notranslate nohighlight">\(h\)</span> accuracy) :</p>
+<p>The result is obtained by expanding taking <span class="math notranslate nohighlight">\(x=x_k\)</span>,  <span class="math notranslate nohighlight">\(a=(x_k+h)\)</span> in the Taylor expansion. It is called backward differences because it uses a backward step (from <span class="math notranslate nohighlight">\(x_k\)</span> to <span class="math notranslate nohighlight">\(x_{k-1}\)</span>) to estimate the derivative.</p>
+<div class="math notranslate nohighlight" id="equation-backwards1">
+<span class="eqno">(2.8)<a class="headerlink" href="#equation-backwards1" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
+y_{k-1}&amp;=y_k - h y^{\prime}_k + \frac{h^2}{2!}y^{\prime\prime}_k -\frac{h^3}{3!}y^{\prime\prime\prime}_k + \frac{h^4}{4!}y^{(4)}_k - \frac{h^5}{5!}y^{(5)}_k + \dots \qquad \text{where }  y_{k-1}=y(x_k-h)\\
+&amp;\Rightarrow \quad y^{\prime}_k = \frac{y_{k}-y_{k-1}}{h} + h\left[\frac{1}{2}y^{\prime\prime}_k - \frac{h}{3!}y^{\prime\prime\prime}_k + \frac{h^2}{4!}y^{(4)}_k - \frac{h^3}{5!}y^{(5)}_k + \dots\right]
+\end{align}\end{split}\]</div>
+<p>The backward difference formula gives an estimate of the derivative at the interior points <span class="math notranslate nohighlight">\([x_2,x_3,\dots,x_{n}]\)</span>. Computing the derivative at the <span class="math notranslate nohighlight">\(x_1\)</span> requires the function value <span class="math notranslate nohighlight">\(y\)</span> at the exterior point <span class="math notranslate nohighlight">\(x_{0}\)</span>.</p>
+<br>
+<p><strong>Central difference</strong> (order <span class="math notranslate nohighlight">\(h^2\)</span> accuracy):</p>
+<p>The result is obtained by subtracting the backward difference expression <a class="reference internal" href="#equation-backwards1">(2.8)</a> from the forward difference expression <a class="reference internal" href="#equation-forwards1">(2.7)</a>. It is called central differences because it uses both a backward step and a forward step to estimate the derivative.</p>
+<div class="math notranslate nohighlight" id="equation-central1a">
+<span class="eqno">(2.9)<a class="headerlink" href="#equation-central1a" title="Permalink to this equation">¶</a></span>\[y^{\prime}_{k} = \frac{y_{k+1} - y_{k-1}}{2h}+h^2\left[-\frac{2}{3}y^{\prime\prime}_k+\dots\right]\]</div>
+<p>The central difference formula gives an estimate of the derivative at the interior points <span class="math notranslate nohighlight">\([x_2,x_3,\dots,x_{n-1}]\)</span>. Computing the derivative at the two end points <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_n\)</span> requires the function value <span class="math notranslate nohighlight">\(y\)</span> at the exterior points <span class="math notranslate nohighlight">\(x_{0}\)</span> and <span class="math notranslate nohighlight">\(x_{n+1}\)</span></p>
+<div class="exercise admonition" id="finitediff/formulae-exercise-1">
+<p class="admonition-title"><span class="caption-number">Exercise 2.2 </span> (hand derivation)</p>
+<div class="section" id="exercise-content">
+<p>The given results for the first derivative all require only two points to calculate. Can you derive a result from the Taylor series that uses three points <span class="math notranslate nohighlight">\([y_k,y_{k+1},y_{k+2}]\)</span> to calculate an estimate of the first derivative <span class="math notranslate nohighlight">\(y^{\prime}(x_k)\)</span> that gives quadratic order accuracy?</p>
+<p><strong>Hint:</strong> Start by expanding <span class="math notranslate nohighlight">\(y(x_k+2h)\)</span> and <span class="math notranslate nohighlight">\(y(x_{k+h})\)</span> and use a weighted combination of these two expansions that eliminates the second derivative terms.</p>
+</div>
+</div>
+<div class="toggle docutils container">
+<p><span class="math notranslate nohighlight">\(y(x_k+2h)=y(x_k)+2h y^{\prime}(x_k)+\frac{4h^2}{2}y^{\prime\prime}(x_k)+\frac{8h^3}{6}y^{\prime\prime\prime}(x_k)+\dots\)</span></p>
+<p><span class="math notranslate nohighlight">\(y(x_k+h)=y(x_k)+h y^{\prime}(x_k)+h y^{\prime}(x_k)+\frac{h^2}{2}y^{\prime\prime}(x_k)+\frac{h^3}{6}y^{\prime\prime\prime}(x_k)+\dots\)</span></p>
+<p>Subtracting four lots of the second equation from the first gives:</p>
+<p><span class="math notranslate nohighlight">\(y(x_k+2h)-4y(x_k+h)=3y(x_k)-2hy^{\prime}(x_k)+\frac{4h^3}{6}y^{\prime\prime\prime}(x_k)+\dots\)</span></p>
+<p>which rearranges to:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}y^{\prime}(x_k)=\frac{-3y(x_k)+4y(x_k+h)-y(x_k+2h)}{2h}+\frac{h^3}{3}y^{\prime\prime\prime}(x_k)\end{equation*}\]</div>
+</div>
+</div>
+</div>
+<div class="section" id="second-derivative-formulae">
+<h2><span class="section-number">2.4. </span>Second derivative formulae<a class="headerlink" href="#second-derivative-formulae" title="Permalink to this headline">¶</a></h2>
+<br>
+<p><strong>Forward difference</strong> :</p>
+<p>The result is obtained by expanding taking <span class="math notranslate nohighlight">\(x=(x_k+2h)\)</span>,  <span class="math notranslate nohighlight">\(a=x_k\)</span> in the Taylor expansion, and then substituting in the result for the first forward difference</p>
+<div class="math notranslate nohighlight" id="equation-forward2">
+<span class="eqno">(2.10)<a class="headerlink" href="#equation-forward2" title="Permalink to this equation">¶</a></span>\[\begin{split}\begin{align}
+ y_{k+2}&amp;=y_{k}+2hy^{\prime}_{k}+\frac{(2h)^2}{2!}y^{\prime\prime}_{k}+\frac{(2h)^3}{3!}y^{\prime\prime\prime}_k\dots \qquad \text{where } y_{k+2}=y(x_k+2h)\\
+ &amp;=y_k+2h\left[\frac{y_{k+1}-y_k}{h}-\frac{h}{2}y_k^{\prime\prime}-\frac{h^2}{6}y_k^{\prime\prime\prime}+\dots\right]+2h^2y_k^{\prime\prime}+\frac{4}{3}h^3 y_k^{\prime\prime\prime}+\dots\\
+ &amp;\Rightarrow y^{\prime\prime}_k = \frac{y_{k}-2y_{k+1}+y_{k+2}}{h^2}-hy^{\prime\prime\prime}_k+\dots
+ \end{align}\end{split}\]</div>
+<p>The formula requires two exterior points on the forward side.</p>
+<br>
+<p><strong>Central difference</strong> :</p>
+<p>By adding the forward difference expression <a class="reference internal" href="#equation-forwards1">(2.7)</a> to the backward difference expression <a class="reference internal" href="#equation-backwards1">(2.8)</a> we obtain</p>
+<div class="math notranslate nohighlight" id="equation-central2">
+<span class="eqno">(2.11)<a class="headerlink" href="#equation-central2" title="Permalink to this equation">¶</a></span>\[y^{\prime\prime}_k = \frac{y_{k-1}-2y_k+y_{k+1}}{h^2} + h^2\left[-\frac{1}{12}y^{(4)}_k +\dots\right]\]</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./finitediff"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="finite-intro.html" title="previous page"><span class="section-number">1. </span>Basic concept</a>
+    <a class='right-next' id="next-link" href="implementation.html" title="next page"><span class="section-number">3. </span>Differentiation</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Natural Sciences<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
