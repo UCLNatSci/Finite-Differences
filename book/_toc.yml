@@ -3,5 +3,14 @@
 
 format: jb-book
 root: intro
+options:
+  numbered: True
 chapters:
-- file: w1.md
+- file: finitediff/finite-intro
+- file: finitediff/formulae
+- file: finitediff/implementation
+- file: finitediff/ivp
+- file: finitediff/multistage
+#- file: finitediff/higher-order
+#- file: finitediff/further_problems
+#- file: finitediff/w1_answers
