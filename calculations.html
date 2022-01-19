@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Derivative calculations &#8212; Finite Differences</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/_static/mystyle.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Finite Differences</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Finite Differences
+  </a>
+ </li>
+</ul>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finitediff/formulae.html">
+   1. Introduction to finite differences
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="finitediff/derivatives.html">
+   2. Derivative calculations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="finitediff/ivp.html">
+   3. Initial value problems
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/calculations.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcalculations.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-forward-differences">
+   Using forward differences
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-central-differences">
+   Using central differences
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#demonstrating-the-truncation-error">
+   Demonstrating the truncation error
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#span-style-color-red-coding-challenge-span">
+   <span style="color: red;">
+    Coding challenge
+   </span>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initial-value-problems">
+   Initial value problems
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numeric-solution-of-an-initial-value-problem">
+     Numeric solution of an initial value problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#local-and-global-errors">
+     Local and global errors
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     <span style="color: red;">
+      Coding challenge
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#explicit-vs-implicit-methods">
+   Explicit vs implicit methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#non-autonomous-initial-value-problems">
+     Non-autonomous initial value problems
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stability">
+     Stability
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     <span style="color: red;">
+      Coding challenge
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-stage-methods">
+   Multi-stage methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-initial-value-problem">
+     The Initial Value Problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modified-euler-method">
+     Modified Euler method
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#improved-euler-method-heuns-method">
+     Improved Euler method (Heun’s method)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#runge-kutta-methods">
+     Runge Kutta methods
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id3">
+     <span style="color: red;">
+      Coding challenge
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#higher-order-problems-examples">
+   Higher order problems (examples)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-1-a-clamped-ode">
+     Problem 1 : A clamped ODE
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-2-1d-heat-equation-with-dirichlet-boundary-conditions">
+     Problem 2 : 1D heat equation with Dirichlet boundary conditions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-3-simple-harmonic-motion">
+     Problem 3: Simple harmonic motion
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="derivative-calculations">
+<h1>Derivative calculations<a class="headerlink" href="#derivative-calculations" title="Permalink to this headline">¶</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Big idea : Discretisation</p>
+<p>We can use the finite difference formulae to estimate the derivative of a function described by a discrete set of points <span class="math notranslate nohighlight">\((x_k,y_k)\)</span>.</p>
+<p>Obtaining the derivative at the end-points may require us to know the function value at phantom grid-points outside the grid domain.</p>
+</div>
+<div class="section" id="using-forward-differences">
+<h2>Using forward differences<a class="headerlink" href="#using-forward-differences" title="Permalink to this headline">¶</a></h2>
+<p>Suppose that instead of being given an analytic function <span class="math notranslate nohighlight">\(y(x)\)</span>, we have a set of (e.g. experimental) points</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2e2fc62e-3696-4bc5-84d5-e6d94e12002c">
+<span class="eqno">()<a class="headerlink" href="#equation-2e2fc62e-3696-4bc5-84d5-e6d94e12002c" title="Permalink to this equation">¶</a></span>\[\begin{equation}(x_1,y_1),(x_2,y_2),\dots,(x_n,y_n).\end{equation}\]</div>
+<p>We can approximate the derivative of the hypothetical function described by these points, using the forward difference estimate</p>
+<div class="amsmath math notranslate nohighlight" id="equation-74e20654-3d93-4816-98ff-d76040d0398f">
+<span class="eqno">()<a class="headerlink" href="#equation-74e20654-3d93-4816-98ff-d76040d0398f" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_k^{\prime}\simeq\frac{y_{k+1}-y_k}{x_{k+1}-x_k}.\end{equation}\]</div>
+<p>For simplicity we will assume that the grid spacing <span class="math notranslate nohighlight">\(h_k=(x_{k+1}-x_k)\)</span> is the same value <span class="math notranslate nohighlight">\(h\)</span> for all neighbours (though this isn’t necessary), which gives:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}y^{\prime}&amp;=\biggr[\frac{y(x_2)-y(x_1)}{h},\frac{y(x_3)-y(x_2)}{h},\dots,\frac{y(x_n)-y(x_{n-1})}{h}\biggr]\\&amp;=\frac{[y_2,y_3,\dots,y_n]-[y_1,y_2,\dots,y_{n-1}]}{h}\end{align}\end{split}\]</div>
+<p>The idea, which is not very sophisticated, is illustrated in the schematic diagram below. Essentially, we are joining up the points with straight lines and using the slope of those line segments to estimate the gradient at the left-hand point of each interval.</p>
+<p>Notice that with <span class="math notranslate nohighlight">\(n\)</span> experimental points we can only find the derivative at the first <span class="math notranslate nohighlight">\((n-1)\)</span> points, because the forward projection of the function at the final point is not known. If we wish to obtain the derivative at <span class="math notranslate nohighlight">\(x_n\)</span>, we require the phantom exterior value <span class="math notranslate nohighlight">\((x_{n+1},y_{n+1})\)</span>.</p>
+<a class="reference internal image-reference" href="images/griddly3.png"><img alt="computing the derivative from secant lines" class="align-center" src="images/griddly3.png" style="height: 300px;" /></a>
+<p>The code below provides an implementation of the formula for a given set of points <span class="math notranslate nohighlight">\((x,y)\)</span>.</p>
+<p><strong>Example</strong>:</p>
+<p>We will demonstrate for the function</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ef2d56f4-ecd6-465d-a2a3-c49c2f97ab85">
+<span class="eqno">()<a class="headerlink" href="#equation-ef2d56f4-ecd6-465d-a2a3-c49c2f97ab85" title="Permalink to this equation">¶</a></span>\[\begin{equation}y=\sin(x)+x, \quad y(-\pi)=-\pi\end{equation}\]</div>
+<p>To obtain a result for the derivative at a set of points including the endpoint, we will extend the grid by adding a phantom exterior point at the right hand side.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The relevant packages were imported here (numpy, math, matplotlib), therefore no longer need importing in the next sections. But make sure you do import them if you are running some of the sections independently.</p>
+</div>
+<div class="tip admonition">
+<p class="admonition-title">Discretisation tip</p>
+<p>In the above example we allowed python to compute the grid points, by using linspace to ensure that the right-hand end point was included. However, for some applications it may not be convenient to use linspace.</p>
+<p>If you want to compute the step size <span class="math notranslate nohighlight">\(h\)</span> that will discretise a domain with the right-hand end point included, it is useful to recognise that the <span class="math notranslate nohighlight">\(x\)</span> values in the grid are in arithmetic progression. If the first term is <span class="math notranslate nohighlight">\(a\)</span>, then the last term is <span class="math notranslate nohighlight">\(a+(n-1)h\)</span>, where <span class="math notranslate nohighlight">\(n\)</span> is the number of points. This gives the following result for an interval <span class="math notranslate nohighlight">\([a,b]\)</span></p>
+<div class="amsmath math notranslate nohighlight" id="equation-c27f7057-70d0-4360-a364-43601e42bf70">
+<span class="eqno">()<a class="headerlink" href="#equation-c27f7057-70d0-4360-a364-43601e42bf70" title="Permalink to this equation">¶</a></span>\[\begin{equation}a+(n-1)h=b \quad \Rightarrow\quad h=\frac{b-a}{n-1}\end{equation}\]</div>
+</div>
+</div>
+<div class="section" id="using-central-differences">
+<h2>Using central differences<a class="headerlink" href="#using-central-differences" title="Permalink to this headline">¶</a></h2>
+<p>Assuming again an equal grid spacing <span class="math notranslate nohighlight">\(h\)</span>, we can use either of the following two results</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle y_k^{\prime}\simeq\frac{y_{k+1/2}-y_{k-1/2}}{h}\]</div>
+<p>This result requires the function values at the midpoint of each pair of grid values. It is convenient to relabel the index, so that the subscript on the right had side of the formula matches the numbering of the gridpoints, giving <span class="math notranslate nohighlight">\(y_{k+1/2}^{\prime}\simeq\frac{y_{k+1}-y_{k}}{h}\)</span>. This result is identical to the forward derivative estimate, but it should be interpreted as the derivative of the function at the mid-point of each interval, rather than at the left-hand point.</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle y_k^{\prime}=\frac{y_{k+1}-y_{k-1}}{2h}\]</div>
+<p>This result gives an estimate of the derivative at the original grid locations for the derivative at the interior points <span class="math notranslate nohighlight">\([x_2,x_3,\dots,x_{n-1}]\)</span>. Computing the derivative at the two end-points requires the function value <span class="math notranslate nohighlight">\(y\)</span> at phantom exterior points <span class="math notranslate nohighlight">\(x_{0}\)</span> and <span class="math notranslate nohighlight">\(x_{n+1}\)</span>, as shown below, which is given to match the example in the previous section.</p>
+</div>
+<div class="section" id="demonstrating-the-truncation-error">
+<h2>Demonstrating the truncation error<a class="headerlink" href="#demonstrating-the-truncation-error" title="Permalink to this headline">¶</a></h2>
+<p>To illustrate the accuracy of the formulae, we can compute the maximum error in the approximation for a range of step sizes and plot the result. Since the resulting errors <span class="math notranslate nohighlight">\(E\)</span> are proportional to <span class="math notranslate nohighlight">\(h^n\)</span>, a plot of <span class="math notranslate nohighlight">\(\ln(E)\)</span> against <span class="math notranslate nohighlight">\(\ln(h)\)</span> should show a linear relationship. The gradient of the line gives the estimated order of the truncation error, <span class="math notranslate nohighlight">\(n\)</span>. We find (as expected) that the formula based on forward differences has a first order error relationship and the formula based on central differences has a quadratic order error relationship.</p>
+</div>
+<div class="section" id="span-style-color-red-coding-challenge-span">
+<h2><span style="color: red;">Coding challenge</span><a class="headerlink" href="#span-style-color-red-coding-challenge-span" title="Permalink to this headline">¶</a></h2>
+<p>See if you can compute the second derivative of the function</p>
+<div class="amsmath math notranslate nohighlight" id="equation-a358b4b8-a635-41ec-bd40-bd83e0fb0392">
+<span class="eqno">()<a class="headerlink" href="#equation-a358b4b8-a635-41ec-bd40-bd83e0fb0392" title="Permalink to this equation">¶</a></span>\[\begin{equation}\sin(x)+x, \quad x\in[-\pi,\pi],\end{equation}\]</div>
+<p>using either the forward or central difference formula. You will need to extend the function estimate at <em>two</em> exterior points to obtain a result for the derivative at each point in the interval.</p>
+<p><strong>Appendix: The difference between truncation errors and roundoff errors</strong></p>
+<p>Truncation errors occur due to working with finite approximations to infinitesimal quantities, whilst the roundoff errors are a computational artefact due to working with finite precision arithmetic. Numeric computation packages ordinarily use floating point representation of numbers which are very efficient and represent numbers faithfully to around 16 digits.</p>
+<p>It is possible to increase the working precision of a calculation to a specified degree by using variable-precision arithmetic. However, this results in a significant slowdown in computational speed. For most practical purposes, floating point precision is sufficient.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="initial-value-problems">
+<h2>Initial value problems<a class="headerlink" href="#initial-value-problems" title="Permalink to this headline">¶</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">Big idea : From derivatives to differences</p>
+<p>Substitution of finite difference formulae into a differential equation results in a system of algebraic equations that either can be directly rearranged (this section) or solved using root-finding techniques (next section).</p>
+</div>
+<div class="section" id="numeric-solution-of-an-initial-value-problem">
+<h3>Numeric solution of an initial value problem<a class="headerlink" href="#numeric-solution-of-an-initial-value-problem" title="Permalink to this headline">¶</a></h3>
+<p>We can use the Euler forward difference formula to solve an initial value problem (IVP) of the form</p>
+<div class="amsmath math notranslate nohighlight" id="equation-42b9b973-5f3a-49c8-b53c-fc89c9e9ac63">
+<span class="eqno">()<a class="headerlink" href="#equation-42b9b973-5f3a-49c8-b53c-fc89c9e9ac63" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=f(x), \quad y(x_0)=y_0\end{equation}\]</div>
+<p>Recalling that</p>
+<div class="math notranslate nohighlight">
+\[y(x_k+h)= y(x_k)+y^{\prime}(x_k)h+\mathcal{O}(h^2)\]</div>
+<p>and using the given differential equation to replace the derivative leads to the following iterative formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2e523809-ab5a-4b23-b8a5-3270af1a6c38">
+<span class="eqno">()<a class="headerlink" href="#equation-2e523809-ab5a-4b23-b8a5-3270af1a6c38" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)= y(x_k)+f(x_k)h+\mathcal{O}(h^2)\end{equation}\]</div>
+<p>The formula uses the known value <span class="math notranslate nohighlight">\((x_k,y_k)\)</span> together with the known slope at that point to project forward to the next point. The calculation is then repeated at the new point, and in this manner we keep stepping forward until we reach the end of the integration domain. We start at the given initial value <span class="math notranslate nohighlight">\((x_0,y_0)\)</span>.</p>
+<p>A graphical illustration is provided below, demonstrating how each forward step takes us in tangent to one of the family of general solution curves. The approximation would be better for smaller step size!</p>
+<a class="reference internal image-reference" href="images/forward1.png"><img alt="forward stepping" class="align-center" src="images/forward1.png" style="height: 200px;" /></a>
+<p>In subsequent work we will often use <span class="math notranslate nohighlight">\(y_k\)</span> to refer to <span class="math notranslate nohighlight">\(y(x_k)\)</span> for neatness. The result, which is known as the explicit Euler method is therefore written as</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7f94d0f2-2289-44f6-bf29-e94d9c3b6b57">
+<span class="eqno">()<a class="headerlink" href="#equation-7f94d0f2-2289-44f6-bf29-e94d9c3b6b57" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}\simeq y_k + h f(x_k)\end{equation}\]</div>
+<p><strong>Example</strong>:</p>
+<p>The below Python script uses the forward difference formula to obtain a numeric estimate of the solution to the problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-bae0dbda-e87f-427d-9d00-3d2ce2c64128">
+<span class="eqno">()<a class="headerlink" href="#equation-bae0dbda-e87f-427d-9d00-3d2ce2c64128" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=\cos(x)+1, \quad y(-\pi)=-\pi\end{equation}\]</div>
+</div>
+<div class="section" id="local-and-global-errors">
+<h3>Local and global errors<a class="headerlink" href="#local-and-global-errors" title="Permalink to this headline">¶</a></h3>
+<p>The trunctation error in the explicit Euler method is order <span class="math notranslate nohighlight">\(h^2\)</span>. It is the size of error introduced at each step. As we are integrating over <span class="math notranslate nohighlight">\(1/h\)</span> steps, we may therefore expect that by the time we reach the end of the integration domain the error may be “going like” <span class="math notranslate nohighlight">\(h\)</span>. We say that the local error is order <span class="math notranslate nohighlight">\(h^2\)</span> and the global error is order <span class="math notranslate nohighlight">\(h\)</span>.</p>
+<p>This heuristic description is fairly accurate. However, the detailed picture is a little more complicated, as for some problems the local errors are amplified/compounded in subsequent steps, whilst in other problems the errors are damped out. We will see some examples in the next section.</p>
+</div>
+<div class="section" id="id1">
+<h3><span style="color: red;">Coding challenge</span><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Edit the code given above using forward difference formula so that it uses the central difference formula</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8ef837d5-c403-4de0-8fd3-84677cfb0069">
+<span class="eqno">()<a class="headerlink" href="#equation-8ef837d5-c403-4de0-8fd3-84677cfb0069" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}\simeq y_k + h y^{\prime}_{k+1/2}\end{equation}\]</div>
+<p>You should find that the maximum error in your expansion is 1.6482e-06</p>
+<div class="tip admonition">
+<p class="admonition-title">Hint</p>
+<p>Although labelled a “challenge”, the solution to this question requires very,very minimal changes to the given code.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The use of geometric integral approximation formulae such as the left-hand rectangle rule, mid-point rectangle rule or Simpson’s rule can also be used for numeric integration of initial value problems. The results found this way are identical to the Taylor series formulae and the geometric arguments can help to motivate the methods. However, Taylor’s theorem is required to quantify the size of the analytic error in each case.</p>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="explicit-vs-implicit-methods">
+<h2>Explicit vs implicit methods<a class="headerlink" href="#explicit-vs-implicit-methods" title="Permalink to this headline">¶</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">Big idea : Stiffness and stability</p>
+<p>Explicit algorithms tend to be easier to implement than implicit algorithms, and are less computationally demanding for a given step size.</p>
+<p>Implicit algorithms tend to exhibit better stability properties, which is particularly important for problems which are numerically “stiff”.</p>
+</div>
+<div class="section" id="non-autonomous-initial-value-problems">
+<h3>Non-autonomous initial value problems<a class="headerlink" href="#non-autonomous-initial-value-problems" title="Permalink to this headline">¶</a></h3>
+<p>So far we have only looked at initial value problems of the form <span class="math notranslate nohighlight">\(\frac{\mathrm{d}y}{\mathrm{d}x}=f(x)\)</span>, where the derivative is given fully in terms of <span class="math notranslate nohighlight">\(x\)</span>. Differential equations which do not explicitly depend on the independent variable are called autonomous.</p>
+<p>We now consider the more general non-autonomous initial value problem given by:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-a37ce762-8100-4ff8-b85c-96cba8bf20d9">
+<span class="eqno">()<a class="headerlink" href="#equation-a37ce762-8100-4ff8-b85c-96cba8bf20d9" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=f(x,y), \quad y(x_0)=y_0.\end{equation}\]</div>
+<p>Schemes for solving this problem based on the forward and backward difference formulae are given below, with some discussion of their stability properties. Some further formulae will be outlined in the next section on multi-stage methods.</p>
+<p><u><strong>Forward difference (explicit Euler scheme)</strong></u></p>
+<p>Substituting the given result for the derivative into the forward difference formula result in</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1a12c34b-c051-4dad-8d7c-02d90bc7a2a7">
+<span class="eqno">()<a class="headerlink" href="#equation-1a12c34b-c051-4dad-8d7c-02d90bc7a2a7" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)\simeq y(x_k)+h f(x_k,y_k)\end{equation}\]</div>
+<p>This gives an explicit result for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> in terms of the values <span class="math notranslate nohighlight">\(x_k\)</span> and <span class="math notranslate nohighlight">\(y_k\)</span> from the previous step, which can be calculated straightforwardly in the same manner we used for the explicit problem. An example implementation is shown in the function code below</p>
+<p>Here is a demonstration of the solution using this code for the problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-6efaebcf-49ef-435e-afc9-608a1a14e899">
+<span class="eqno">()<a class="headerlink" href="#equation-6efaebcf-49ef-435e-afc9-608a1a14e899" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=-y+(\cos(x)+2)y^2, \quad y(0)=0.4, \quad x\in[0,4]\end{equation}\]</div>
+<p>If you would like to compare this solution to the analytic result, it is given by</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8c3b3e57-388c-4747-8c57-8dad78960657">
+<span class="eqno">()<a class="headerlink" href="#equation-8c3b3e57-388c-4747-8c57-8dad78960657" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{2}{4+\cos(x)-\sin(x)}\end{equation}\]</div>
+<p><u><strong>Backward difference (implicit Euler scheme)</strong></u></p>
+<div class="amsmath math notranslate nohighlight" id="equation-d71db4c4-5705-4eb9-9121-321cf2bb49ef">
+<span class="eqno">()<a class="headerlink" href="#equation-d71db4c4-5705-4eb9-9121-321cf2bb49ef" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)\simeq y(x_k)+h f(x_k,y(x_k+h))\end{equation}\]</div>
+<p>Here, things begin to get a bit more complicated, since the expression for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> is given implicitly. Usually it is not possible to rearrange the expression to obtain <span class="math notranslate nohighlight">\(y_{k+1}\)</span> explicitly, so a root-finding algorithm is required, such as the Newton-Raphson technique or a bisection or fixed point algorithm. An example implementation is shown in the code below</p>
+<p><strong><u>Trapezoidal rule</u></strong></p>
+<p>Taking the average of the forward and backward difference formulae gives</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2a793156-1199-406d-83fb-a318fdcece7f">
+<span class="eqno">()<a class="headerlink" href="#equation-2a793156-1199-406d-83fb-a318fdcece7f" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+\frac{h}{2}\biggr[f(x_k,y_k)+f(x_{k+1},y_{k+1})\biggr]\end{equation}\]</div>
+<p>This result is equivalent to approximating the integral using the trapezium rule. It can be shown that the global error in this formula is <span class="math notranslate nohighlight">\(\mathcal{O}(h^2)\)</span>, whilst the global errors in the explicit and implicit Euler methods are both <span class="math notranslate nohighlight">\(\mathcal{O}(h)\)</span>.</p>
+<p>The trapezoidal rule is also an implicit rule. It can be implemented using a minimal modification of the backward difference algorithm outlined above.</p>
+</div>
+<div class="section" id="stability">
+<h3>Stability<a class="headerlink" href="#stability" title="Permalink to this headline">¶</a></h3>
+<p>The implicit Euler algorithm typically requires a root-solving algorithm (expensive) and it only offers the same order accuracy as the explicit Euler algorithm, since the error goes like <span class="math notranslate nohighlight">\(h\)</span> in each case… So why do we need it?</p>
+<p>We will consider an illustrative example, provided by the problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-b78ee5a8-f683-4983-b24d-ab1943f3c7d4">
+<span class="eqno">()<a class="headerlink" href="#equation-b78ee5a8-f683-4983-b24d-ab1943f3c7d4" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=-5y, \quad y(0)=2, \quad y\in[0,10]\end{equation}\]</div>
+<p>First, let us demonstrate the solutions obtained for step size <span class="math notranslate nohighlight">\(h=0.41\)</span>, using each algorithm:</p>
+<p>In each plot, the numeric estimate is shown in blue and the analytic solution is shown in red.</p>
+<p>Both the explicit and implicit Euler solutions have the same level of accuracy over a single step. However, in this example the errors in the explicit solution are amplified, whilst in the implicit solution they are damped. The implicit method is more stable for this example.</p>
+<p><strong><u>Analysis for this problem</u></strong></p>
+<p>This example can be fully analysed by hand. Since it is linear, a root finding method is not needed to implement the backward formula. We can simply rearrange to obtain an explicit solution for <span class="math notranslate nohighlight">\(y_k\)</span>. In both cases, the resulting expression for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> can be applied recursively to obtain a closed form discrete solution in terms of the step size <span class="math notranslate nohighlight">\(h\)</span> and the initial condition <span class="math notranslate nohighlight">\(y_0\)</span>. The details for each method are shown below.</p>
+<p>The <strong>explicit formula</strong> gives</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle y_{k+1}= (1-5h)y_k \quad \Rightarrow \quad y_{k+1}=(1-5h)^{k+1}y_0, \qquad x=kh\]</div>
+<p>The <strong>implicit formula</strong> gives</p>
+<div class="math notranslate nohighlight">
+\[\displaystyle y_{k+1}=\frac{y_k}{1+5h} \quad \Rightarrow \quad y_{k+1}=\frac{y_0}{(1+5h)^{k+1}}, \qquad x=kh\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\displaystyle \lim_{h\rightarrow 0}(1\pm 5 h)^{x/h} = e^{\pm 5x}\)</span>, both of these results converge to the analytic solution <span class="math notranslate nohighlight">\(y=2e^{-5x}\)</span> in the limit of small step sizes.</p>
+<p>However, for <span class="math notranslate nohighlight">\(|1-5h|&gt;1\)</span>, the explicit Euler method displays oscillating growth (i.e. for <span class="math notranslate nohighlight">\(h&gt;2/5\)</span>).</p>
+<p>In general, for (dynamically) stable ODEs with a fast decaying or highly oscillatory mode, the explicit Euler method demands small step sizes. These types of ODE are called “stiff”. The implicit Euler method is also more stable than the trapezoidal method.</p>
+<p><strong>How is stability assessed in practical problems?</strong></p>
+<p>Comparison of the local and global errors can give us an indication of the stability properties of the algorithm. The local errors generally ought to remain proportional to the size of the neglected terms in the truncated expansion. If these errors are growing then the algorithm is not stable.</p>
+<p>The size of the error at each step depends on the method used and also the problem being solved. In particular, it depends on how large the gradient is. To account for this, and to produce a reliable result within specified error tolerances, many algorithms use adaptive step size methods, in which the error is estimated at each step by comparing the results from algorithms with different numbers of stages. The step size can then be decreased in regions where the tolerance would be exceeded. Python scipy package offers a built-in algorithm that does exactly this, called integrate.solve_ivp</p>
+</div>
+<div class="section" id="id2">
+<h3><span style="color: red;">Coding challenge</span><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>As an alternative to using Newton-Raphson algorithm to find the root of an algebraic relationship, we can use a fixed-point iteration technique, designed for problems of the form \begin{equation}x=F(x).\end{equation}</p>
+<p>The approach proceeds by taking an initial guess <span class="math notranslate nohighlight">\(x=x_{guess}\)</span> and substituting it into the right hand side of the equation.</p>
+<p>If <span class="math notranslate nohighlight">\(|x_{guess}-F(x_{guess})|\)</span> is less than some specified tolerance then we conclude that our guess is a good approximation to the root.</p>
+<p>If the tolerance goal is not met, we use the result <span class="math notranslate nohighlight">\(F(x_{guess})\)</span> as a new guess, and repeat the process.</p>
+<p>Write your own code to find a root of <span class="math notranslate nohighlight">\(x=\cos(x)\)</span>, with an initial guess of <span class="math notranslate nohighlight">\(x=0.2\)</span>, with a tolerance of <span class="math notranslate nohighlight">\(10^{-7}\)</span>.</p>
+<p>Can you produce a plot showing the errors in each iteration?</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Fixed point techniques are an important numerical analysis tool, and we will use them more when we study applications to partial differential equations.</p>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="multi-stage-methods">
+<h2>Multi-stage methods<a class="headerlink" href="#multi-stage-methods" title="Permalink to this headline">¶</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">Big idea : What scipy.integrate.solve_ivp does</p>
+<p>Explicit Runge Kutta algorithms are a general class of multi-stage methods that use weighted averages of slope estimates obtained at different points within a single step (e.g. at a half-step) to reduce the truncation error. These algorithms can be highly accurate, so larger step sizes can be taken, but they may also exhibit less stability than lower order algorithms. The stability can be assessed by comparison of more than one technique or comparison of the results for different step sizes. Some algorithms use these comparisons to improve efficiency by using an adaptive step size.</p>
+<p>Multi-stage methods are to be contrasted with multi-step methods, which use the result from more than one previous point to obtain the result at a new point.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Knowledge of multi-stage methods is not crucial for this module, as the advanced techniques that we will develop for solving higher order ODEs and partial differential equations are based on single stage methods or spectral techniques (introduced later). However, this material gives some insight about methods employed by scipy.integrate.solve_ivp to improve the accuracy and manage stability. Seeing how the techniques are implemented also provides good Python experience.</p>
+</div>
+<div class="section" id="the-initial-value-problem">
+<h3>The Initial Value Problem<a class="headerlink" href="#the-initial-value-problem" title="Permalink to this headline">¶</a></h3>
+<p>Let us return to the initial value problem that we considered in the last section</p>
+<div class="amsmath math notranslate nohighlight" id="equation-87337aa9-3c99-4e81-b7e6-9217bc46ee21">
+<span class="eqno">()<a class="headerlink" href="#equation-87337aa9-3c99-4e81-b7e6-9217bc46ee21" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=f(x,y), \quad y(0)=y_0.\end{equation}\]</div>
+<p>We have shown how problems of this type can be tackled using the explicit/implicit Euler methods. However, these methods are both first order. We also (briefly) discussed the trapezoidal formula, which is an implicit method.</p>
+<p>In this section, we will introduce some explicit algorithms that have higher order accuracy.</p>
+</div>
+<div class="section" id="modified-euler-method">
+<h3>Modified Euler method<a class="headerlink" href="#modified-euler-method" title="Permalink to this headline">¶</a></h3>
+<p>If we approximate the derivative using the central differences formula, then we obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-740533e5-6f78-4592-9dd0-7f9a9000643f">
+<span class="eqno">()<a class="headerlink" href="#equation-740533e5-6f78-4592-9dd0-7f9a9000643f" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)\simeq y(x_k)+f\biggr(x_k+\frac{h}{2},y\left(x_k+\frac{h}{2}\right)\biggr)\end{equation}\]</div>
+<p>This result requires the solutions for both the previous value <span class="math notranslate nohighlight">\(y_k\)</span> and <span class="math notranslate nohighlight">\(y_{k+1/2}\)</span>. However, we can use Euler’s explicit formula with a half-step to estimate this value, and due to the nesting of the approximation it can be shown (using Taylor’s expansion) that this does not affect the accuracy of the method, which remains quadratic order. The resulting explicit algorithm, which is known as the modified Euler scheme can be calculated via a two-stage process:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-49e88d14-b3ce-40b5-8a5e-d87c5d013113">
+<span class="eqno">()<a class="headerlink" href="#equation-49e88d14-b3ce-40b5-8a5e-d87c5d013113" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_1\right), \qquad y_{k+1}=y_k+h s_2\end{equation}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(s_1\)</span> is the first estimate for the slope, using the left-hand derivative rule <span class="math notranslate nohighlight">\(s_2\)</span> is the modified estimate for the slope at the midpoint.</p>
+<p>An example implementation is shown below:</p>
+</div>
+<div class="section" id="improved-euler-method-heuns-method">
+<h3>Improved Euler method (Heun’s method)<a class="headerlink" href="#improved-euler-method-heuns-method" title="Permalink to this headline">¶</a></h3>
+<p>Recall that the trapezoidal rule also gave quadratic order accuracy, but involved solving an implicit relationship involving <span class="math notranslate nohighlight">\(y_{k+1}\)</span>.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2969e515-8f17-44c3-8458-de33b8a382ff">
+<span class="eqno">()<a class="headerlink" href="#equation-2969e515-8f17-44c3-8458-de33b8a382ff" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+\frac{h}{2}\biggr[f(x_k,y_k)+f(x_{k+1},y_{k+1})\biggr]\end{equation}\]</div>
+<p>Again, we can replace this value on the right-hand side of the equation by the explicit Euler method, giving the following quadratic order multi-stage method:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-7ce5201a-a5f7-4af1-992a-780497ad1065">
+<span class="eqno">()<a class="headerlink" href="#equation-7ce5201a-a5f7-4af1-992a-780497ad1065" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f(x_{k+1},y_k+h s_1), \qquad y_{k+1}=y_k+\frac{h}{2}(s_1+s_2)\end{equation}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(s_1\)</span> is the first estimate for the slope, using the left-hand derivative rule <span class="math notranslate nohighlight">\(s_2\)</span> is the modified estimate for the slope at the right-hand point.</p>
+<p>An example implementation is shown below</p>
+</div>
+<div class="section" id="runge-kutta-methods">
+<h3>Runge Kutta methods<a class="headerlink" href="#runge-kutta-methods" title="Permalink to this headline">¶</a></h3>
+<p>By using more locations (stages) we can improve the local accuracy of the method at the expense of performing additional calculations. The computation time for each step increases linearly with the number of stages, but this is usually offset by the ability to use fewer steps to obtain the required accuracy.</p>
+<p>Runge-kutta methods are general one-step, multi-stage methods of the form</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2a2b510f-0f2b-4b61-b1e4-843873a5d8f5">
+<span class="eqno">()<a class="headerlink" href="#equation-2a2b510f-0f2b-4b61-b1e4-843873a5d8f5" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+h\sum_{i=1}^n b_i s_i, \qquad s_i = f\left(x_k+c_i h,y_k+h\sum_{j=1}^{n}a_{i,j}s_j\right)\end{equation}\]</div>
+<p>where <span class="math notranslate nohighlight">\(k\)</span> is the number of stages, <span class="math notranslate nohighlight">\(A =(a_{i,j})\)</span> is a (<span class="math notranslate nohighlight">\(n\times n\)</span>) constant matrix, and <span class="math notranslate nohighlight">\(B=(b_i)\)</span>, <span class="math notranslate nohighlight">\(C=(c_i)\)</span> are constant vectors. The method takes a weighted average of several adjusted slopes and is explicit only if <span class="math notranslate nohighlight">\(A\)</span> is lower diagonal.</p>
+<p>The choice of coefficients follows from expanding expression the expression for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> fully in terms of <span class="math notranslate nohighlight">\(f(x_k,y_k)\)</span> and its derivatives, and comparing the result to the Taylor expansion for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> which satisfies the initial value problem. The results for the coefficients are often represented as a “Butcher Tableau”, which you can look up:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2c2743b4-9705-4687-9f74-af5606fa40d5">
+<span class="eqno">()<a class="headerlink" href="#equation-2c2743b4-9705-4687-9f74-af5606fa40d5" title="Permalink to this equation">¶</a></span>\[\begin{equation}\begin{array}{c|ccccc}c_1=0 &amp; \\c_2 &amp; a_{2,1}\\c_3&amp; a_{3,1} &amp; a_{3,2}\\\vdots&amp;\vdots &amp; &amp; \ddots\\c_n&amp;a_{n,1}&amp; a_{n,2} &amp;\dots &amp;a_{n,n-1}\\\hline &amp;b_1 &amp;b_2&amp; &amp;\dots &amp;b_n\end{array} \quad \begin{array}{cl}\phantom{c_0}&amp;s_1 = (x_k,y_k)\\\phantom{c_1} &amp;s_2 = f(x_k+c_2 h,y_k+ha_{2,1}s_1)\\\phantom{c_2}&amp;s_3 = f(x_k+c_3 ,y_k+h(a_{3,1}s_1+a_{3,2}s_2)\\\vdots{}\\\phantom{c_n} &amp;s_n = f(x_k+c_n h,y_k+h(a_{n,1}s_1+a_{n,2}s_2+\dots))\\ &amp;y_{k+1}=y_k+h(b_1 s_1 + b_2 s_2 +\dots) +b_k s_n\end{array}\end{equation}\]</div>
+<p>For example, the modified Euler and Heun’s improved Euler methods are both examples of two stage RK methods, which demonstrate quadratic order accuracy.</p>
+<p><strong>Modified Euler</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\displaystyle \begin{array}{c|cc}0\\ 1/2 &amp; 1/2\\\hline &amp;0&amp;1\end{array}\quad\begin{array}{cl}&amp;s_1=f(x_k,y_k)\\\phantom{1/2}&amp;s_2=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_1\right)\\\phantom{1/2}&amp;y_{k+1}=y_k+h s_2\end{array}\end{split}\]</div>
+<p><strong>Heun</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\displaystyle\begin{array}{c|cc}0\\ 1 &amp; 1\\\hline &amp;1/2&amp;1/2\end{array}\quad\begin{array}{cl}&amp;s_1=f(x_k,y_k)\\\phantom{1/2}&amp;s_2=f(x_{k+1},y_k+h s_1)\\\phantom{1/2}&amp;y_{k+1}=y_k+\frac{h}{2}(s_1+s_2)\end{array}\end{split}\]</div>
+<p>It is not possible to construct an explicit <span class="math notranslate nohighlight">\(n\)</span>-stage RK algorithm with <span class="math notranslate nohighlight">\(\mathcal{O}(h^n)\)</span> accuracy for <span class="math notranslate nohighlight">\(n&gt; 4\)</span> (more stages are required), and so explicit RK4 methods are extremely popular. The classic four stage algorithm that has <span class="math notranslate nohighlight">\(\mathcal{O}(h^4)\)</span> accuracy is given by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\displaystyle\begin{array}{c|cccc}0\\1/2&amp;1/2\\1/2&amp;0&amp;1/2\\1&amp;0&amp;0&amp;1\\\hline &amp;1/6&amp;1/3&amp;1/3&amp;1/6\end{array}\quad\begin{array}{cl}&amp;s_1=f(x_k,y_k)\\\phantom{1/2}&amp;s_2=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_1\right)\\\phantom{1/2}&amp;s_3=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_2\right)\\\phantom{1}&amp;s_4=f(x_k+h,y_k+h s_3)\\ &amp; y_{k+1}=y_k+\frac{h}{6}(s_1+2s_2+2s_3+s_4) \end{array}\end{split}\]</div>
+<p>By comparing the solutions of a given algorithm for two different step sizes we can estimate how small the step needs to be to keep the error within specified bounds over the integration domain.
+By comparing results from different algorithms after one (or a few) steps it is also possible to implement a variable step method that uses larger steps in regions where errors are estimated to be small. This is possible with the Python solve_ivp within the scipy.integrate module, using comparison of a <span class="math notranslate nohighlight">\(\mathcal{O}(h^4)\)</span> and <span class="math notranslate nohighlight">\(\mathcal{O}(h^5)\)</span> method.</p>
+</div>
+<div class="section" id="id3">
+<h3><span style="color: red;">Coding challenge</span><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Set up a scheme to apply Heun’s algorithm to the following system for <span class="math notranslate nohighlight">\(t\in[0,1]\)</span>, using time steps of 0.1, 0.01 and 0.001.</p>
+<div class="amsmath math notranslate nohighlight" id="equation-8a33e19e-4831-4a72-8e88-59fe367bcef2">
+<span class="eqno">()<a class="headerlink" href="#equation-8a33e19e-4831-4a72-8e88-59fe367bcef2" title="Permalink to this equation">¶</a></span>\[\begin{equation}\begin{aligned}\frac{\mathrm{d}u}{\mathrm{d}t}&amp;= 998 u +1998 v, \qquad &amp;&amp;u(0)=2,\\\frac{\mathrm{d}v}{\mathrm{d}t}&amp;= -999 u -1999 v, &amp;&amp;v(0)=-1.\end{aligned}\end{equation}\]</div>
+<p>Compare your results with the forward Euler method.</p>
+<div class="tip admonition">
+<p class="admonition-title">Hints</p>
+<p>You would start by constructing a function handle for the RHS of the form:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">t</span><span class="p">,</span><span class="n">X</span><span class="p">:</span> <span class="p">(</span><span class="mi">998</span><span class="o">*</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1998</span><span class="o">*</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="o">-</span><span class="mi">999</span><span class="o">*</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1999</span><span class="o">*</span><span class="n">X</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The function takes the input vector <span class="math notranslate nohighlight">\(X=[u;v]\)</span> and calculates the resulting slopes <span class="math notranslate nohighlight">\(dX=[du/dt;dv/dt]\)</span>, which are used in the finite difference formulas to step forwards.
+In this manner, you can build up a matrix of values</p>
+<div class="amsmath math notranslate nohighlight" id="equation-ca2ab63f-e534-40bb-b927-b3e06bcfea42">
+<span class="eqno">()<a class="headerlink" href="#equation-ca2ab63f-e534-40bb-b927-b3e06bcfea42" title="Permalink to this equation">¶</a></span>\[\begin{equation}\left[\begin{array}{ccc}u_0 &amp; u_1&amp;\dots\\v_0 &amp; v_1&amp;\dots\end{array}\right]\end{equation}\]</div>
+<p>As the result is a single step method, the columns in this resulting matrix are computed one-by-one. The multiple stages are estimates of the slopes <span class="math notranslate nohighlight">\(dX\)</span> at different locations.</p>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="higher-order-problems-examples">
+<h2>Higher order problems (examples)<a class="headerlink" href="#higher-order-problems-examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="problem-1-a-clamped-ode">
+<h3>Problem 1 : A clamped ODE<a class="headerlink" href="#problem-1-a-clamped-ode" title="Permalink to this headline">¶</a></h3>
+<p>We will use a quadratic order scheme based on central differences to solve the problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-05e40054-1cb5-4ec9-b3e9-002fe253bd0d">
+<span class="eqno">()<a class="headerlink" href="#equation-05e40054-1cb5-4ec9-b3e9-002fe253bd0d" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}^2 y}{\mathrm{d}x^2} + \frac{\mathrm{d}y}{\mathrm{d}x}-6 y = 0, \qquad y(0)=1, \quad y^{\prime}(0)=0.\end{equation}\]</div>
+<p>By applying the central formulae for the first and second derivatives, and rearranging, we obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-456cbf5d-9f9e-4dcb-bd56-78db0e406db9">
+<span class="eqno">()<a class="headerlink" href="#equation-456cbf5d-9f9e-4dcb-bd56-78db0e406db9" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1} = \frac{y_k(2+6h^2)-y_{k-1}(1-h/2)}{1+h/2}\end{equation}\]</div>
+<p>Using a central differences formula for the boundary condition gives:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-cc865cb0-b9bf-404b-a650-2ce956a18ae6">
+<span class="eqno">()<a class="headerlink" href="#equation-cc865cb0-b9bf-404b-a650-2ce956a18ae6" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{y_1-y_{-1}}{h} = 0 \quad \Rightarrow \quad y_1= y_{-1}.\end{equation}\]</div>
+<p>However, this relationship involves the solution at the “fictitious” point where <span class="math notranslate nohighlight">\(x=-h\)</span>. We do not know the result at this fictitious point, but we can proceed by writing the full system of equations for all nodes including the fictitious node as a matrix and solving simultaneously using Gaussian elimination. We have</p>
+<div class="amsmath math notranslate nohighlight" id="equation-dba13ac0-6449-48b6-a68b-92c0d3250070">
+<span class="eqno">()<a class="headerlink" href="#equation-dba13ac0-6449-48b6-a68b-92c0d3250070" title="Permalink to this equation">¶</a></span>\[\begin{equation}\left[\begin{array}{c|ccccc}-1 &amp;0 &amp;1 &amp; 0 &amp; \dots &amp; 0&amp;\\\hline0 &amp;1 &amp;0 &amp; 0 &amp; \ddots &amp;\vdots\\1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; 0 &amp; \ddots &amp;\vdots\\0 &amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; \ddots&amp;\vdots\\\vdots&amp; \vdots &amp; \ddots &amp;\ddots &amp;\ddots &amp; 0\\0 &amp; \dots &amp; 0&amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2\end{array}\right]\left[\begin{array}{cc}y_{-1}&amp;\\\hline y_0\phantom{\vdots}&amp;\\y_1&amp;\phantom{\vdots}\\y_2\phantom{\vdots}&amp;\\ \vdots&amp;\\y_N\end{array}\right]=\left[\begin{array}{cc}0&amp;\\\hline1&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\\vdots&amp;\\0\end{array}\right]\end{equation}\]</div>
+<div class="tip admonition">
+<p class="admonition-title">Hint</p>
+<p>This system is of the form <span class="math notranslate nohighlight">\(AX=B\)</span> if you are struggling to understand where the result comes from, write down the some of the simultaneous equations that you get by computing the product <span class="math notranslate nohighlight">\(AX\)</span>. You should see that each row in the system gives the equation relating a node to its neighbours using the finite difference formula. The boundary conditions are implemented in the first and second rows.</p>
+<p>You can solve the simultaneous system in Python by using the lstsq function from numpy’s linear algebra module (linalg).</p>
+<p>Set up this problem in Python (construct the matrix), for step <span class="math notranslate nohighlight">\(h=10^{-3}\)</span> and solve to obtain the solution for <span class="math notranslate nohighlight">\(y\)</span>.</p>
+</div>
+</div>
+<div class="section" id="problem-2-1d-heat-equation-with-dirichlet-boundary-conditions">
+<h3>Problem 2 : 1D heat equation with Dirichlet boundary conditions<a class="headerlink" href="#problem-2-1d-heat-equation-with-dirichlet-boundary-conditions" title="Permalink to this headline">¶</a></h3>
+<p>Use the central differences formula, to set up a system of algebraic equations for the value of the nodes <span class="math notranslate nohighlight">\([u_1,u_2,...,u_n]\)</span> in the following problem, ensuring that you enforce the boundary conditions at the endpoints</p>
+<div class="amsmath math notranslate nohighlight" id="equation-06440496-020c-49ea-a1fe-360879aa225d">
+<span class="eqno">()<a class="headerlink" href="#equation-06440496-020c-49ea-a1fe-360879aa225d" title="Permalink to this equation">¶</a></span>\[\begin{equation}u^{\prime\prime}(x)=\sin(2\pi x), \quad u(x_1) = 0, \quad u(x_n)=0.\end{equation}\]</div>
+<p>Solve and plot your solution.</p>
+</div>
+<div class="section" id="problem-3-simple-harmonic-motion">
+<h3>Problem 3: Simple harmonic motion<a class="headerlink" href="#problem-3-simple-harmonic-motion" title="Permalink to this headline">¶</a></h3>
+<p>We consider the equation of motion for a particle of unit mass moving in one dimension under the influence of a restoring force <span class="math notranslate nohighlight">\(F(x)=-x\)</span>. The particle is initially at rest at a displacement of <span class="math notranslate nohighlight">\(x=1\)</span>, and we will solve for motion during the first 100 seconds using discretisation with a time step <span class="math notranslate nohighlight">\(\Delta t =0.1\)</span>
+The equations are given by:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-49d9083c-491e-48a9-ab32-c703937f9e73">
+<span class="eqno">()<a class="headerlink" href="#equation-49d9083c-491e-48a9-ab32-c703937f9e73" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}v}{\mathrm{d}t} = -x, \qquad \frac{\mathrm{d}x}{\mathrm{d}t} = v, \qquad t\in[0,100], \qquad x(0)=1, \qquad v(0)=0.\end{equation}\]</div>
+<p>By using central difference formulas with a half-step <span class="math notranslate nohighlight">\(\Delta t/2\)</span>, we can obtain:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-d1ed2463-a4fb-4469-aa12-c31ec1e0eb5f">
+<span class="eqno">()<a class="headerlink" href="#equation-d1ed2463-a4fb-4469-aa12-c31ec1e0eb5f" title="Permalink to this equation">¶</a></span>\[\begin{equation}v(t+\Delta t/2) = v(t-\Delta t/2)- x(t)\Delta t, \qquad x(t+\Delta t)=x(t)+v(t+\Delta t/2)\Delta t.\end{equation}\]</div>
+<p>This is called a “leapfrog’” method, because the successively computed solutions for <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(v\)</span> are obtained at staggered positions, as illustrated in the schematic diagram below. Use this approach to obtain solutions for <span class="math notranslate nohighlight">\(x(t)\)</span> and <span class="math notranslate nohighlight">\(v(t+\Delta t/2)\)</span>. To get your algorithm started, you can take <span class="math notranslate nohighlight">\(v_{-1/2}=0\)</span>.</p>
+<a class="reference internal image-reference" href="images/leapfrog.png"><img alt="leapfrog algorithm" class="align-center" src="images/leapfrog.png" style="height: 200px;" /></a>
+<p>Plot <span class="math notranslate nohighlight">\((v^2+x^2-1)/2\)</span>, which provides the difference between the estimated energy and exact (analytic) energy. To calculate <span class="math notranslate nohighlight">\(v(t)\)</span> you can use <span class="math notranslate nohighlight">\(v(t) = \frac{v(t-\Delta t/2)+v(t+\Delta t/2)}{2}.\)</span></p>
+<p><strong>Answers coming soon!</strong></p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Natural Sciences<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
