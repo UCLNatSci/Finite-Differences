@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10. Boundary conditions &#8212; Finite Differences</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyle.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/_static/mystyle.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="9. Solutions to problems" href="w1_answers.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Finite Differences</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Finite Differences
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite-intro.html">
+   1. Basic concept
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="formulae.html">
+   2. Additional formulae
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="implementation.html">
+   3. Differentiation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ivp.html">
+   4. Initial value problem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="multistage.html">
+   5. Multi-stage methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="further_problems.html">
+   6. Further problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="moreprobs.html">
+   7. More problems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="higher-order.html">
+   8. Higher order problems (examples)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="w1_answers.html">
+   9. Solutions to problems
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   10. Boundary conditions
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/finitediff/boundary_conditions.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffinitediff/boundary_conditions.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dirichlet-solution-specified-on-each-boundary">
+   10.1. Dirichlet: Solution specified on each boundary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#neumann">
+   10.2. Neumann
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#new-section">
+   10.3. new section
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cauchy-function-and-normal-derivative-on-each-boundary">
+   10.4. Cauchy: Function and normal derivative on each boundary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   10.5. new section
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="boundary-conditions">
+<h1><span class="section-number">10. </span>Boundary conditions<a class="headerlink" href="#boundary-conditions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dirichlet-solution-specified-on-each-boundary">
+<h2><span class="section-number">10.1. </span>Dirichlet: Solution specified on each boundary<a class="headerlink" href="#dirichlet-solution-specified-on-each-boundary" title="Permalink to this headline">¶</a></h2>
+<p>Examples:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}+y=0, \qquad y(a)=\alpha, \quad y(b)=\beta
+\end{equation*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\nabla^2 y + y = 0 \qquad y(x)=f(x), \ \forall x \in \partial\Omega
+\end{equation*}\]</div>
+<p>Eg:
+fluid dynamics - no slip: zero velocity relative to the boundary
+thermodynamics - surface held at constant temperature</p>
+<p><strong>Worked example: 1D heat equation</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u^{\prime\prime}(x)=\sin(2\pi x), \qquad u(x_1)=0, \quad u(x_n)=0
+\end{equation*}\]</div>
+<p><strong>Worked example: 2D heat equation</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\nabla^2\psi=0
+\end{equation*}\]</div>
+<p>Plate:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\phi=300\)</span> (Left,Right)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\phi=400\)</span> (Top,Bottom)</p></li>
+</ul>
+<p>Radial version:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\frac{\partial^2\phi}{\partial r^2}+\frac{1}{r}\frac{\partial\phi}{\partial r}=0, \qquad \phi(0.05)=400, \quad \phi(0.10)=300
+\end{equation*}\]</div>
+<p>Enceladus:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+2r \frac{\partial c}{\partial r}+r^2\frac{\partial^2 c}{\partial r^2}=r^2 x \beta_{loss}, \qquad c(1)-1, \quad c(50)=0.1, \quad r\in[1,50], \quad \beta_{loss=0.01}
+\end{equation*}\]</div>
+</div>
+<div class="section" id="neumann">
+<h2><span class="section-number">10.2. </span>Neumann<a class="headerlink" href="#neumann" title="Permalink to this headline">¶</a></h2>
+<p>Examples</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}+y=0, \qquad y^{\prime}(a)=\alpha, \quad y^{\prime}(b)=\beta
+\end{equation*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\nabla^2 y + y = 0 \qquad \nabla y(x).\hat{\underline{n}}=f(\underline{x}), \ \forall \underline{x} \in \partial\underline{\Omega}
+\end{equation*}\]</div>
+<p>Uses fictitious nodes at each end (give single example)</p>
+</div>
+<div class="section" id="new-section">
+<h2><span class="section-number">10.3. </span>new section<a class="headerlink" href="#new-section" title="Permalink to this headline">¶</a></h2>
+<p><strong>Schr”{o}dinger equation</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}(x)+y(x)=\lambda q(x)y(x), \qquad q(x)=\frac{1}{1+e^{(x-r)/\epsilon}}
+\end{equation*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y(0)=0, \qquad \lim_{x\rightarrow\infty}y(x)=0
+\end{equation*}\]</div>
+<p><strong>Sine-Gordon</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u_{tt}=u_{xx}-\sin(u)
+\end{equation*}\]</div>
+<p><strong>D’Alembert wave</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u_{tt}=c^2 u_{xx}, \qquad y(x,0)=\phi(x), \quad u_t(x,0)=\psi(x)
+\end{equation*}\]</div>
+<p>Hyperbolic in <span class="math notranslate nohighlight">\((x,t)\)</span> plane</p>
+</div>
+<div class="section" id="cauchy-function-and-normal-derivative-on-each-boundary">
+<h2><span class="section-number">10.4. </span>Cauchy: Function and normal derivative on each boundary<a class="headerlink" href="#cauchy-function-and-normal-derivative-on-each-boundary" title="Permalink to this headline">¶</a></h2>
+<p>Examples:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}=f(y(s),y^{\prime}(s),s), \qquad y(a)=\alpha, \quad y^{\prime}(b)=\beta
+\end{equation*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+A(x,y)\psi_{xx}+B(x,y)\psy_{xy}+C(x,y)\psi_{yy}=f(x,y,\psi,\psi_x,psi_y), \qquad \psi(x,y)=\alpha(x,y), \quad \underline{n}.\psi = \beta(x,y)
+\end{equation*}\]</div>
+<p><strong>Worked example: ODE</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}+y^{\prime}-6y=0, \qquad y(0)=1, \quad y^{\prime}(0)=0
+\end{equation*}\]</div>
+<p><strong>Worked example</strong></p>
+<p>Cauchy in time, Dirichlet in space</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{multline*}u_{tt}=c^2 u_{xx}, \qquad t\in(0,T),x\in(0,L)\\
+u(x,0)=2e^{-(x-L/2)^2}, \quad u_t(0,x)=0, \quad u(t,0)=0, \quad u(t,L)=0
+\end{multline*}\]</div>
+<p>Generally use forward stepping (do first!)</p>
+<p><span class="math notranslate nohighlight">\(x=0: \quad u(0,0)=2e^{-L^2/4}\)</span>
+<span class="math notranslate nohighlight">\(x=L: \quad u(0,L)=2e^{-L^2/4}\)</span></p>
+<p>(both very small)</p>
+</div>
+<div class="section" id="id1">
+<h2><span class="section-number">10.5. </span>new section<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p><strong>Damped 1D wave</strong>
+Hard: leave as “extra”</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\phi_{tt}+\gamma \phi_t =c^2 \phi_{xx}, \qquad \phi(t=0)=\sin(2\pi x), \quad \phi(t=\Delta t)=\sin(2\pi(x-c\Delta t))
+\end{equation*}\]</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./finitediff"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="w1_answers.html" title="previous page"><span class="section-number">9. </span>Solutions to problems</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Natural Sciences<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

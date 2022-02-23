@@ -19,7 +19,7 @@ kernelspec:
 This chapter material is optional, and will not be required to complete the project
 ```
 
-The methods seen in the previous chapter used a single calculation step to define the relationship between each neighbouring pair of solution point.
+The methods seen in the previous chapter used a single calculation step to define the relationship between each neighbouring pair of solution points.
 
 In this chapter we will look at a general class of multi-stage methods that use weighted averages of slope estimates obtained at different points within a single step (e.g. at a half-step) to reduce the truncation error. These algorithms can be highly accurate, so larger step sizes can be taken, but they may also exhibit less stability than lower order algorithms. The stability can be assessed by comparison of more than one technique or comparison of the results for different step sizes. Some algorithms use these comparisons to improve efficiency by using an adaptive step size.
 
@@ -114,6 +114,7 @@ By comparing results from different algorithms after one (or a few) steps it is 
 
 
 ````{exercise}
+:label: heun-vector
 Set up a scheme to apply Heun's algorithm to the following system for $t\in[0,1]$, using time steps of 0.1, 0.01 and 0.001.
 
 \begin{equation*}\begin{aligned}\frac{\mathrm{d}u}{\mathrm{d}t}&= 998 u +1998 v, \qquad &&u(0)=2,\\\frac{\mathrm{d}v}{\mathrm{d}t}&= -999 u -1999 v, &&v(0)=-1.\end{aligned}\end{equation*}

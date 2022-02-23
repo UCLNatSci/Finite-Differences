@@ -118,6 +118,16 @@
    5. Multi-stage methods
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-ode.html">
+   6. Higher order IVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dirichlet-ode.html">
+   7. Higher order BVP
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -323,19 +333,19 @@ p_n(x) &amp;= \sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k \\
 <div class="section" id="order-of-accuracy">
 <h2><span class="section-number">2.2. </span>Order of accuracy<a class="headerlink" href="#order-of-accuracy" title="Permalink to this headline">¶</a></h2>
 <p>Assuming that the Taylor series expansion is to be used in the neighbourhood of the expansion point means that <span class="math notranslate nohighlight">\((x-a)\)</span> is a small quantity. We say that the degree <span class="math notranslate nohighlight">\(n\)</span> series has “order <span class="math notranslate nohighlight">\((x-a)^n\)</span> accuracy” and we may write</p>
-<div class="amsmath math notranslate nohighlight" id="equation-04cb1c09-55d2-4a70-9054-917a39696275">
-<span class="eqno">(2.3)<a class="headerlink" href="#equation-04cb1c09-55d2-4a70-9054-917a39696275" title="Permalink to this equation">¶</a></span>\[\begin{equation}f(x)=p_n(x)+\mathcal{O}((x-a))^{n+1}),\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-952d9d67-1d40-4ed4-991c-da7b2dcd2f43">
+<span class="eqno">(2.3)<a class="headerlink" href="#equation-952d9d67-1d40-4ed4-991c-da7b2dcd2f43" title="Permalink to this equation">¶</a></span>\[\begin{equation}f(x)=p_n(x)+\mathcal{O}((x-a))^{n+1}),\end{equation}\]</div>
 <p>where the “big-O” notation describes the size of the error terms.</p>
 <p>This finding can be used to describe the size of the error in the finite difference approximation presented in the last section in equation <a class="reference internal" href="finite-intro.html#equation-finite1">(1.1)</a>.</p>
 <p>Discarding all terms of degree greater than one in Taylor’s expansion about <span class="math notranslate nohighlight">\(x=x_k\)</span> gives:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-95d26bd8-cee1-41d9-a98c-a691661fe559">
-<span class="eqno">(2.4)<a class="headerlink" href="#equation-95d26bd8-cee1-41d9-a98c-a691661fe559" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x)= y(x_k)+y^{\prime}(x_k)(x-x_k)+\mathcal{O}((x-x_k)^2)\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-919f6e06-8a4f-4ed9-a260-9114eb7d200d">
+<span class="eqno">(2.4)<a class="headerlink" href="#equation-919f6e06-8a4f-4ed9-a260-9114eb7d200d" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x)= y(x_k)+y^{\prime}(x_k)(x-x_k)+\mathcal{O}((x-x_k)^2)\end{equation}\]</div>
 <p>If we label <span class="math notranslate nohighlight">\(h=(x-x_k)\)</span>, then we may rewrite the expression as shown below. The result is known as Euler’s forward difference formula or the explicit Euler method.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2cfdba0b-57d8-4466-8695-b836228a8e9f">
-<span class="eqno">(2.5)<a class="headerlink" href="#equation-2cfdba0b-57d8-4466-8695-b836228a8e9f" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)= y(x_k)+y^{\prime}(x_k)h +\mathcal{O}(h^2), \qquad h\ll 1\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-18fdf4ae-9696-4b3f-814c-977484cd9743">
+<span class="eqno">(2.5)<a class="headerlink" href="#equation-18fdf4ae-9696-4b3f-814c-977484cd9743" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)= y(x_k)+y^{\prime}(x_k)h +\mathcal{O}(h^2), \qquad h\ll 1\end{equation}\]</div>
 <p>A simple rearrangement of Euler’s forward difference formula gives the previously obtained expression for the derivative at <span class="math notranslate nohighlight">\(x_k\)</span></p>
-<div class="amsmath math notranslate nohighlight" id="equation-442bc0fa-2ed8-4fc2-863e-faa9a0340d56">
-<span class="eqno">(2.6)<a class="headerlink" href="#equation-442bc0fa-2ed8-4fc2-863e-faa9a0340d56" title="Permalink to this equation">¶</a></span>\[\begin{equation}y^{\prime}(x_k)= \frac{y(x_k+h)-y(x_k)}{h}+\mathcal{O}(h)\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-61b0ca10-b8ef-4136-a4fb-d9756f13122b">
+<span class="eqno">(2.6)<a class="headerlink" href="#equation-61b0ca10-b8ef-4136-a4fb-d9756f13122b" title="Permalink to this equation">¶</a></span>\[\begin{equation}y^{\prime}(x_k)= \frac{y(x_k+h)-y(x_k)}{h}+\mathcal{O}(h)\end{equation}\]</div>
 <p>The result also shows that the error in this expression is order <span class="math notranslate nohighlight">\(h\)</span>, as discovered when we plotted the error against the step size.</p>
 <p>The error occurs due to working with finite approximations to infinitesimal quantities, and is a result of truncating the Taylor expansion after just two terms. We should distinguish <strong>truncation error</strong> from the previously seen <strong>roundoff errors</strong> that occur as a computational artefact due to working with finite precision arithmetic.</p>
 </div>

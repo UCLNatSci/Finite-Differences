@@ -1,0 +1,506 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>6. Higher order IVP &#8212; Finite Differences</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyle.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/_static/mystyle.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="7. Higher order BVP" href="dirichlet-ode.html" />
+    <link rel="prev" title="5. Multi-stage methods" href="multistage.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Finite Differences</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Finite Differences
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite-intro.html">
+   1. Basic concept
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="formulae.html">
+   2. Additional formulae
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="implementation.html">
+   3. Differentiation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ivp.html">
+   4. Initial value problem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="multistage.html">
+   5. Multi-stage methods
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   6. Higher order IVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dirichlet-ode.html">
+   7. Higher order BVP
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/finitediff/cauchy-ode.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/finitediff/cauchy-ode.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffinitediff/cauchy-ode.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/finitediff/cauchy-ode.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example">
+   6.1. Example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#forward-difference-solution">
+   6.2. Forward difference solution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#central-difference-solution">
+   6.3. Central difference solution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#matrix-approach">
+   6.4. Matrix approach
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="higher-order-ivp">
+<h1><span class="section-number">6. </span>Higher order IVP<a class="headerlink" href="#higher-order-ivp" title="Permalink to this headline">¶</a></h1>
+<p>This section is concerned with the solution of a general class of second order ODE, in which we are given the initial value of the function and its derivative.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}=f(y(x),y^{\prime}(x),x), \qquad y(a)=\alpha, \quad y^{\prime}(b)=\beta.
+\end{equation*}\]</div>
+<p>The problem can be solved by stepping forward in time using the solution on the boundary and the first interior point. The solution on the first interior point can be found by using the condition for the derivative.</p>
+<div class="section" id="example">
+<span id="cauchy-example"></span><h2><span class="section-number">6.1. </span>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>By way of example, we will solve the following second order linear ODE, which has Cauchy-type boundary conditions at <span class="math notranslate nohighlight">\(x=0\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-2order-cau">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-2order-cau" title="Permalink to this equation">¶</a></span>\[\frac{\mathrm{d}^2 y}{\mathrm{d}x^2} + \frac{\mathrm{d}y}{\mathrm{d}x}-6 y = 0, \qquad y(0)=1, \quad y^{\prime}(0)=0.\]</div>
+<p>The problem could be re-written in array form by definining <span class="math notranslate nohighlight">\(z=y^{\prime}\)</span> to obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c75c29b7-a227-4252-9671-1f6fe9068381">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-c75c29b7-a227-4252-9671-1f6fe9068381" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}}{\mathrm{d}x}\left[\begin{array}{cc}z\\y\end{array}\right]=\left[\begin{array}{cc}6y-z\\z\end{array}\right]\end{equation}\]</div>
+<p>Therefore it could be solved using any of the methods for first order IVPs previously illustrated (see, e.g <a class="reference internal" href="multistage.html#heun-vector"><span class="std std-numref">Exercise 5.1</span></a>). You could also solve this problem by hand. However, to demonstrate the techniques we will need for solving partial differential equations, we will instead proceed with use of finite difference formulae in equation <a class="reference internal" href="#equation-2order-cau">(6.1)</a>.</p>
+</div>
+<div class="section" id="forward-difference-solution">
+<h2><span class="section-number">6.2. </span>Forward difference solution<a class="headerlink" href="#forward-difference-solution" title="Permalink to this headline">¶</a></h2>
+<p>By using the finite difference formulae <a class="reference internal" href="formulae.html#equation-forward2">(2.10)</a> and <a class="reference internal" href="formulae.html#equation-forwards1">(2.7)</a>, we obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-0b632b74-b5ab-4f84-9c5f-57b9e43a4022">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-0b632b74-b5ab-4f84-9c5f-57b9e43a4022" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+y_{k+2}=(2-h)y_{k+1}+(6h^2+h-1)y_k
+\end{equation}\]</div>
+<p>Notice that we need two starting points <span class="math notranslate nohighlight">\(y_0\)</span> and <span class="math notranslate nohighlight">\(y_1\)</span> for this scheme, since the problem is second order. This is equivalent to defining <span class="math notranslate nohighlight">\(y(0)\)</span> and <span class="math notranslate nohighlight">\(z(0)\)</span> in the array version of the problem. We can obtain the required values from the given initial conditions <span class="math notranslate nohighlight">\(y(0)=1\)</span> and <span class="math notranslate nohighlight">\(y^{\prime}(0)=0\)</span>.</p>
+<p>By using the the first order forward finite difference formula we obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-6d23c7e4-05be-44a8-81d9-da6279650728">
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-6d23c7e4-05be-44a8-81d9-da6279650728" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{y_1-y_0}{h^2}=y^{\prime}_0 = 0 \quad \Rightarrow \quad y_1 = y_0=1.\end{equation}\]</div>
+<p>An implementation of the forward stepping method is given below. By comparing to the analytic result it is seen that the solution has the correct shape, but relatively poor accuracy, as expected.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># Define the nodes</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">100</span>                  <span class="c1"># solving with 100 nodes</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>   <span class="c1"># on the domain [0,1]</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>          <span class="c1"># size of each interval</span>
+
+<span class="c1"># Implement starting conditions</span>
+<span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="c1"># Implement finite difference rule</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">):</span>
+  <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">h</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">h</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+<span class="c1"># Compare to analytic solution</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Solution&#39;</span><span class="p">)</span>
+<span class="n">ysol</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">5</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="nb">abs</span><span class="p">((</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="o">-</span><span class="n">ysol</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cauchy-ode_1_0.png" class="align-center" src="../_images/cauchy-ode_1_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="central-difference-solution">
+<h2><span class="section-number">6.3. </span>Central difference solution<a class="headerlink" href="#central-difference-solution" title="Permalink to this headline">¶</a></h2>
+<p>We can do better using a quadratic order scheme based on central differences. It is not possible to use a central difference scheme for first order IVPs because the first derivative result requires the use of two starting grid points. We can do it for second order IVPs because two starting conditions are given.</p>
+<p>By applying the central formulae for the first and second derivatives <a class="reference internal" href="formulae.html#equation-central2">(2.11)</a> and <a class="reference internal" href="formulae.html#equation-central1a">(2.9)</a>, we obtain</p>
+<div class="math notranslate nohighlight" id="equation-example-upd">
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-example-upd" title="Permalink to this equation">¶</a></span>\[y_{k+1} = \frac{y_k(2+6h^2)-y_{k-1}(1-h/2)}{1+h/2}\]</div>
+<p>We could use the forward or backward Euler methods with the first derivative condition to estimate <span class="math notranslate nohighlight">\(y_1\)</span>. However, these methods are only first order accurate, so this will contaminate our second order accurate algorithm and produce inaccurate results. Instead, we ideally want to use the central difference formula, which gives :</p>
+<p>Using a central differences formula for the boundary condition gives:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-de4f8908-30ec-4851-b62f-9fd868fd1f39">
+<span class="eqno">(6.6)<a class="headerlink" href="#equation-de4f8908-30ec-4851-b62f-9fd868fd1f39" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{y_1-y_{-1}}{h} = 0 \quad \Rightarrow \quad y_1= y_{-1}.\end{equation}\]</div>
+<p>This relationship involves the solution at the “fictitious” point <span class="math notranslate nohighlight">\(y_{-1}\)</span> where <span class="math notranslate nohighlight">\(x=-h\)</span>. We do not know the result at this fictitious point, but we can proceed by solving the three equations at the left-hand end simultaneously to obtain our starting points. We have</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c6c323b2-53d4-48a7-aabd-506062b73277">
+<span class="eqno">(6.7)<a class="headerlink" href="#equation-c6c323b2-53d4-48a7-aabd-506062b73277" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_1=-y_{-1}, \quad y_0=1, \quad y_1=\frac{(h-2)y_{-1}+4(3h^2+1)y_0}{h+2}.\end{equation}\]</div>
+<p>Together, these equations give <span class="math notranslate nohighlight">\(y_{-1}=1+3h^2\)</span> and so we can start our forward propagation scheme. A visual representation of the forward stepping technique is shown below</p>
+<br>
+<a class="reference internal image-reference" href="../_images/fwd_mch1.png"><img alt="secant" class="align-center" src="../_images/fwd_mch1.png" style="width: 802.9px; height: 268.79999999999995px;" /></a>
+<br><div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1"># Define the nodes</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">100</span>                  <span class="c1"># solving with 100 nodes</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>   <span class="c1"># on the domain [0,1]</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>          <span class="c1"># size of each interval</span>
+
+<span class="c1"># Implement starting conditions</span>
+<span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span>
+
+<span class="c1"># Add fictitious point</span>
+<span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Implement finite difference rule</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+  <span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="p">((</span><span class="mi">2</span><span class="o">+</span><span class="mi">6</span><span class="o">*</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">[</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># remove fictitious point</span>
+<span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+<span class="c1"># Compare to analytic solution</span>
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Solution&#39;</span><span class="p">)</span>
+<span class="n">ysol</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">5</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="nb">abs</span><span class="p">((</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="o">-</span><span class="n">ysol</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cauchy-ode_3_0.png" class="align-center" src="../_images/cauchy-ode_3_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="matrix-approach">
+<span id="matrix-cauchy"></span><h2><span class="section-number">6.4. </span>Matrix approach<a class="headerlink" href="#matrix-approach" title="Permalink to this headline">¶</a></h2>
+<p>As an alternative to solving the left-hand points by hand, we can write the full system of equations for all nodes including the fictitious node as a matrix and solve simultaneously using Gaussian elimination. We have</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2608cf04-af8c-43ae-96fe-1356f581b424">
+<span class="eqno">(6.8)<a class="headerlink" href="#equation-2608cf04-af8c-43ae-96fe-1356f581b424" title="Permalink to this equation">¶</a></span>\[\begin{equation}\left[\begin{array}{c|ccccc}-1 &amp;0 &amp;1 &amp; 0 &amp; \dots &amp; 0&amp;\\\hline0 &amp;1 &amp;0 &amp; 0 &amp; \ddots &amp;\vdots\\1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; 0 &amp; \ddots &amp;\vdots\\0 &amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; \ddots&amp;\vdots\\\vdots&amp; \vdots &amp; \ddots &amp;\ddots &amp;\ddots &amp; 0\\0 &amp; \dots &amp; 0&amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2\end{array}\right]\left[\begin{array}{cc}y_{-1}&amp;\\\hline y_0\phantom{\vdots}&amp;\\y_1&amp;\phantom{\vdots}\\y_2\phantom{\vdots}&amp;\\ \vdots&amp;\\y_N\end{array}\right]=\left[\begin{array}{cc}0&amp;\\\hline1&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\\vdots&amp;\\0\end{array}\right]\end{equation}\]</div>
+<br>
+<p>The <span class="math notranslate nohighlight">\((n+1)\times(n+1)\)</span> tri-diagonal matrix has coefficients <span class="math notranslate nohighlight">\(\biggr[1+\frac{h}{2},-2-6h^2,1-\frac{h}{2}\biggr]\)</span> on the main diagonal and the first and second subdiagonals, except for the first and second rows which are used to implement the boundary conditions.</p>
+<div class="theorem admonition">
+<p class="admonition-title">Note</p>
+<p>The reason the coefficients are not centred on the main diagonal is because the first two rows are used to implement the boundary conditions.</p>
+</div>
+<p>The system is of the form <span class="math notranslate nohighlight">\(AX=B\)</span>. If you are struggling to understand where the result comes from, write down the some of the simultaneous equations that you get by computing the product <span class="math notranslate nohighlight">\(AX\)</span>. You should see that each row in the system gives the equation relating a node to its neighbours using the finite difference formula.</p>
+<p>You can solve the simultaneous system in Python by using the <code class="docutils literal notranslate"><span class="pre">lstsq</span></code> function from numpy’s linear algebra module (<code class="docutils literal notranslate"><span class="pre">linalg</span></code>).</p>
+<div class="exercise admonition" id="finitediff/cauchy-ode-exercise-0">
+<p class="admonition-title"><span class="caption-number">Exercise 6.1 </span> </p>
+<div class="section" id="exercise-content">
+<p>Set up matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> for the problem in Python for step <span class="math notranslate nohighlight">\(h=10^{-3}\)</span> and solve to obtain the solution for <span class="math notranslate nohighlight">\(y\)</span>.</p>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+  <span class="c1"># Define the nodes</span>
+  <span class="n">n</span><span class="o">=</span><span class="mi">100</span>                  <span class="c1"># solving with 100 nodes</span>
+  <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>   <span class="c1"># on the domain [0,1]</span>
+  <span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>          <span class="c1"># size of each interval</span>
+
+  <span class="c1">#---------------------------------------------------------------</span>
+  <span class="c1"># Construct tridiagonal matrix A and vector b</span>
+  <span class="c1"># Initially we do not worry about implementation of the BCs</span>
+
+  <span class="n">coeff1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+  <span class="n">coeff2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span>
+  <span class="n">coeff3</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+
+  <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">coeff1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">k</span><span class="o">=-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> \
+      <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">coeff2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">),</span>  <span class="n">k</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> \
+      <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">coeff3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+  <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>   <span class="c1"># the problem was homogeneous</span>
+
+  <span class="c1">#---------------------------------------------------------------</span>
+  <span class="c1"># Enforce the boundary conditions</span>
+
+  <span class="c1">#y_{-1}-y_1=0:</span>
+  <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+
+  <span class="c1">#y_0=1:</span>
+  <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+  <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+  <span class="c1">#---------------------------------------------------------------</span>
+  <span class="c1"># Solve the matrix system numerically</span>
+
+  <span class="n">y</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">rcond</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+  <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>                                     <span class="c1">#remove fictitious end point</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./finitediff"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="multistage.html" title="previous page"><span class="section-number">5. </span>Multi-stage methods</a>
+    <a class='right-next' id="next-link" href="dirichlet-ode.html" title="next page"><span class="section-number">7. </span>Higher order BVP</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Natural Sciences<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

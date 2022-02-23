@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7. Cauchy conditions &#8212; Finite Differences</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyle.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/_static/mystyle.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. Dirichlet conditions" href="dirichlet.html" />
+    <link rel="prev" title="6. Partial differential equations" href="further_problems.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Finite Differences</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Finite Differences
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite-intro.html">
+   1. Basic concept
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="formulae.html">
+   2. Additional formulae
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="implementation.html">
+   3. Differentiation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ivp.html">
+   4. Initial value problem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="multistage.html">
+   5. Multi-stage methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="further_problems.html">
+   6. Partial differential equations
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   7. Cauchy conditions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dirichlet.html">
+   8. Dirichlet conditions
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/finitediff/cauchy.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/finitediff/cauchy.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffinitediff/cauchy.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/finitediff/cauchy.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-form">
+   7.1. General form
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-1-a-clamped-ode">
+   7.2. Problem 1 : A clamped ODE
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#forward-difference-solution">
+     7.2.1. Forward difference solution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#central-difference-solution">
+     7.2.2. Central difference solution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#matrix-approach">
+   7.3. Matrix approach
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dalembert">
+   7.4. D’Alembert
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-wave-equation-with-cauchy-conditions">
+   7.5. 1D wave equation with Cauchy conditions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solution">
+     7.5.1. Solution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#damped-1d-wave-equation">
+   7.6. Damped 1D wave equation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-hyperbolic-problems">
+   7.7. More hyperbolic problems
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="cauchy-conditions">
+<h1><span class="section-number">7. </span>Cauchy conditions<a class="headerlink" href="#cauchy-conditions" title="Permalink to this headline">¶</a></h1>
+<p>In the case of Cauchy conditions, the problem can be solved by stepping forward in time using the solution on the boundary and the first interior point. The solution on the first interior point can be found by using the condition for the derivative.</p>
+<div class="section" id="general-form">
+<h2><span class="section-number">7.1. </span>General form<a class="headerlink" href="#general-form" title="Permalink to this headline">¶</a></h2>
+<p>The function and normal derivative on each boundary. Applied to a general class of second order ODE :</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}=f(y(x),y^{\prime}(x),x), \qquad y(a)=\alpha, \quad y^{\prime}(b)=\beta.
+\end{equation*}\]</div>
+<p>Or, to a general second order PDE</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+&amp; A(x,y)\psi_{xx}+B(x,y)\psi_{xy}+C(x,y)\psi_{yy}=f(x,y,\psi,\psi_x,\psi_y),\\
+&amp; \psi(x,y)=\alpha(x,y), \quad \underline{n}.\psi = \beta(x,y).
+\end{align*}\]</div>
+<p>The solution can only be found in the region between the characteristic drawn through the initial domain <span class="math notranslate nohighlight">\(D\)</span>. The solution at all points in space is determined by the points they are projected from.</p>
+</div>
+<div class="section" id="problem-1-a-clamped-ode">
+<h2><span class="section-number">7.2. </span>Problem 1 : A clamped ODE<a class="headerlink" href="#problem-1-a-clamped-ode" title="Permalink to this headline">¶</a></h2>
+<p>We will solve the following second order ODE, which has “clamped” boundary conditions</p>
+<div class="math notranslate nohighlight" id="equation-2order">
+<span class="eqno">(7.1)<a class="headerlink" href="#equation-2order" title="Permalink to this equation">¶</a></span>\[\frac{\mathrm{d}^2 y}{\mathrm{d}x^2} + \frac{\mathrm{d}y}{\mathrm{d}x}-6 y = 0, \qquad y(0)=1, \quad y^{\prime}(0)=0.\]</div>
+<p>The problem could be re-written in array form by definining <span class="math notranslate nohighlight">\(z=y^{\prime}\)</span> to obtain:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9926e977-ada0-467b-97cf-2e86612aa53b">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-9926e977-ada0-467b-97cf-2e86612aa53b" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}}{\mathrm{d}x}\left[\begin{array}{cc}z\\y\end{array}\right]=\left[\begin{array}{cc}6y-z\\z\end{array}\right]\end{equation}\]</div>
+<p>Therefore it could be solved using any of the methods for first order IVPs previously illustrated (see, e.g <a class="reference internal" href="multistage.html#heun-vector"><span class="std std-numref">Exercise 5.1</span></a>). However, to demonstrate the used of techniques we will need for solving partial differential equations, we will instead proceed with use of finite difference formulae in equation <a class="reference internal" href="#equation-2order">(7.1)</a>.</p>
+<div class="section" id="forward-difference-solution">
+<h3><span class="section-number">7.2.1. </span>Forward difference solution<a class="headerlink" href="#forward-difference-solution" title="Permalink to this headline">¶</a></h3>
+<p>By using the finite difference formulae <a class="reference internal" href="formulae.html#equation-forward2">(2.10)</a> and <a class="reference internal" href="formulae.html#equation-forwards1">(2.7)</a>, we obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-4f5df2a7-2cf7-47b0-9a95-07c51a65c392">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-4f5df2a7-2cf7-47b0-9a95-07c51a65c392" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+y_{k+2}=(2-h)y_{k+1}+(6h^2+h-1)y_k
+\end{equation}\]</div>
+<p>Notice that we need two starting points <span class="math notranslate nohighlight">\(y_0\)</span> and <span class="math notranslate nohighlight">\(y_1\)</span> for this scheme, since the problem is second order. This is equivalent to defining <span class="math notranslate nohighlight">\(y(0)\)</span> and <span class="math notranslate nohighlight">\(z(0)\)</span> in the array version of the problem. We can obtain the required values from the given initial conditions <span class="math notranslate nohighlight">\(y(0)=1\)</span> and <span class="math notranslate nohighlight">\(y^{\prime}(0)=0\)</span>.</p>
+<p>By using the the first order forward finite difference formula we obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-4db39b9e-3ee5-47ee-a14c-7b54e7123099">
+<span class="eqno">(7.4)<a class="headerlink" href="#equation-4db39b9e-3ee5-47ee-a14c-7b54e7123099" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{y_1-y_0}{h^2}=y^{\prime}_0 = 0 \quad \Rightarrow \quad y_1 = y_0=1.\end{equation}\]</div>
+<p>An implementation of the forward stepping method is given below. By comparing to the analytic result it is seen that the solution has the correct shape, but relatively poor accuracy, as expected.</p>
+<p>SHOW SOLUTION!</p>
+</div>
+<div class="section" id="central-difference-solution">
+<h3><span class="section-number">7.2.2. </span>Central difference solution<a class="headerlink" href="#central-difference-solution" title="Permalink to this headline">¶</a></h3>
+<p>We can do better using a quadratic order scheme based on central differences. Note that it is not possible to use a central difference scheme for first order IVPs because the first derivative result requires the use of two starting grid points. We can do it for second order IVPs because two starting conditions are given.</p>
+<p>By applying the central formulae for the first and second derivatives <a class="reference internal" href="formulae.html#equation-central2">(2.11)</a> and <a class="reference internal" href="formulae.html#equation-central1a">(2.9)</a>, we obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-6ffd06a6-4f2a-425a-8216-b3dbdfcecaec">
+<span class="eqno">(7.5)<a class="headerlink" href="#equation-6ffd06a6-4f2a-425a-8216-b3dbdfcecaec" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1} = \frac{y_k(2+6h^2)-y_{k-1}(1-h/2)}{1+h/2}\end{equation}\]</div>
+<p>Using a central differences formula for the boundary condition gives:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-9a8aecd8-17cb-45b0-a8df-f2627c92c4f9">
+<span class="eqno">(7.6)<a class="headerlink" href="#equation-9a8aecd8-17cb-45b0-a8df-f2627c92c4f9" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{y_1-y_{-1}}{h} = 0 \quad \Rightarrow \quad y_1= y_{-1}.\end{equation}\]</div>
+<p>However, this relationship involves the solution at the “fictitious” point <span class="math notranslate nohighlight">\(y_{-1}\)</span> where <span class="math notranslate nohighlight">\(x=-h\)</span>. We do not know the result at this fictitious point, but we can proceed by solving the three equations at the left-hand end simultaneously to obtain our starting points. We have</p>
+<div class="amsmath math notranslate nohighlight" id="equation-69d71d91-8fe1-4068-8751-c3e37bf83c1c">
+<span class="eqno">(7.7)<a class="headerlink" href="#equation-69d71d91-8fe1-4068-8751-c3e37bf83c1c" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_1=-y_{-1}, \quad y_0=1, \quad y_1=\frac{(h-2)y_{-1}+4(3h^2+1)y_0}{h+2}.\end{equation}\]</div>
+<p>Together, these equations give <span class="math notranslate nohighlight">\(y_{-1}=1+3h^2\)</span> and so we can start our forward propagation scheme.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">n</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">coeff1</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">coeff2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mi">6</span><span class="o">*</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">coeff3</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">coeff1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> \
+    <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">coeff2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> \
+        <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">coeff3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">y</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">rcond</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Solution&#39;</span><span class="p">)</span>
+<span class="n">ysol</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="p">))</span><span class="o">/</span><span class="mi">5</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="nb">abs</span><span class="p">((</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="o">-</span><span class="n">ysol</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Error&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/cauchy_1_0.png" class="align-center" src="../_images/cauchy_1_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="matrix-approach">
+<h2><span class="section-number">7.3. </span>Matrix approach<a class="headerlink" href="#matrix-approach" title="Permalink to this headline">¶</a></h2>
+<p>As an alternative to solving the left-hand points by hand, we can write the full system of equations for all nodes including the fictitious node as a matrix and solve simultaneously using Gaussian elimination. We have</p>
+<div class="amsmath math notranslate nohighlight" id="equation-a6c7ecf0-a3a0-4fac-9ae0-cae62bc360da">
+<span class="eqno">(7.8)<a class="headerlink" href="#equation-a6c7ecf0-a3a0-4fac-9ae0-cae62bc360da" title="Permalink to this equation">¶</a></span>\[\begin{equation}\left[\begin{array}{c|ccccc}-1 &amp;0 &amp;1 &amp; 0 &amp; \dots &amp; 0&amp;\\\hline0 &amp;1 &amp;0 &amp; 0 &amp; \ddots &amp;\vdots\\1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; 0 &amp; \ddots &amp;\vdots\\0 &amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; \ddots&amp;\vdots\\\vdots&amp; \vdots &amp; \ddots &amp;\ddots &amp;\ddots &amp; 0\\0 &amp; \dots &amp; 0&amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2\end{array}\right]\left[\begin{array}{cc}y_{-1}&amp;\\\hline y_0\phantom{\vdots}&amp;\\y_1&amp;\phantom{\vdots}\\y_2\phantom{\vdots}&amp;\\ \vdots&amp;\\y_N\end{array}\right]=\left[\begin{array}{cc}0&amp;\\\hline1&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\\vdots&amp;\\0\end{array}\right]\end{equation}\]</div>
+<p>This system is of the form <span class="math notranslate nohighlight">\(AX=B\)</span>. If you are struggling to understand where the result comes from, write down the some of the simultaneous equations that you get by computing the product <span class="math notranslate nohighlight">\(AX\)</span>. You should see that each row in the system gives the equation relating a node to its neighbours using the finite difference formula. The boundary conditions are implemented in the first and second rows.</p>
+<p>You can solve the simultaneous system in Python by using the lstsq function from numpy’s linear algebra module (linalg).</p>
+<div class="exercise admonition" id="finitediff/cauchy-exercise-0">
+<p class="admonition-title"><span class="caption-number">Exercise 7.1 </span> </p>
+<div class="section" id="exercise-content">
+<p>Set up matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> for the problem in Python for step <span class="math notranslate nohighlight">\(h=10^{-3}\)</span> and solve to obtain the solution for <span class="math notranslate nohighlight">\(y\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="dalembert">
+<h2><span class="section-number">7.4. </span>D’Alembert<a class="headerlink" href="#dalembert" title="Permalink to this headline">¶</a></h2>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u_{tt}=c^2 u_{xx}, \quad y(x,0)=\phi(x), \quad u_t(x,0)=\psi(x)
+\end{equation*}\]</div>
+<p>Do this problem first, before considering the below which is Cuachy in time and Dirichlet in space.</p>
+</div>
+<div class="section" id="d-wave-equation-with-cauchy-conditions">
+<h2><span class="section-number">7.5. </span>1D wave equation with Cauchy conditions<a class="headerlink" href="#d-wave-equation-with-cauchy-conditions" title="Permalink to this headline">¶</a></h2>
+<p>In this example we will solve the problem</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial^2 u}{\partial t^2} = c^2 \frac{\partial^2u}{\partial x^2}, \qquad t\in(0,T), \quad x\in(0,L),
+\begin{align}\end{align}\]</div>
+<p>Subject to the following initial conditions:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u(0,x)=2 e^{-(x-L/2)^2}, \quad \frac{\partial u(0,x)}{\partial t}= 0
+\end{equation*}\]</div>
+<p>and the following boundary conditions:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u(t,0)=0, \quad u(t,L)=0.
+\end{equation*}\]</div>
+<div class="section" id="solution">
+<h3><span class="section-number">7.5.1. </span>Solution<a class="headerlink" href="#solution" title="Permalink to this headline">¶</a></h3>
+<p>We will define the following solution grid</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+t_{n}&amp;=n\Delta_t,\quad \ &amp; n=0,\ldots,N_{t}, \\
+x_{i}&amp;=i\Delta_x,\quad \ &amp; i=0, \ldots,N_{x} \thinspace.
+\end{align*}\]</div>
+<p>Application of a central differences formulae for the derivatives then gives</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}\tag{tstep}
+u^{n+1}_{i}=-u^{n-1}_{i}+2u^{n}_{i}+\left(c\frac{\Delta_t}{\Delta_x}\right)^{2}\left(u^{n}_{i+1}-2u^{n}_{i}+u^{n}_{i-1}\right),  \quad i=[1,\dots N_x-1 ],
+\end{equation*}\]</div>
+<p>where a  superscript has been used to denote the temporal discretisation and a subscript has been used to denote the temporal discretisation. This formula uses the result at two previous time steps. The given Dirichlet-type conditions for the spatial boundary can be applied by forced modification of the boundary nodes, <span class="math notranslate nohighlight">\(u^{n}_0=u^{n}_{N_x}=0\)</span>, <span class="math notranslate nohighlight">\(n\in[0,\dots N_t]\)</span>.</p>
+<p>The initial conditions allow a forward-stepping algorithm to be used. The starting value for <span class="math notranslate nohighlight">\(u^1_i \)</span> is given by combining the initial condition for the derivative with the ODE formula, which gives</p>
+<div class="amsmath math notranslate nohighlight" id="equation-1a81043b-48d9-4065-9ff4-6b2dd2403440">
+<span class="eqno">(7.9)<a class="headerlink" href="#equation-1a81043b-48d9-4065-9ff4-6b2dd2403440" title="Permalink to this equation">¶</a></span>\[\begin{equation}\tag{interior}u_{i}^{1}=u^{0}_{i}-\frac{1}{2}\left(c\frac{\Delta_t}{\Delta_x}\right)^{2}\left(u^{0}_{i+1}-2u^{0}_{i}+u^{0}_{i-1}\right)\thinspace., \quad i=[1,\dots N_x-1 ].\end{equation}\]</div>
+<p>Summary of steps:</p>
+<ol class="simple">
+<li><p>Compute <span class="math notranslate nohighlight">\(u^0_{i}\)</span> for <span class="math notranslate nohighlight">\(i\in[0,\dots N_x]\)</span> from the given initial condition</p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(u^1_{i}\)</span> from (interior), applying BCs <span class="math notranslate nohighlight">\(u^{1}_0=u^{1}_{N_x}\)</span></p></li>
+<li><p>Compute <span class="math notranslate nohighlight">\(u^{n+1}_{i}\)</span> from (tstep) for <span class="math notranslate nohighlight">\(n=[0,\dots N_t-1]\)</span>, applying BCs <span class="math notranslate nohighlight">\(u^{n}_0=u^{n}_{N_x}\)</span> in each step</p></li>
+<li><p>Solve the problem for the case where <span class="math notranslate nohighlight">\(L=4\pi\)</span>, <span class="math notranslate nohighlight">\(T=20\)</span>, <span class="math notranslate nohighlight">\(c=4\)</span>, and plot <span class="math notranslate nohighlight">\(u(t,x)\)</span>.</p></li>
+</ol>
+<p><strong>Solution</strong></p>
+<p>Discretise temporal and spatial variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clear</span><span class="p">;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">L</span> <span class="o">=</span> <span class="mi">4</span><span class="o">*</span><span class="n">pi</span><span class="p">;</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">20</span><span class="p">;</span> <span class="o">%</span> <span class="n">given</span> <span class="n">parameters</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="p">);</span>  <span class="o">%</span> <span class="n">discretisation</span> <span class="n">of</span> <span class="n">spatial</span> <span class="n">dimension</span>
+<span class="n">Dx</span><span class="o">=</span> <span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>      <span class="o">%</span> <span class="n">spatial</span> <span class="n">step</span> <span class="n">size</span>
+
+<span class="n">r</span><span class="o">=</span><span class="mf">0.95</span><span class="p">;</span> <span class="n">Dt</span><span class="o">=</span><span class="n">r</span><span class="o">*</span><span class="n">Dx</span><span class="o">/</span><span class="n">c</span><span class="p">;</span>  <span class="o">%</span><span class="n">temporal</span> <span class="n">step</span> <span class="n">size</span> <span class="n">via</span> <span class="n">Courant</span> <span class="n">parameter</span> <span class="n">r</span>
+
+<span class="o">%</span> <span class="n">Note</span><span class="p">:</span> <span class="n">Dt</span><span class="p">,</span> <span class="n">Dx</span> <span class="n">are</span> <span class="n">arbitrary</span><span class="p">,</span> <span class="n">but</span> <span class="n">keep</span> <span class="n">r</span><span class="o">=</span><span class="n">c</span><span class="o">*</span><span class="n">Dt</span><span class="o">/</span><span class="n">Dx</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">stability</span><span class="o">.</span>
+<span class="o">%</span> <span class="n">Try</span> <span class="n">r</span><span class="o">=</span><span class="mf">1.01</span> <span class="n">to</span> <span class="n">see</span> <span class="n">what</span> <span class="n">happens</span> <span class="n">when</span> <span class="n">this</span> <span class="n">condition</span> <span class="ow">is</span> <span class="n">violated</span><span class="o">.</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">:</span><span class="n">Dt</span><span class="p">:</span><span class="n">T</span><span class="p">;</span>         <span class="o">%</span><span class="n">discretisation</span> <span class="n">of</span> <span class="n">temporal</span> <span class="n">dimension</span>
+
+<span class="n">Nx</span><span class="o">=</span><span class="n">numel</span><span class="p">(</span><span class="n">x</span><span class="p">);</span> <span class="n">Nt</span><span class="o">=</span><span class="n">numel</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Set up a grid to record <span class="math notranslate nohighlight">\(u(t_n,x_i)\)</span></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>                          <span class="o">%</span><span class="n">solution</span> <span class="n">grid</span>
+<span class="n">ii</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>                                 <span class="o">%</span><span class="n">interior</span> <span class="n">x</span> <span class="n">indices</span>
+<span class="o">%--------------------------------------------------------------</span>
+<span class="o">%</span> <span class="n">FILL</span> <span class="n">IN</span> <span class="n">INITIAL</span> <span class="n">CONDITIONS</span>
+<span class="n">u</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">L</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">);</span>                              <span class="o">%</span><span class="n">u</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+
+<span class="o">%</span><span class="n">For</span> <span class="n">a</span> <span class="n">standing</span> <span class="n">wave</span> <span class="n">solution</span> <span class="k">try</span> <span class="n">instead</span> <span class="p">(</span><span class="n">where</span> <span class="n">k</span> <span class="ow">is</span> <span class="n">an</span> <span class="n">integer</span><span class="p">)</span>
+<span class="o">%</span><span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">u</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="o">=</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">k</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="n">L</span><span class="p">);</span>
+
+<span class="n">u</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span> <span class="o">=</span> <span class="n">u</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span><span class="o">-</span><span class="n">r</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">u</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span><span class="o">+</span><span class="n">u</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>  <span class="o">%</span><span class="n">u</span><span class="p">(</span><span class="n">Dt</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+
+<span class="o">%--------------------------------------------------------------</span>
+<span class="o">%</span> <span class="n">APPLY</span> <span class="n">UPDATE</span> <span class="n">RULES</span>
+<span class="k">for</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">3</span><span class="p">:</span><span class="n">Nt</span>
+    <span class="n">neigh</span><span class="o">=</span><span class="n">u</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span><span class="o">+</span><span class="n">u</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">ii</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">u</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span><span class="o">=-</span><span class="n">u</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">ii</span><span class="p">)</span><span class="o">+</span><span class="n">r</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">neigh</span><span class="p">;</span>
+<span class="n">end</span>
+<span class="o">%--------------------------------------------------------------</span>
+</pre></div>
+</div>
+<p>A surface plot of the solution shows that</p>
+<ul class="simple">
+<li><p>the initial disturbance propagates away from the origin in both directions</p></li>
+<li><p>disturbances are reflected at both boundaries and travel back along the mirror path</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">T</span><span class="p">]</span><span class="o">=</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">);</span>
+<span class="n">figure</span>
+<span class="n">surfc</span><span class="p">(</span><span class="n">T</span><span class="p">,</span><span class="n">X</span><span class="p">,</span><span class="n">u</span><span class="p">,</span><span class="s1">&#39;LineStyle&#39;</span><span class="p">,</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">);</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can also produce a time animation of the behaviour</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">figure</span><span class="p">;</span><span class="n">s</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mf">0.1</span><span class="o">/</span><span class="n">Dt</span><span class="p">);</span><span class="n">N</span><span class="o">=</span><span class="mi">8</span><span class="o">/</span><span class="n">Dt</span><span class="p">;</span>
+<span class="o">%</span><span class="k">for</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">s</span><span class="p">:</span><span class="n">N</span>
+<span class="o">%</span>    <span class="n">cla</span><span class="p">;</span> <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">u</span><span class="p">(</span><span class="n">n</span><span class="p">,:));</span> <span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]);</span> <span class="n">drawnow</span><span class="p">;</span>
+<span class="o">%</span>    <span class="n">pause</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span>
+<span class="o">%</span><span class="n">end</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="damped-1d-wave-equation">
+<h2><span class="section-number">7.6. </span>Damped 1D wave equation<a class="headerlink" href="#damped-1d-wave-equation" title="Permalink to this headline">¶</a></h2>
+<p>The one-dimensional damped wave equation is given by</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial^2\phi}{\partial t^2}+\gamma \frac{\partial \phi}{\partial t}=c^2\frac{\partial^2\phi}{\partial x^2}.\]</div>
+<p>By using the central difference formulas the equation of motion can be written in the following discretised form:</p>
+<div class="math notranslate nohighlight" id="equation-dampwave">
+<span class="eqno">(7.10)<a class="headerlink" href="#equation-dampwave" title="Permalink to this equation">¶</a></span>\[\left(1+\frac{\gamma}{2}\Delta t\right)\phi_{i+1,j} = 2\phi_{i,j}+r^2(\phi_{i,j-1}-2\phi_{i,j}+\phi_{i,j+1})-\phi_{i-1,j}\left(1-\frac{\gamma}{2}\Delta t\right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(r=\frac{c\Delta t}{\Delta x}\)</span> and <span class="math notranslate nohighlight">\(\phi_{i,j}=\phi(t_i,x_j)\)</span>. We will take <span class="math notranslate nohighlight">\(c=0.2\)</span>, <span class="math notranslate nohighlight">\(\gamma=-0.5\)</span>.</p>
+<p><strong>Step 1:</strong>
+Employ a suitable discretisation based on the time iteration formula <a class="reference internal" href="#equation-dampwave">(7.10)</a> to solve the damped wave equation for <span class="math notranslate nohighlight">\(t\in[0,4]\)</span>, <span class="math notranslate nohighlight">\(x\in[0,2]\)</span> subject to</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\phi(t=0) = \sin\left(2\pi x\right), \quad \phi(t=\Delta t) = \sin\left(2\pi (x-c\Delta t)\right).
+\end{equation*}\]</div>
+<p>Due to the periodicity of the disturbance, the end-conditions on the spatial grid can be taken such that the solution “wraps around”, i.e.</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\phi(x=-\Delta x) = \phi(x=2\pi), \quad \phi(x=2\pi +\Delta x)=\phi(x=0).
+\end{equation*}\]</div>
+<p>You may find the <code class="docutils literal notranslate"><span class="pre">circshift</span></code> function useful in constructing your answer.</p>
+<p><strong>Step 2:</strong>
+Produce a surface plot of your solution for <span class="math notranslate nohighlight">\(\phi(x,t)\)</span> and label the axes.</p>
+<p><strong>Step 3:</strong>
+To illustrate the amplitude evolution of the disturbance, produce a plot of</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\frac{\phi_{max}(t=t_i)}{\phi_{max}(t=0)}\quad \text{for}\quad t_i\in[0,4].
+\end{equation*}\]</div>
+<p><strong>Step 4:</strong>
+Use your surface plot and amplitude evolution plot to comment on the behaviour of the disturbance.</p>
+<p><strong>Step 5:</strong>
+Describe how the accuracy and convergence/stability of the solution depend on <span class="math notranslate nohighlight">\(\Delta t\)</span>, <span class="math notranslate nohighlight">\(\Delta x\)</span> and the Courant parameter <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<p><strong>Solution</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clear</span><span class="p">;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span> <span class="n">g</span><span class="o">=</span><span class="mf">0.5</span><span class="p">;</span> <span class="n">L</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="o">%</span> <span class="n">given</span> <span class="n">parameters</span>
+
+<span class="n">Nt</span><span class="o">=</span><span class="mi">81</span><span class="p">;</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">200</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>  <span class="o">%</span> <span class="n">discretisation</span> <span class="n">of</span> <span class="n">spatial</span> <span class="n">dimension</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Nt</span><span class="p">);</span>  <span class="o">%</span> <span class="n">discretisation</span> <span class="n">of</span> <span class="n">spatial</span> <span class="n">parameter</span>
+<span class="n">Dt</span><span class="o">=</span><span class="n">T</span><span class="o">/</span><span class="p">(</span><span class="n">Nt</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="n">Dx</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="n">r</span><span class="o">=</span><span class="n">c</span><span class="o">*</span><span class="n">Dt</span><span class="o">/</span><span class="n">Dx</span>              <span class="o">%</span> <span class="n">ensure</span> <span class="n">it</span><span class="s1">&#39;s less than 1</span>
+
+<span class="n">F</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>
+<span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="o">=</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">);</span>            <span class="o">%</span><span class="n">phi</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="n">F</span><span class="p">(</span><span class="mi">2</span><span class="p">,:)</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">Dt</span><span class="p">));</span>   <span class="o">%</span><span class="n">phi</span><span class="p">(</span><span class="n">Dt</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">see</span> <span class="n">comment</span> <span class="n">at</span> <span class="n">end</span>
+
+<span class="o">%</span><span class="n">w</span><span class="o">=</span><span class="n">sqrt</span><span class="p">(</span><span class="n">c</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="n">g</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">);</span>
+<span class="o">%</span><span class="n">cp</span><span class="o">=</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="p">;</span>
+<span class="o">%</span><span class="n">F</span><span class="p">(</span><span class="mi">2</span><span class="p">,:)</span><span class="o">=</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">g</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">Dt</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">cp</span><span class="o">*</span><span class="n">Dt</span><span class="p">));</span>
+
+<span class="n">K0</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">g</span><span class="o">*</span><span class="n">Dt</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span> <span class="n">K2</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">g</span><span class="o">*</span><span class="n">Dt</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>  <span class="o">%</span><span class="n">constants</span> <span class="n">appearing</span> <span class="ow">in</span> <span class="n">update</span> <span class="n">rule</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="n">Nt</span><span class="o">-</span><span class="mi">1</span>
+   <span class="n">f</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="n">i</span><span class="p">,:);</span>
+    <span class="n">neigh</span><span class="o">=</span><span class="n">circshift</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="o">+</span><span class="n">circshift</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">F</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,:)</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="o">+</span><span class="n">r</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">neigh</span><span class="o">-</span><span class="n">K0</span><span class="o">*</span><span class="n">F</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,:))</span><span class="o">/</span><span class="n">K2</span><span class="p">;</span>
+<span class="n">end</span>
+
+<span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">end</span><span class="p">),</span><span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">end</span><span class="p">,:),</span><span class="s1">&#39;EdgeColor&#39;</span><span class="p">,</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">);</span><span class="n">zlabel</span><span class="p">(</span><span class="s1">&#39;\phi&#39;</span><span class="p">)</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">F</span><span class="p">,[],</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)))</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">);</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;\phi_</span><span class="si">{max}</span><span class="s1">&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The solution becomes more accurate as the size of the spatial and temporal steps reduces, but needs very small steps to achieve a smooth solution profile.
+The stability is sensitive to the Courant parameter . For <span class="math notranslate nohighlight">\(r&lt;1\)</span> the solution converges, whilst for <span class="math notranslate nohighlight">\(r&gt;1\)</span> it does not. You can explore this behaviour by comparing the solutions for nt= 80, 81 for nx=200.</p>
+<p><strong>Concerning the given result for : <span class="math notranslate nohighlight">\(\phi(\Delta t,x)\)</span></strong>
+The given result came from the analytic solution for the undamped case (when <span class="math notranslate nohighlight">\(\gamma=0\)</span>). Whoever wrote this question must have believed it would give a good approximation to the analytic solution for the undamped case. However, the result given by using this condition is unphysical. Our numeric solution rightly shows a travelling wave of decaying amplitude, but the staggered rate of decay doesn’t match reality.</p>
+<p>Hand derivations indicate that the PDE admit particular solutions of the form <span class="math notranslate nohighlight">\(\phi=e^{-\frac{\gamma}{2}t}\sin(kx-\omega t)\)</span>, where <span class="math notranslate nohighlight">\(\omega^2=k^2c^2 -\left(\frac{\gamma}{2}\right)^2\)</span>. If this analytic result is used to determine <span class="math notranslate nohighlight">\(\phi(\Delta t,x)\)</span>, the amplitude will be seen to decay exponentially with rate determined by the strength of the damping. This finding highlights again the importance of taking great care with the accurate implementation of any boundary conditions.</p>
+<p><strong>What if we can’t use an analytic solution to determine <span class="math notranslate nohighlight">\(\phi(\Delta t,x)\)</span>?</strong>
+In that case, we could determine the result from a pair of initial conditions of the form <span class="math notranslate nohighlight">\(\phi(0,x)=f(x)\)</span>, <span class="math notranslate nohighlight">\(\phi_t(0,x)=g(x)\)</span>, by using the central difference formula for the first derivative boundary condition, in conjunction with the update rule given by the PDE. This is the method used in the previous question for the undamped case.
+The functions <span class="math notranslate nohighlight">\(f(x)\)</span> and <span class="math notranslate nohighlight">\(g(x)\)</span> would need to be informed by the physical problem. The solution would (likely) not be a single travelling harmonic, but would consist of a wavepacket (sum of) harmonics.</p>
+<p><strong>Worked example</strong></p>
+<p>Cauchy in time, Dirichlet in space</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{multline*}u_{tt}=c^2 u_{xx}, \qquad t\in(0,T),x\in(0,L)\\
+u(x,0)=2e^{-(x-L/2)^2}, \quad u_t(0,x)=0, \quad u(t,0)=0, \quad u(t,L)=0
+\end{multline*}\]</div>
+<p>Generally use forward stepping (do first!)</p>
+<p><span class="math notranslate nohighlight">\(x=0: \quad u(0,0)=2e^{-L^2/4}\)</span>
+<span class="math notranslate nohighlight">\(x=L: \quad u(0,L)=2e^{-L^2/4}\)</span></p>
+<p>(both very small)</p>
+</div>
+<div class="section" id="more-hyperbolic-problems">
+<h2><span class="section-number">7.7. </span>More hyperbolic problems<a class="headerlink" href="#more-hyperbolic-problems" title="Permalink to this headline">¶</a></h2>
+<p><strong>Sine-Gordon</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u_{tt}=u_{xx}-\sin(u)
+\end{equation*}\]</div>
+<p><strong>D’Alembert wave</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u_{tt}=c^2 u_{xx}, \qquad y(x,0)=\phi(x), \quad u_t(x,0)=\psi(x)
+\end{equation*}\]</div>
+<p>Hyperbolic in <span class="math notranslate nohighlight">\((x,t)\)</span> plane</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./finitediff"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="further_problems.html" title="previous page"><span class="section-number">6. </span>Partial differential equations</a>
+    <a class='right-next' id="next-link" href="dirichlet.html" title="next page"><span class="section-number">8. </span>Dirichlet conditions</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Natural Sciences<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

@@ -60,12 +60,11 @@ print(max(abs(y-[sin(a)+a for a in x])))
 
 You can find hidden the various functions described in the previous chapter that are being used to solve the challenge.
 
-``` {code-cell} ipython3
+```{code-cell} ipython3
 ---
 render:
     image:
         align: center
-tags: [hide-input]
 ---
 
 # Heun's method
@@ -156,79 +155,6 @@ plt.show()
 
 ## Higher order problems - <span style="color: red;">Coding challenge</span>
 
-### Problem 1: A clamped ODE
-
-```{code-cell} ipython3
----
-render:
-    image:
-        align: center
----
-n=100
-x=np.linspace(0,1,n)
-h = x[1]-x[0]
-
-coeff1 = 1-h/2
-coeff2 = -2-6*h**2
-coeff3 = 1+h/2
-
-A = np.diag(coeff1*np.ones((1,n-1))[0], -2) + \
-    np.diag(coeff2*np.ones((1,n))[0], -1) + \
-        np.diag(coeff3*np.ones((1,n+1))[0],0)
-
-b = np.zeros((n+1,1))
-
-A[0,[0,1,2]] = [-1,0,1]
-b[0]=0
-A[1, [0,1,2]] = [0,1,0]
-b[1] = 1
-
-y,_,_,_= np.linalg.lstsq(A,b,rcond = None)
-y = y[1:]
-
-fig,ax = plt.subplots(1,2)
-ax[0].plot(x,y)
-ax[0].set_title('Solution')
-ysol = (2*np.exp(-3*x) + 3*np.exp(2*x))/5
-ax[1].plot(x,abs((y.T-ysol).T))
-ax[1].set_title('Error')
-plt.show()
-```
-
-### Problem 2 : 1D heat equation with Dirichlet boundary conditions
-
-```{code-cell} ipython3
----
-render:
-    image:
-        align: center
----
-
-n=100
-x = np.linspace(0,1,n).T
-h = x[1]-x[0]
-
-f = lambda x: sin(2*pi*x)
-
-A = np.diag([-2]*n,0)+np.diag([1]*(n-1),1)+np.diag([1]*(n-1),-1)
-
-A[0,[0,1]]=[1,0]
-A[n-1,[n-2,n-1]]=[0,1]
-F =[f(a) for a in x]
-F[0]=0
-F[len(F)-1] = 0
-
-U = [h**2*a for a in np.linalg.lstsq(A,F,rcond=None)[0]]
-sol = [-sin(2*pi*a)/(4*pi**2) for a in x]
-
-fig,ax = plt.subplots(1,2)
-ax[0].plot(x,U)
-
-U = np.array(U)
-sol = np.array(sol)
-ax[1].plot(x,abs(U-sol))
-plt.show()
-```
 
 ### Problem 3: Simple harmonic motion
 

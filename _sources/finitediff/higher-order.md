@@ -13,7 +13,7 @@ The problem could be re-written in array form by definining $z=y^{\prime}$ to ob
 
 \begin{equation}\frac{\mathrm{d}}{\mathrm{d}x}\left[\begin{array}{cc}z\\y\end{array}\right]=\left[\begin{array}{cc}6y-z\\z\end{array}\right]\end{equation}
 
-Therefore it could be solved using any of the methods for first order IVPs previously illustrated. However, to demonstrate the used of techniques we will need for solving partial differential equations, we will instead proceed with use of finite difference formulae in equation {eq}`2order`.
+Therefore it could be solved using any of the methods for first order IVPs previously illustrated (see, for example exercise {numref}`heun-vector`). However, to demonstrate the used of techniques we will need for solving partial differential equations, we will instead proceed with use of finite difference formulae in equation {eq}`2order`.
 
 ### Forward difference solution
 

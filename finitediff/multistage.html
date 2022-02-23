@@ -56,6 +56,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Higher order IVP" href="cauchy-ode.html" />
     <link rel="prev" title="4. Initial value problem" href="ivp.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -115,6 +116,16 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    5. Multi-stage methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-ode.html">
+   6. Higher order IVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dirichlet-ode.html">
+   7. Higher order BVP
   </a>
  </li>
 </ul>
@@ -256,17 +267,17 @@
 <p class="admonition-title">Please note!</p>
 <p>This chapter material is optional, and will not be required to complete the project</p>
 </div>
-<p>The methods seen in the previous chapter used a single calculation step to define the relationship between each neighbouring pair of solution point.</p>
+<p>The methods seen in the previous chapter used a single calculation step to define the relationship between each neighbouring pair of solution points.</p>
 <p>In this chapter we will look at a general class of multi-stage methods that use weighted averages of slope estimates obtained at different points within a single step (e.g. at a half-step) to reduce the truncation error. These algorithms can be highly accurate, so larger step sizes can be taken, but they may also exhibit less stability than lower order algorithms. The stability can be assessed by comparison of more than one technique or comparison of the results for different step sizes. Some algorithms use these comparisons to improve efficiency by using an adaptive step size.</p>
 <p>Knowledge of multi-stage methods is not crucial for this module, as the techniques that we will develop for solving higher order ODEs and partial differential equations are based on single stage methods. However, the material in this chapter gives some insight about methods employed by <code class="docutils literal notranslate"><span class="pre">scipy.integrate.solve_ivp</span></code> to improve accuracy and manage stability. Seeing how the techniques are implemented may also provide good Python experience.</p>
 <div class="section" id="modified-euler-method">
 <h2><span class="section-number">5.1. </span>Modified Euler method<a class="headerlink" href="#modified-euler-method" title="Permalink to this headline">¶</a></h2>
 <p>If we approximate the derivative using the central differences formula, then we obtain</p>
-<div class="amsmath math notranslate nohighlight" id="equation-577917ea-43be-4a68-8745-bc0325cbd06c">
-<span class="eqno">(5.1)<a class="headerlink" href="#equation-577917ea-43be-4a68-8745-bc0325cbd06c" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)\simeq y(x_k)+f\biggr(x_k+\frac{h}{2},y\left(x_k+\frac{h}{2}\right)\biggr)\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-de3a95e0-108c-42cf-bd5c-8815300ea5c6">
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-de3a95e0-108c-42cf-bd5c-8815300ea5c6" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)\simeq y(x_k)+f\biggr(x_k+\frac{h}{2},y\left(x_k+\frac{h}{2}\right)\biggr)\end{equation}\]</div>
 <p>This result requires the solutions for both the previous value <span class="math notranslate nohighlight">\(y_k\)</span> and <span class="math notranslate nohighlight">\(y_{k+1/2}\)</span>. However, we can use Euler’s explicit formula with a half-step to estimate this value. Due to the nesting of the approximation this does not affect the accuracy of the method, which remains quadratic order. The resulting explicit algorithm, which is known as the modified Euler scheme can be calculated via a two-stage process:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-50b4838a-477f-4b3c-864c-fb304044492c">
-<span class="eqno">(5.2)<a class="headerlink" href="#equation-50b4838a-477f-4b3c-864c-fb304044492c" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_1\right), \qquad y_{k+1}=y_k+h s_2\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-8498233f-80ad-4e7d-954f-094fd8d0aab6">
+<span class="eqno">(5.2)<a class="headerlink" href="#equation-8498233f-80ad-4e7d-954f-094fd8d0aab6" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_1\right), \qquad y_{k+1}=y_k+h s_2\end{equation}\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(s_1\)</span> is the first estimate for the slope, using the left-hand derivative rule <span class="math notranslate nohighlight">\(s_2\)</span> is the modified estimate for the slope at the midpoint.</p>
 <p>An example implementation is shown below:</p>
 <div class="cell docutils container">
@@ -291,11 +302,11 @@
 <div class="section" id="improved-euler-method-heuns-method">
 <h2><span class="section-number">5.2. </span>Improved Euler method (Heun’s method)<a class="headerlink" href="#improved-euler-method-heuns-method" title="Permalink to this headline">¶</a></h2>
 <p>Recall that the trapezoidal rule <a class="reference internal" href="ivp.html#equation-trapz">(4.9)</a> also gave quadratic order accuracy, but using it involved solving an implicit relationship involving <span class="math notranslate nohighlight">\(y_{k+1}\)</span>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-163ad3d2-1f70-4ff7-8b80-6d52db49a53c">
-<span class="eqno">(5.3)<a class="headerlink" href="#equation-163ad3d2-1f70-4ff7-8b80-6d52db49a53c" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+\frac{h}{2}\biggr[f(x_k,y_k)+f(x_{k+1},y_{k+1})\biggr]\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-c7f97a6f-1636-44fc-b5f5-b32b44cf2bf1">
+<span class="eqno">(5.3)<a class="headerlink" href="#equation-c7f97a6f-1636-44fc-b5f5-b32b44cf2bf1" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+\frac{h}{2}\biggr[f(x_k,y_k)+f(x_{k+1},y_{k+1})\biggr]\end{equation}\]</div>
 <p>Again, we can replace this value on the right-hand side of the equation by the explicit Euler method, giving the following quadratic order multi-stage method:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a5819452-e08e-4741-ad94-74c151c98d92">
-<span class="eqno">(5.4)<a class="headerlink" href="#equation-a5819452-e08e-4741-ad94-74c151c98d92" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f(x_{k+1},y_k+h s_1), \qquad y_{k+1}=y_k+\frac{h}{2}(s_1+s_2)\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-6de1f83a-6f1e-4975-8857-74ae78e244d8">
+<span class="eqno">(5.4)<a class="headerlink" href="#equation-6de1f83a-6f1e-4975-8857-74ae78e244d8" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f(x_{k+1},y_k+h s_1), \qquad y_{k+1}=y_k+\frac{h}{2}(s_1+s_2)\end{equation}\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(s_1\)</span> is the first estimate for the slope, using the left-hand derivative rule <span class="math notranslate nohighlight">\(s_2\)</span> is the modified estimate for the slope at the right-hand point.</p>
 <p>An example implementation is shown below</p>
 <div class="cell docutils container">
@@ -320,12 +331,12 @@
 <div class="section" id="runge-kutta-methods">
 <h2><span class="section-number">5.3. </span>Runge Kutta methods<a class="headerlink" href="#runge-kutta-methods" title="Permalink to this headline">¶</a></h2>
 <p>By using more locations (stages) we can improve the local accuracy of the method at the expense of performing additional calculations. The computation time for each step increases linearly with the number of stages, but this is usually offset by the ability to use fewer steps to obtain the required accuracy. Runge-kutta methods are general one-step, multi-stage methods of the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-0150ec99-de3e-4afe-b785-5773ddbfc01c">
-<span class="eqno">(5.5)<a class="headerlink" href="#equation-0150ec99-de3e-4afe-b785-5773ddbfc01c" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+h\sum_{i=1}^n b_i s_i, \qquad s_i = f\left(x_k+c_i h,y_k+h\sum_{j=1}^{n}a_{i,j}s_j\right)\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-999517d6-76bd-4fe4-861f-1e7b6d566263">
+<span class="eqno">(5.5)<a class="headerlink" href="#equation-999517d6-76bd-4fe4-861f-1e7b6d566263" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+h\sum_{i=1}^n b_i s_i, \qquad s_i = f\left(x_k+c_i h,y_k+h\sum_{j=1}^{n}a_{i,j}s_j\right)\end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(k\)</span> is the number of stages, <span class="math notranslate nohighlight">\(A =(a_{i,j})\)</span> is a (<span class="math notranslate nohighlight">\(n\times n\)</span>) constant matrix, and <span class="math notranslate nohighlight">\(B=(b_i)\)</span>, <span class="math notranslate nohighlight">\(C=(c_i)\)</span> are constant vectors. The method takes a weighted average of several adjusted slopes and is explicit only if <span class="math notranslate nohighlight">\(A\)</span> is lower diagonal.</p>
 <p>The choice of coefficients follows from expanding expression the expression for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> fully in terms of <span class="math notranslate nohighlight">\(f(x_k,y_k)\)</span> and its derivatives. The result can then be compared to the Taylor expansion for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> which satisfies the initial value problem to determine the coefficients. Results for the coefficients are often represented as a “Butcher Tableau”, which you can look up:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-2d887c92-0b9c-46cc-8d86-2f68c18512f8">
-<span class="eqno">(5.6)<a class="headerlink" href="#equation-2d887c92-0b9c-46cc-8d86-2f68c18512f8" title="Permalink to this equation">¶</a></span>\[\begin{equation}\begin{array}{c|ccccc}c_1=0 &amp; \\c_2 &amp; a_{2,1}\\c_3&amp; a_{3,1} &amp; a_{3,2}\\\vdots&amp;\vdots &amp; &amp; \ddots\\c_n&amp;a_{n,1}&amp; a_{n,2} &amp;\dots &amp;a_{n,n-1}\\\hline &amp;b_1 &amp;b_2&amp; &amp;\dots &amp;b_n\end{array} \quad \begin{array}{cl}\phantom{c_0}&amp;s_1 = (x_k,y_k)\\\phantom{c_1} &amp;s_2 = f(x_k+c_2 h,y_k+ha_{2,1}s_1)\\\phantom{c_2}&amp;s_3 = f(x_k+c_3 ,y_k+h(a_{3,1}s_1+a_{3,2}s_2)\\\vdots{}\\\phantom{c_n} &amp;s_n = f(x_k+c_n h,y_k+h(a_{n,1}s_1+a_{n,2}s_2+\dots))\\ &amp;y_{k+1}=y_k+h(b_1 s_1 + b_2 s_2 +\dots) +b_k s_n\end{array}\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-74eed029-1361-4304-bbab-6f790bdfa389">
+<span class="eqno">(5.6)<a class="headerlink" href="#equation-74eed029-1361-4304-bbab-6f790bdfa389" title="Permalink to this equation">¶</a></span>\[\begin{equation}\begin{array}{c|ccccc}c_1=0 &amp; \\c_2 &amp; a_{2,1}\\c_3&amp; a_{3,1} &amp; a_{3,2}\\\vdots&amp;\vdots &amp; &amp; \ddots\\c_n&amp;a_{n,1}&amp; a_{n,2} &amp;\dots &amp;a_{n,n-1}\\\hline &amp;b_1 &amp;b_2&amp; &amp;\dots &amp;b_n\end{array} \quad \begin{array}{cl}\phantom{c_0}&amp;s_1 = (x_k,y_k)\\\phantom{c_1} &amp;s_2 = f(x_k+c_2 h,y_k+ha_{2,1}s_1)\\\phantom{c_2}&amp;s_3 = f(x_k+c_3 ,y_k+h(a_{3,1}s_1+a_{3,2}s_2)\\\vdots{}\\\phantom{c_n} &amp;s_n = f(x_k+c_n h,y_k+h(a_{n,1}s_1+a_{n,2}s_2+\dots))\\ &amp;y_{k+1}=y_k+h(b_1 s_1 + b_2 s_2 +\dots) +b_k s_n\end{array}\end{equation}\]</div>
 <p>For example, the modified Euler and Heun’s improved Euler methods are both examples of two stage RK methods, which demonstrate quadratic order accuracy.</p>
 <p><strong>Modified Euler</strong>:</p>
 <div class="math notranslate nohighlight">
@@ -338,7 +349,7 @@
 \[\begin{split}\displaystyle\begin{array}{c|cccc}0\\1/2&amp;1/2\\1/2&amp;0&amp;1/2\\1&amp;0&amp;0&amp;1\\\hline &amp;1/6&amp;1/3&amp;1/3&amp;1/6\end{array}\quad\begin{array}{cl}&amp;s_1=f(x_k,y_k)\\\phantom{1/2}&amp;s_2=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_1\right)\\\phantom{1/2}&amp;s_3=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_2\right)\\\phantom{1}&amp;s_4=f(x_k+h,y_k+h s_3)\\ &amp; y_{k+1}=y_k+\frac{h}{6}(s_1+2s_2+2s_3+s_4) \end{array}\end{split}\]</div>
 <p>By comparing the solutions of a given algorithm for two different step sizes we can estimate how small the step needs to be to keep the error within specified bounds over the integration domain.
 By comparing results from different algorithms after one (or a few) steps it is also possible to implement a variable step method that uses larger steps in regions where errors are estimated to be small. This is possible with the Python <code class="docutils literal notranslate"><span class="pre">solve_ivp</span></code> within the <code class="docutils literal notranslate"><span class="pre">scipy.integrate</span></code> module, using comparison of a <span class="math notranslate nohighlight">\(\mathcal{O}(h^4)\)</span> and <span class="math notranslate nohighlight">\(\mathcal{O}(h^5)\)</span> method.</p>
-<div class="exercise admonition" id="finitediff/multistage-exercise-0">
+<div class="exercise admonition" id="heun-vector">
 <p class="admonition-title"><span class="caption-number">Exercise 5.1 </span> </p>
 <div class="section" id="exercise-content">
 <p>Set up a scheme to apply Heun’s algorithm to the following system for <span class="math notranslate nohighlight">\(t\in[0,1]\)</span>, using time steps of 0.1, 0.01 and 0.001.</p>
@@ -386,6 +397,7 @@ In this manner, you can build up a matrix of values</p>
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="ivp.html" title="previous page"><span class="section-number">4. </span>Initial value problem</a>
+    <a class='right-next' id="next-link" href="cauchy-ode.html" title="next page"><span class="section-number">6. </span>Higher order IVP</a>
 
         </div>
         
