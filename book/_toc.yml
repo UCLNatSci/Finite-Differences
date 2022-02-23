@@ -11,6 +11,8 @@ chapters:
 - file: finitediff/implementation
 - file: finitediff/ivp
 - file: finitediff/multistage
-#- file: finitediff/higher-order
+- file: finitediff/cauchy-ode
+- file: finitediff/dirichlet-ode
+#- file: finitediff/cauchy-pde
+#- file: finitediff/dirichlet-pde
 #- file: finitediff/further_problems
-#- file: finitediff/w1_answers

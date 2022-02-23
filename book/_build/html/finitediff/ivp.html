@@ -118,6 +118,16 @@
    5. Multi-stage methods
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-ode.html">
+   6. Higher order IVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dirichlet-ode.html">
+   7. Higher order BVP
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -323,8 +333,8 @@
 <div class="math notranslate nohighlight" id="equation-sampleprob">
 <span class="eqno">(4.2)<a class="headerlink" href="#equation-sampleprob" title="Permalink to this equation">¶</a></span>\[\frac{\mathrm{d}y}{\mathrm{d}x}=-y+(\cos(x)+2)y^2, \quad y(0)=0.4, \quad x\in[0,4]\]</div>
 <p>We will compare our results to the analytic solution, which can be found by hand for this case. The solution is given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-70efee90-84a4-42b8-97e7-4ff55dbefcbc">
-<span class="eqno">(4.3)<a class="headerlink" href="#equation-70efee90-84a4-42b8-97e7-4ff55dbefcbc" title="Permalink to this equation">¶</a></span>\[\begin{equation}y=\frac{2}{4+\cos(x)-\sin(x)}.\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-b39b2bc8-87ec-4923-b546-e15bc978ed38">
+<span class="eqno">(4.3)<a class="headerlink" href="#equation-b39b2bc8-87ec-4923-b546-e15bc978ed38" title="Permalink to this equation">¶</a></span>\[\begin{equation}y=\frac{2}{4+\cos(x)-\sin(x)}.\end{equation}\]</div>
 <p>In our finite difference approach we will use <span class="math notranslate nohighlight">\(n=1001\)</span> array values, which corresponds to a step size <span class="math notranslate nohighlight">\(h=0.004\)</span> on the range <span class="math notranslate nohighlight">\([0,4]\)</span>. The values are generated using the <code class="docutils literal notranslate"><span class="pre">linspace</span></code> function from the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> package, as shown in the code below. A plotter function will be used to graphically compare the analytic and numerical solutions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -367,8 +377,8 @@
 <div class="math notranslate nohighlight">
 \[y_{k+1}= y_k+y^{\prime}(x_k)h+\mathcal{O}(h^2)\]</div>
 <p>Substituting for <span class="math notranslate nohighlight">\(y^{\prime}(x_k)\)</span> from the initial value problem <a class="reference internal" href="#equation-ivp1">(4.1)</a> leads to the following iterative formula, which is known as the explicit Euler method:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-09aba975-1c1e-46b7-a489-ed53e5ed5aa7">
-<span class="eqno">(4.4)<a class="headerlink" href="#equation-09aba975-1c1e-46b7-a489-ed53e5ed5aa7" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}\simeq y_k + h f(x_k).\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-76244905-4137-4faf-bade-fadcc6035239">
+<span class="eqno">(4.4)<a class="headerlink" href="#equation-76244905-4137-4faf-bade-fadcc6035239" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}\simeq y_k + h f(x_k).\end{equation}\]</div>
 <p>The formula uses the known value <span class="math notranslate nohighlight">\((x_k,y_k)\)</span> together with the known slope at that point to project forward to the next point. The calculation is then repeated at the new point, and in this manner we keep stepping forward until we reach the end of the integration domain. We start at the given initial value <span class="math notranslate nohighlight">\((x_0,y_0)\)</span>.</p>
 <p>A graphical illustration is provided below, demonstrating how each forward step takes us in tangent to one of the family of general solution curves. The approximation would be better for smaller step size!</p>
 <br>
@@ -423,11 +433,11 @@
 <div class="math notranslate nohighlight">
 \[y_{k+1}= y_{k}+y^{\prime}(x_{k+1})h+\mathcal{O}(h^2)\]</div>
 <p>Substituting for <span class="math notranslate nohighlight">\(y^{\prime}(x_{k+1})\)</span> from the initial value problem <a class="reference internal" href="#equation-ivp1">(4.1)</a> leads to the following iterative formula, which is known as the implicit Euler method</p>
-<div class="amsmath math notranslate nohighlight" id="equation-f1708807-110c-4669-a36b-ca1fb4afcd31">
-<span class="eqno">(4.5)<a class="headerlink" href="#equation-f1708807-110c-4669-a36b-ca1fb4afcd31" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}\simeq y_k+h f(x_{k+1},y_{k+1})\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-034a72ba-8052-4fcc-b273-c9d10a5ce9bb">
+<span class="eqno">(4.5)<a class="headerlink" href="#equation-034a72ba-8052-4fcc-b273-c9d10a5ce9bb" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}\simeq y_k+h f(x_{k+1},y_{k+1})\end{equation}\]</div>
 <p>Here, things begin to get a bit more complicated, since the expression for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> is given implicitly. Usually it is not possible to rearrange the expression to obtain <span class="math notranslate nohighlight">\(y_{k+1}\)</span> explicitly, so a root-finding algorithm is required, such as the Newton-Raphson technique or a bisection or fixed point algorithm. An example implementation is shown in the code below, using <code class="docutils literal notranslate"><span class="pre">fsolve</span></code> from the <code class="docutils literal notranslate"><span class="pre">scipy</span></code> library. To use this root finding function, we need to write the implicit Euler formula in the form <span class="math notranslate nohighlight">\(F(x_k,x_{k+1},y_k,y_{k+1})= 0\)</span>, which gives</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b7a29201-9be2-4110-ab38-ade17688d989">
-<span class="eqno">(4.6)<a class="headerlink" href="#equation-b7a29201-9be2-4110-ab38-ade17688d989" title="Permalink to this equation">¶</a></span>\[\begin{equation}F= y_{k+1}-y_k-hf(x_{k+1},y_{k+1}).\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-565c102c-f74e-48a7-a07c-3101523d1cfd">
+<span class="eqno">(4.6)<a class="headerlink" href="#equation-565c102c-f74e-48a7-a07c-3101523d1cfd" title="Permalink to this equation">¶</a></span>\[\begin{equation}F= y_{k+1}-y_k-hf(x_{k+1},y_{k+1}).\end{equation}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_eulri</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y0</span><span class="p">):</span>
@@ -469,8 +479,8 @@
 <div class="section" id="fixed-point-techniques">
 <h3><span class="section-number">4.3.2. </span>Fixed point techniques<a class="headerlink" href="#fixed-point-techniques" title="Permalink to this headline">¶</a></h3>
 <p>As an alternative to using Newton-Raphson algorithm to find the root of an algebraic relationship, we can use a fixed-point iteration technique, designed for problems of the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-4a451834-5332-4535-b396-26720178d183">
-<span class="eqno">(4.7)<a class="headerlink" href="#equation-4a451834-5332-4535-b396-26720178d183" title="Permalink to this equation">¶</a></span>\[\begin{equation}x=F(x).\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-7d26197e-01b1-4a99-9698-7da58d7410ed">
+<span class="eqno">(4.7)<a class="headerlink" href="#equation-7d26197e-01b1-4a99-9698-7da58d7410ed" title="Permalink to this equation">¶</a></span>\[\begin{equation}x=F(x).\end{equation}\]</div>
 <p>Such techniques are an important numerical analysis tool, and we will use them more when we study applications to partial differential equations. The approach proceeds by taking an initial guess <span class="math notranslate nohighlight">\(x=x_{guess}\)</span> and substituting it into the right hand side of the equation.</p>
 <ul class="simple">
 <li><p>If <span class="math notranslate nohighlight">\(|x_{guess}-F(x_{guess})|\)</span> is less than some specified tolerance then we conclude that our guess is a good approximation to the root.</p></li>
@@ -526,8 +536,8 @@ NR root: 0.73908513
 <div class="section" id="stability">
 <h2><span class="section-number">4.5. </span>Stability<a class="headerlink" href="#stability" title="Permalink to this headline">¶</a></h2>
 <p>The implicit Euler algorithm typically requires a root-solving algorithm (expensive) and it only offers the same order accuracy as the explicit Euler algorithm, since the error goes like <span class="math notranslate nohighlight">\(h\)</span> in each case… So why do we need it? We will consider an illustrative example, provided by the problem</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a95b322e-5e7b-4015-bd8e-74a25cb73775">
-<span class="eqno">(4.8)<a class="headerlink" href="#equation-a95b322e-5e7b-4015-bd8e-74a25cb73775" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=-5y, \quad y(0)=2, \quad y\in[0,10]\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-5cb7013f-53c3-4c0c-8868-6b09c1275a59">
+<span class="eqno">(4.8)<a class="headerlink" href="#equation-5cb7013f-53c3-4c0c-8868-6b09c1275a59" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}y}{\mathrm{d}x}=-5y, \quad y(0)=2, \quad y\in[0,10]\end{equation}\]</div>
 <p>First, let us demonstrate the solutions obtained for step size <span class="math notranslate nohighlight">\(h=0.41\)</span>, using each algorithm. Since we are given a step size rather than the number of <span class="math notranslate nohighlight">\(x\)</span> values, we use the <code class="docutils literal notranslate"><span class="pre">arange</span></code> function from the <code class="docutils literal notranslate"><span class="pre">numpy</span></code> library to generate the array. In each plot, the numeric estimate is shown in blue and the analytic solution is shown in red.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">

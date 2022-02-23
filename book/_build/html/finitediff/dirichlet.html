@@ -1,0 +1,1071 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8. Dirichlet conditions &#8212; Finite Differences</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/exercise.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystyle.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/_static/mystyle.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Partial differential equations" href="further_problems.html" />
+    <link rel="prev" title="7. Cauchy problem - PDE" href="cauchy-pde.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      <h1 class="site-logo" id="site-title">Finite Differences</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Finite Differences
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="finite-intro.html">
+   1. Basic concept
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="formulae.html">
+   2. Additional formulae
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="implementation.html">
+   3. Differentiation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="ivp.html">
+   4. Initial value problem
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="multistage.html">
+   5. Multi-stage methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-ode.html">
+   6. Cauchy problem - ODE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-pde.html">
+   7. Cauchy problem - PDE
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   8. Dirichlet conditions
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="further_problems.html">
+   9. Partial differential equations
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="../_sources/finitediff/dirichlet.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/finitediff/dirichlet.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/executablebooks/jupyter-book"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Ffinitediff/dirichlet.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/docs/finitediff/dirichlet.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-2-1d-heat-equation-with-dirichlet-boundary-conditions">
+   8.1. Problem 2 : 1D heat equation with Dirichlet boundary conditions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#axially-symmetric-heat-flow">
+   8.2. Axially symmetric heat flow
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-diffusion">
+   8.3. 1D diffusion
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#illustration-of-approach-using-simultaneous-equations">
+     8.3.1. Illustration of approach using simultaneous equations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#relaxation-method">
+     8.3.2. Relaxation Method
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-implementation-of-the-jacobi-gauss-seidel-and-sor-techniques-in-python">
+     8.3.3. Example implementation of the Jacobi, Gauss-Seidel and SOR techniques in python
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-heat-equation-with-dirichlet-conditions">
+   8.4. 2D heat equation with Dirichlet conditions
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#neumann">
+     8.4.1. Neumann
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#new-section">
+     8.4.2. new section
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="dirichlet-conditions">
+<h1><span class="section-number">8. </span>Dirichlet conditions<a class="headerlink" href="#dirichlet-conditions" title="Permalink to this headline">¶</a></h1>
+<p>The cases where we are given conditions to imposed on two different boundaries are more tricky. In 1D problems the problem can be solved by setting up a matrix system of equations for each node. This approach can be generalised to higher dimensions, but it becomes challenging to implement.</p>
+<p>for instance by using a “shooting” technique, or an approach based on simultaneous equations, or an iterative algorithm. These approaches will be described in SECTION.</p>
+<p>Examples:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+ y^{\prime\prime}+y=0, \qquad y(a)=\alpha, \quad y(b)=\beta
+ \end{equation*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+ \nabla^2 y + y = 0 \qquad y(x)=f(x), \ \forall x \in \partial\Omega
+ \end{equation*}\]</div>
+<p><strong>Worked example: 1D heat equation</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+ u^{\prime\prime}(x)=\sin(2\pi x), \qquad u(x_1)=0, \quad u(x_n)=0
+ \end{equation*}\]</div>
+<p><strong>Worked example: 2D heat equation</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+ \nabla^2\psi=0
+ \end{equation*}\]</div>
+<p>Plate:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\phi=300\)</span> (Left,Right)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\phi=400\)</span> (Top,Bottom)</p></li>
+</ul>
+<div class="section" id="problem-2-1d-heat-equation-with-dirichlet-boundary-conditions">
+<h2><span class="section-number">8.1. </span>Problem 2 : 1D heat equation with Dirichlet boundary conditions<a class="headerlink" href="#problem-2-1d-heat-equation-with-dirichlet-boundary-conditions" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">A</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,[</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">F</span> <span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">F</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">F</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">F</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">U</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">F</span><span class="p">,</span><span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">U</span><span class="p">)</span>
+
+<span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+<span class="n">sol</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sol</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="o">-</span><span class="n">sol</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">ec000f1f5fa5</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">n</span><span class="o">=</span><span class="mi">100</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> 
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;np&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="axially-symmetric-heat-flow">
+<h2><span class="section-number">8.2. </span>Axially symmetric heat flow<a class="headerlink" href="#axially-symmetric-heat-flow" title="Permalink to this headline">¶</a></h2>
+<p>The image below shows a cross-section of pipe insulation, which is subjected to temperatures <span class="math notranslate nohighlight">\(\phi=500K\)</span> on the inner boundary and <span class="math notranslate nohighlight">\(\phi=300K\)</span> on the outer boundary. The radial and axial directions are denoted by <span class="math notranslate nohighlight">\(r,\theta\)</span>, respectively.</p>
+<br>
+<a class="reference internal image-reference" href="../_images/lagging.png"><img alt="secant" class="align-center" src="../_images/lagging.png" style="width: 400.0px; height: 328.0px;" /></a>
+<br>
+<p>Due to axial symmetry of the problem, the governing two-dimensional heat equation <span class="math notranslate nohighlight">\(\nabla^2\phi=0\)</span> for this problem can be reduced to</p>
+<div class="math notranslate nohighlight" id="equation-heateqn">
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-heateqn" title="Permalink to this equation">¶</a></span>\[\frac{\partial^2\phi}{\partial r^2}+\frac{1}{r}\frac{\partial \phi}{\partial r}=0.\]</div>
+<div class="exercise admonition" id="finitediff/dirichlet-exercise-0">
+<p class="admonition-title"><span class="caption-number">Exercise 8.1 </span> </p>
+<div class="section" id="exercise-content">
+<p>Express equation <a class="reference internal" href="#equation-heateqn">(8.1)</a> in finite difference form, using a central difference scheme, and apply a Gauss-Seidel relaxation technique with 11 radial points to determine the solution <span class="math notranslate nohighlight">\(\phi(r)\)</span> for <span class="math notranslate nohighlight">\(r\in[0.05,0.10]\)</span> to within <span class="math notranslate nohighlight">\(10^{-4}\)</span>.</p>
+<p>Graphically compare your answer to the analytic solution, which is given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}\phi = 200\frac{\ln(0.10)-\ln(r)}{\ln(2)} +300.\end{equation*}\]</div>
+</div>
+</div>
+<p><strong>Solution</strong>
+The equation can be written out using the central differences formula as:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\frac{\phi_{i-1}-2\phi_i+\phi_{i+1}}{h^2}+\frac{1}{r_i}\frac{\phi_{i+1}-\phi_{i-1}}{2h}=0
+\end{equation*}\]</div>
+<p>which rearranges to</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\phi_i=\frac{\left(r_i-\frac{h}{2}\right)\phi_{i-1}+\left(r_i+\frac{h}{2}\right)\phi_{i+1}}{2r_i}
+\end{equation*}\]</div>
+<p>This can be applied as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">=</span><span class="mi">11</span><span class="p">;</span>                                      <span class="o">%</span> <span class="n">We</span> <span class="n">are</span> <span class="n">using</span> <span class="mi">11</span> <span class="n">points</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.10</span><span class="p">,</span><span class="n">n</span><span class="p">);</span> <span class="n">h</span> <span class="o">=</span><span class="n">r</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">r</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>   <span class="o">%</span> <span class="n">Construct</span> <span class="n">the</span> <span class="n">radial</span> <span class="n">coordinate</span>
+
+<span class="o">%</span><span class="n">Set</span> <span class="n">up</span> <span class="n">the</span> <span class="n">initial</span> <span class="n">grid</span> <span class="p">:</span>
+<span class="n">F</span> <span class="o">=</span> <span class="mi">400</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>      <span class="o">%</span> <span class="n">The</span> <span class="n">temperature</span> <span class="n">average</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">suitable</span> <span class="n">choice</span>
+<span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="mi">500</span><span class="p">;</span><span class="n">F</span><span class="p">(</span><span class="n">end</span><span class="p">)</span><span class="o">=</span><span class="mi">300</span><span class="p">;</span>    <span class="o">%</span> <span class="n">Enforce</span> <span class="n">boundary</span> <span class="n">conditions</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">200</span>    <span class="o">%</span><span class="n">Limit</span> <span class="n">to</span> <span class="mi">200</span> <span class="n">iterations</span>
+    <span class="n">Fcheck</span> <span class="o">=</span> <span class="n">F</span><span class="p">;</span>  <span class="o">%</span><span class="n">To</span> <span class="n">check</span> <span class="k">for</span> <span class="n">convergence</span>
+    <span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span>  <span class="o">%</span><span class="n">On</span> <span class="n">interior</span> <span class="n">points</span>
+        <span class="n">F</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="p">((</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">-</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">F</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">h</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">F</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">);</span>
+    <span class="n">end</span>
+    <span class="k">if</span> <span class="n">norm</span><span class="p">(</span><span class="n">Fcheck</span><span class="o">-</span><span class="n">F</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">10</span><span class="o">^-</span><span class="mi">4</span>
+        <span class="n">fprintf</span><span class="p">(</span><span class="s1">&#39;Converged after </span><span class="si">%d</span><span class="s1"> iterations,&#39;</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="n">end</span>
+<span class="n">end</span>
+</pre></div>
+</div>
+<p>In this case we are able to compare to the analytic solution obtained by integrating the ODE by hand:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">figure</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">F</span><span class="p">);</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;estimated solution&#39;</span><span class="p">);</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.1</span><span class="p">]);</span>
+<span class="n">a</span><span class="o">=-</span><span class="mi">200</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">b</span><span class="o">=</span><span class="mi">500</span><span class="o">-</span><span class="mi">200</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">/</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="n">Fanalytic</span><span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">log</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">F</span><span class="o">-</span><span class="n">Fanalytic</span><span class="p">))</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">);</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span><span class="n">xlim</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.1</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="d-diffusion">
+<h2><span class="section-number">8.3. </span>1D diffusion<a class="headerlink" href="#d-diffusion" title="Permalink to this headline">¶</a></h2>
+<p>Enceladus is a small, icy moon of Saturn, which has been observed to emit molecules of water from “cracks” in its surface. The following differential equation represents the competition between outward diffusion of water molecules from the surface and destruction due to ionization:</p>
+<div class="math notranslate nohighlight">
+\[	2r\frac{\partial c}{\partial r} + r^2\frac{\partial^2 c}{\partial r^2}=r^2 c \beta_{LOSS}.\]</div>
+<p>In this equation, <span class="math notranslate nohighlight">\(r\)</span> is the radial distance from the centre of the moon, <span class="math notranslate nohighlight">\(c\)</span> is the steady state concentration of water molecules, and <span class="math notranslate nohighlight">\(\beta_{LOSS}\)</span> represents the relative importance of ionization compared to diffusion. We will take</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+	\beta_{LOSS}=0.01, \qquad c(1)=1, \qquad c(50)=0.1,\qquad r\in[1,50].
+\end{equation*}\]</div>
+<ul class="simple">
+<li><p>Write down  a discretised form of these equations, using a central difference scheme.</p></li>
+<li><p>Solve the discretised system with 50 grid points simultaneously using a matrix method.</p></li>
+<li><p>Solve the discretised system with 50 grid points using a Gauss-Seidel technique. Determine the number of iterations required for agreement with your part (2) solution to within <span class="math notranslate nohighlight">\(10^{-4}\)</span>.</p></li>
+</ul>
+<p><strong>Solution</strong></p>
+<p><strong>Part 1: Discretisation</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+2r_i\frac{c_{i+1}-c_{i-1}}{2\Delta r}+r_i^2\frac{c_{i+1}-2c_i+c_{i-1}}{\Delta r^2}=\beta_{LOSS} r_i^2 c_i
+\end{equation*}\]</div>
+<p>We can also eliminate a factor of <span class="math notranslate nohighlight">\(\frac{r_i}{\Delta r^2}\)</span> to give:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+(c_{i+1}-c_{i-1})\Delta r +r_i(c_{i+1}-2c_i+c_{i-1})=\beta_{LOSS}\Delta r^2 r_i c_i
+\end{equation*}\]</div>
+<p><strong>Part 2: Matrix method</strong></p>
+<p>Grouping together terms gives (for example):</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+(r_i-\Delta r)c_{i-1}-(2r_i+\beta_{LOSS}\Delta r^2 r_i)c_i +(r_i+\Delta r)c_{i+1}=0
+\end{equation*}\]</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">;</span> <span class="n">bloss</span><span class="o">=</span><span class="mf">0.01</span><span class="p">;</span>   <span class="o">%</span> <span class="n">Values</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">question</span>
+
+<span class="n">r</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="n">n</span><span class="p">);</span> <span class="o">%</span> <span class="n">Set</span> <span class="n">up</span> <span class="n">the</span> <span class="n">radial</span> <span class="n">coordinate</span>
+<span class="n">hr</span><span class="o">=</span><span class="n">r</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">r</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>       <span class="o">%</span> <span class="n">Determine</span> <span class="n">the</span> <span class="n">grid</span> <span class="n">spacing</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>     <span class="o">%</span> <span class="n">Construct</span> <span class="n">the</span> <span class="n">grid</span>
+
+
+<span class="o">%</span> <span class="n">CONSTRUCTION</span> <span class="n">OF</span> <span class="n">COEFFICIENTS</span> <span class="n">FOR</span> <span class="n">INTERIOR</span> <span class="n">NODES</span>
+<span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">M</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">-</span><span class="n">hr</span><span class="p">);</span>            
+    <span class="n">M</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">=-</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">bloss</span><span class="o">*</span><span class="n">hr</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">));</span>
+    <span class="n">M</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">hr</span><span class="p">);</span>
+<span class="n">end</span>
+
+<span class="o">%</span> <span class="n">alternative</span> <span class="n">approach</span> <span class="n">using</span> <span class="n">diag</span><span class="p">:</span>
+<span class="o">%</span> <span class="n">rint</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="o">%</span> <span class="n">diag</span><span class="p">(</span><span class="n">rint</span><span class="o">-</span><span class="n">hr</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="o">+</span><span class="n">bloss</span><span class="o">*</span><span class="n">hr</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">rint</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">diag</span><span class="p">(</span><span class="n">rint</span><span class="o">+</span><span class="n">hr</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="o">%</span> <span class="n">CONSTRUCTION</span> <span class="n">OF</span> <span class="n">COEFFICIENTS</span> <span class="n">FOR</span> <span class="n">BOUNDARY</span> <span class="n">NODES</span>
+<span class="n">M</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">M</span><span class="p">(</span><span class="n">end</span><span class="p">,</span><span class="n">end</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="o">%</span> <span class="n">CONSTRUCTION</span> <span class="n">OF</span> <span class="n">RHS</span>
+<span class="n">b</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">b</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">=</span><span class="mf">0.1</span><span class="p">;</span> <span class="o">%</span> <span class="n">interior</span> <span class="o">+</span> <span class="n">boundary</span>
+
+<span class="n">sol1</span><span class="o">=</span><span class="p">(</span><span class="n">M</span>\<span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;;</span>
+</pre></div>
+</div>
+<p><strong>Part 3: Gauss-Seidel method</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">Set</span> <span class="n">up</span> <span class="n">an</span> <span class="n">initial</span> <span class="n">grid</span> <span class="k">for</span> <span class="n">the</span> <span class="n">solution</span>
+<span class="n">c</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span> <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">c</span><span class="p">(</span><span class="n">end</span><span class="p">)</span><span class="o">=</span><span class="mf">0.1</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">1000</span> <span class="o">%</span><span class="n">bound</span> <span class="n">on</span> <span class="n">maximum</span> <span class="n">number</span> <span class="n">of</span> <span class="n">iterations</span>
+    <span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">c</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="p">((</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">hr</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">-</span><span class="n">hr</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">bloss</span><span class="o">*</span><span class="n">hr</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">));</span>
+    <span class="n">end</span>
+    <span class="k">if</span> <span class="n">norm</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">sol1</span><span class="p">)</span><span class="o">&lt;</span><span class="mf">1e-4</span>
+         <span class="n">fprintf</span><span class="p">(</span><span class="s1">&#39;Converged after </span><span class="si">%d</span><span class="s1"> iterations,&#39;</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="n">end</span>
+<span class="n">end</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">Plots</span>
+<span class="n">figure</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">sol1</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Solution by Matrix method&#39;</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Solution by Gauss-Seidel method&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="illustration-of-approach-using-simultaneous-equations">
+<h3><span class="section-number">8.3.1. </span>Illustration of approach using simultaneous equations<a class="headerlink" href="#illustration-of-approach-using-simultaneous-equations" title="Permalink to this headline">¶</a></h3>
+<p>Consider a rectangular plate, with temperature <span class="math notranslate nohighlight">\(\phi(x,y)\)</span> described by the steady heat equation <span class="math notranslate nohighlight">\(\nabla^2\phi = 0\)</span>. The plate is maintained at boundary temperatures <span class="math notranslate nohighlight">\(\phi = 300, 400\)</span> on pairs of opposite edges as shown. We will solve this problem using a central finite difference scheme on a (3 × 3) grid of interior points.</p>
+<br>
+<a class="reference internal image-reference" href="../_images/3_3_grid.png"><img alt="3x3 grid" class="align-center" src="../_images/3_3_grid.png" style="width: 360.0px; height: 364.0px;" /></a>
+<br>
+<p>The governing equation can be discretised using a five-point stencil:</p>
+<div class="math notranslate nohighlight">
+\[ \phi_{i+1,j}+\phi_{i-1,j}+\phi_{i,j+1}+\phi_{i,j-1}-4\phi_{i,j}=0\]</div>
+<p>There is one equation for each node (equation variable), so we number the nodes sequentially <span class="math notranslate nohighlight">\(\phi_{1,...9)\)</span> as illustrated, resulting in the following system of equations :</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+-4 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+1 &amp; -4 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; -4 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 &amp; -4 &amp; 1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 1 &amp; -4 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; -4 &amp; 0 &amp; 0 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 0 &amp; -4 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; -4 &amp; 1 \\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 0 &amp; 1 &amp; -4
+\end{bmatrix}
+\begin{bmatrix}
+\phi_1\\\phi_2\\\phi_3\\\phi_4\\\phi_5\\\phi_6\\\phi_7\\\phi_8\\\phi_9
+\end{bmatrix}
+=
+\begin{bmatrix}
+-700\\-400\\-700\\-300\\0\\-300\\-700\\-400\\-700
+\end{bmatrix}
+\end{split}\]</div>
+<p>Notice that as a consequence of reshaping the array of node values into a column it has become slightly harder to keep track of the nodes that are neighbours. Additionally, inverting the sparse coefficient matrices can be computationally impractical for problems with many nodes. We therefore introduce an alternative, below.</p>
+</div>
+<div class="section" id="relaxation-method">
+<h3><span class="section-number">8.3.2. </span>Relaxation Method<a class="headerlink" href="#relaxation-method" title="Permalink to this headline">¶</a></h3>
+<p>We begin by rearranging the governing finite difference formula into the form $<span class="math notranslate nohighlight">\(u=F(u).\)</span>$ For instance, for the five-point formula given in the previous example, we may write</p>
+<div class="math notranslate nohighlight" id="equation-discr">
+<span class="eqno">(8.2)<a class="headerlink" href="#equation-discr" title="Permalink to this equation">¶</a></span>\[u_{i,j} = \frac{1}{4}\left(u_{i,j-1}+u_{i-1,j}+u_{i+1,j}+u_{i,j+1}\right)\]</div>
+<p>The solution of this system can be found iteratively, by starting with a suitable initial guess for the whole field <span class="math notranslate nohighlight">\(u\)</span> and applying the formulas until (hopefully!) a fixed solution is determined. This is known as <em>jacobi iteration</em>. To speed up convergence, the iterations can be applied sequentially to each grid-point; for example by sweeping from top-left to bottom right of  the domain and updating each grid point in turn. This technique is known as the <em>Gauss-Seidel</em> relaxation method.\</p>
+<p>A less obvious improvement in the technique, known as <em>sucessive relaxation</em>, starts with the observation that in each update step we obtain a relationship of the form</p>
+<div class="math notranslate nohighlight">
+\[u_{i,j}^{(new)}=u_{i,j}^{(old)}+r_{i,j}, \qquad u^{(new)}_{i,j}=F(u^{(old)})_{i,j}\]</div>
+<p>where <span class="math notranslate nohighlight">\(r_{i,j}\)</span> is the residual error. The proposal allows that faster convergence might be obtained by adjusting the update step in proportion to the size of the residual, which is supposed to converge to zero:</p>
+<div class="math notranslate nohighlight" id="equation-relax">
+<span class="eqno">(8.3)<a class="headerlink" href="#equation-relax" title="Permalink to this equation">¶</a></span>\[u_{i,j}^{(new)}=u_{i,j}^{(old)}+\gamma r_{i,j}, \qquad r_{i,j}=F(u^{(old)})_{i,j} -u^{(old)}_{i,j}\]</div>
+<p>The relaxation parameter <span class="math notranslate nohighlight">\(\gamma\)</span> is selected for faster convergence, with</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\gamma&gt;1\)</span> over-relaxation,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma=1\)</span> gives the ordinary GS method,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma&lt;1\)</span> under-relaxation.</p></li>
+</ul>
+<p>It is very difficult to predict the optimum value of <span class="math notranslate nohighlight">\(\gamma\)</span>, but values in the range <span class="math notranslate nohighlight">\((1,2)\)</span> typically work well.\</p>
+<p>An example implementation of the Jacobi, Gauss-Seidel and SOR techniques is given below.</p>
+</div>
+<div class="section" id="example-implementation-of-the-jacobi-gauss-seidel-and-sor-techniques-in-python">
+<h3><span class="section-number">8.3.3. </span>Example implementation of the Jacobi, Gauss-Seidel and SOR techniques in python<a class="headerlink" href="#example-implementation-of-the-jacobi-gauss-seidel-and-sor-techniques-in-python" title="Permalink to this headline">¶</a></h3>
+<p><strong>Aim</strong>: solving <span class="math notranslate nohighlight">\(u^{\prime\prime}(x) = sin(2\pi x)\)</span> for <span class="math notranslate nohighlight">\(u(0) = u(1) = 0\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing the relevant packages for the example</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span><span class="p">,</span><span class="n">pi</span><span class="p">,</span> <span class="n">sqrt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="kn">import</span> <span class="n">eig</span><span class="p">,</span> <span class="n">norm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Setting the grid space</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Matrix method</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">],(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)))</span> \
+    <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> \
+        <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">k</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+
+<span class="n">umatr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+<span class="c1"># Plot of matrix solution</span>
+<span class="n">plot_obj</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">umatr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;rx&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,[</span><span class="o">-</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="o">/</span><span class="n">pi</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">plot_obj</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;estimate&#39;</span><span class="p">,</span><span class="s1">&#39;analytic&#39;</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Define the SOR parameter</strong>
+The optimum parameter for Successive Over-Relaxation (SOR) can be predicted.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">M</span><span class="p">)),</span> <span class="n">M</span><span class="p">,</span> <span class="n">rcond</span><span class="o">=</span><span class="kc">None</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">m</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">eig</span><span class="p">(</span><span class="n">C</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">sor</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">m</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Iterative methods</strong>
+Let us first define the functions for the Jacobi, Gauss-Seidel and SOR algorithms. You can find them hidden below.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">jac</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+    <span class="c1"># Jacobi Iteration</span>
+    <span class="n">u1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">((</span><span class="n">u0</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span><span class="o">+</span><span class="n">u0</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">u0</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])))</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])),</span> \
+        <span class="p">(</span><span class="n">u0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u0</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="k">return</span> <span class="n">u1</span>
+
+<span class="k">def</span> <span class="nf">gsl</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
+    <span class="c1"># Gauss-Seidel iteration</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">u0</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">u0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">u0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">u0</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">k</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">u0</span>
+
+<span class="k">def</span> <span class="nf">rlx</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span><span class="n">k</span><span class="p">,</span><span class="n">g</span><span class="p">):</span>
+    <span class="c1"># Relaxation method using relaxation parameter g</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">u0</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">u1</span> <span class="o">=</span> <span class="p">(</span><span class="n">u0</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">u0</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">k</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">/</span><span class="mi">2</span>
+        <span class="n">u0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">u0</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">g</span><span class="o">*</span><span class="p">(</span><span class="n">u1</span><span class="o">-</span><span class="n">u0</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">u0</span>
+
+<span class="k">def</span> <span class="nf">iterate</span><span class="p">(</span><span class="n">testfun</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">maxit</span><span class="p">,</span> <span class="n">accgoal</span><span class="p">):</span>
+    <span class="c1"># Iterate until converged to within specified accuracy</span>
+
+    <span class="k">for</span> <span class="n">counter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">maxit</span><span class="p">)):</span>
+        <span class="n">uref</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">u0</span><span class="p">)</span>
+        <span class="n">unext</span> <span class="o">=</span> <span class="n">testfun</span><span class="p">(</span><span class="n">u0</span><span class="p">)</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">unext</span><span class="o">-</span><span class="n">uref</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">err</span><span class="o">&lt;</span><span class="n">accgoal</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;converged after&#39;</span><span class="p">,</span> <span class="n">counter</span><span class="p">,</span> <span class="s1">&#39;iterations&#39;</span><span class="p">)</span>
+            <span class="k">break</span>
+        <span class="n">u0</span> <span class="o">=</span> <span class="n">unext</span>
+
+    <span class="k">return</span> <span class="n">unext</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize grid for iterative method</span>
+<span class="n">u0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,))</span>
+
+<span class="c1"># Jacobi method</span>
+<span class="n">ujac</span> <span class="o">=</span> <span class="n">iterate</span><span class="p">(</span><span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="p">(</span><span class="n">jac</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">k</span><span class="p">)),</span><span class="n">u0</span><span class="p">,</span><span class="mf">1e3</span><span class="p">,</span><span class="mf">1e-5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gauss-Seidel</span>
+<span class="n">ugsl</span> <span class="o">=</span> <span class="n">iterate</span><span class="p">(</span><span class="k">lambda</span> <span class="n">u</span><span class="p">:</span> <span class="n">gsl</span><span class="p">(</span><span class="n">u</span><span class="p">,</span><span class="n">k</span><span class="p">),</span><span class="n">u0</span><span class="p">,</span><span class="mf">1e3</span><span class="p">,</span><span class="mf">1e-5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="d-heat-equation-with-dirichlet-conditions">
+<h2><span class="section-number">8.4. </span>2D heat equation with Dirichlet conditions<a class="headerlink" href="#d-heat-equation-with-dirichlet-conditions" title="Permalink to this headline">¶</a></h2>
+<p>We will consider the problem</p>
+<div class="amsmath math notranslate nohighlight" id="equation-c79fba81-7771-4865-90b7-419c8830e6ca">
+<span class="eqno">(8.4)<a class="headerlink" href="#equation-c79fba81-7771-4865-90b7-419c8830e6ca" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+\Delta u=f(x,y), \qquad 0\leq x,y\leq 1, \qquad \Delta = \frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}.
+\end{equation}\]</div>
+<p>By applying the second derivative central difference formula at the interior points:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+%\begin{rcases}
+u_{xx}(x_i,y_j) = \frac{u_{i+1,j}-2u_{i,j}+u_{i-1,j}}{h^2},\quad
+u_{yy}(x_i,y_j) = \frac{u_{i,j+1}-2u_{i,j}+u_{i,j-1}}{h^2}.
+%\end{rcases}2\leq i,j\leq N-1
+\end{equation*}\]</div>
+<p>we obtain</p>
+<div class="amsmath math notranslate nohighlight" id="equation-2060c134-000b-4d6d-90f9-e0549122ace9">
+<span class="eqno">(8.5)<a class="headerlink" href="#equation-2060c134-000b-4d6d-90f9-e0549122ace9" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{fivept}
+u_{i,j-1}+u_{i-1,j}-4u_{i,j}+u_{i+1,j}+u_{i,j+1}=h^2 f(x_i,y_j)
+\end{equation}\]</div>
+<p>This is known as the five-point formula. It can be represented using a stencil:</p>
+<br>
+<a class="reference internal image-reference" href="../_images/stencil.png"><img alt="secant" class="align-center" src="../_images/stencil.png" style="width: 180.0px; height: 180.0px;" /></a>
+<br>
+<p>The equation rearranges to the following iterative formula:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-a9237fcd-62a7-487a-b7d5-68654d646b04">
+<span class="eqno">(8.6)<a class="headerlink" href="#equation-a9237fcd-62a7-487a-b7d5-68654d646b04" title="Permalink to this equation">¶</a></span>\[\begin{equation}\label{discr}
+u_{i,j} = \frac{1}{4}\left(u_{i,j-1}+u_{i-1,j}+u_{i+1,j}+u_{i,j+1}-h^2 f(x_i,y_j)\right)
+\end{equation}\]</div>
+<p><strong>Step 1:</strong>
+Solve the problem using an iterative solution technique, for the case where:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+f(x,y) = 2\cos(\pi y)-\pi^2(1+x)^2\cos(\pi y),
+\end{equation*}\]</div>
+<p>subject to the conditions</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+u(x,0)=(1+x)^2, \quad u(x,1)=-(1+x)^2,\\
+u(0,y)=\cos(\pi y), \quad u(1,y)=4\cos(\pi y).
+\end{align*}\]</div>
+<p><strong>Step 2:</strong>
+Compare your solution to the analytic result, which is given by</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u(x,y)=(1+x)^2\cos(\pi y).
+\end{equation*}\]</div>
+<p><strong>Step 3:</strong>
+Solve the problem using an iterative solution technique, for the case where:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-65917d2c-686b-4cbe-80d1-baa2202499ac">
+<span class="eqno">(8.7)<a class="headerlink" href="#equation-65917d2c-686b-4cbe-80d1-baa2202499ac" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+f(x,y)=-5 \sin(3\pi x)\cos(2\pi y),
+\end{equation}\]</div>
+<p>subject to the conditions</p>
+<div class="amsmath math notranslate nohighlight" id="equation-88e5578c-b96d-405d-a562-f43af663a2c9">
+<span class="eqno">(8.8)<a class="headerlink" href="#equation-88e5578c-b96d-405d-a562-f43af663a2c9" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+u_x(0,y)=0, \quad u_x(1,y)=0, \quad u_y(x,0)=0, \quad u_y(x,1)=0.
+\end{equation}\]</div>
+<p><em>Hint: to enforce the Neumann boundary conditions, you can use the first order central differences approximation</em></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u_x(x,y) = \frac{u(x+h,y)-u(x-h,y)}{2h}, \quad u_y(x,y) = \frac{u(x,y+k)-u(x,y-k)}{2h}
+\end{equation*}\]</div>
+<p><em>The expressions to enforce these conditions at the boundary are given in terms of the result at nodes outside the boundaries. We can construct the required ``fictitious’’ nodes and remove them from out solution at the end.</em></p>
+<p><strong>Part 1:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clear</span>
+
+<span class="o">%</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">RHS</span> <span class="n">of</span> <span class="n">the</span> <span class="n">equation</span>
+<span class="n">f</span><span class="o">=@</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)(</span><span class="mi">2</span><span class="o">-</span><span class="n">pi</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span><span class="o">.*</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">y</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">the</span> <span class="n">grid</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span> <span class="n">y</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">Useful</span> <span class="n">to</span> <span class="n">store</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="n">an</span> <span class="n">array</span> <span class="ow">and</span> <span class="n">use</span> <span class="n">F</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="n">instead</span> <span class="n">of</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">y</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+<span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span><span class="o">=</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="s1">&#39;,y.&#39;</span><span class="p">);</span> <span class="n">F</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">determine</span> <span class="n">grid</span> <span class="n">size</span>
+<span class="n">h</span> <span class="o">=</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">to</span> <span class="n">hold</span> <span class="n">the</span> <span class="n">solutions</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">enforce</span> <span class="n">boundary</span> <span class="n">conditions</span>
+<span class="n">U</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">;</span>    <span class="n">U</span><span class="p">(</span><span class="n">end</span><span class="p">,:)</span><span class="o">=-</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">U</span><span class="p">(:,</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">y</span><span class="p">);</span>   <span class="n">U</span><span class="p">(:,</span><span class="n">end</span><span class="p">)</span><span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">y</span><span class="p">);</span>
+
+<span class="o">%</span><span class="n">relaxation</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="n">r</span><span class="o">=</span><span class="mi">1</span> <span class="k">for</span> <span class="n">Gauss</span><span class="o">-</span><span class="n">Seidel</span><span class="o">.</span>
+<span class="o">%</span> <span class="n">You</span> <span class="n">could</span> <span class="k">try</span> <span class="n">some</span> <span class="n">higher</span> <span class="n">values</span> <span class="k">for</span> <span class="n">relaxation</span><span class="o">.</span>
+<span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">U</span><span class="p">);</span>
+<span class="k">for</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">300</span> <span class="o">%</span><span class="k">for</span> <span class="n">each</span> <span class="n">sweep</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">:</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span>
+            <span class="n">Unew</span> <span class="o">=</span> <span class="p">(</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="mi">4</span><span class="o">-</span><span class="n">h</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="n">F</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span>
+            <span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="n">Unew</span><span class="o">-</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">));</span>
+        <span class="n">end</span>
+    <span class="n">end</span>
+<span class="n">end</span>
+
+<span class="o">%</span> <span class="n">compare</span> <span class="n">to</span> <span class="n">analytic</span> <span class="n">results</span>
+<span class="n">T</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">X</span><span class="p">)</span><span class="o">.^</span><span class="mf">2.</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">Y</span><span class="p">);</span>
+
+<span class="n">figure</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">T</span><span class="p">);</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Exact&#39;</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="nb">abs</span><span class="p">(</span><span class="n">U</span><span class="o">-</span><span class="n">T</span><span class="p">));</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Gauss-Seidel error&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Part 2:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">RHS</span> <span class="n">of</span> <span class="n">the</span> <span class="n">equation</span>
+<span class="n">f</span><span class="o">=@</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)(</span><span class="o">-</span><span class="mi">5</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="o">.*</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">y</span><span class="p">));</span>
+
+<span class="o">%</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">the</span> <span class="n">grid</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span> <span class="n">y</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+
+<span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span><span class="o">=</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+<span class="n">F</span><span class="o">=</span><span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">determine</span> <span class="n">grid</span> <span class="n">size</span>
+<span class="n">h</span> <span class="o">=</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">the</span> <span class="n">solution</span> <span class="n">grid</span> <span class="ow">is</span> <span class="n">padded</span> <span class="k">with</span> <span class="n">fictitious</span> <span class="n">nodes</span> <span class="n">to</span> <span class="n">remove</span> <span class="n">at</span> <span class="n">the</span> <span class="n">end</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span><span class="n">n</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">we</span> <span class="n">need</span> <span class="n">to</span> <span class="n">pad</span> <span class="n">F</span> <span class="k">as</span> <span class="n">well</span><span class="p">,</span> <span class="n">so</span> <span class="n">that</span> <span class="n">the</span> <span class="n">two</span> <span class="n">grids</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">mismatched</span>
+<span class="n">F</span><span class="o">=</span><span class="n">padarray</span><span class="p">(</span><span class="n">F</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]);</span>
+
+<span class="n">r</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="o">%</span><span class="n">relaxation</span> <span class="n">parameter</span> <span class="ow">is</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">Gauss</span><span class="o">-</span><span class="n">Seidel</span>
+
+<span class="p">[</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span><span class="n">U</span><span class="p">);</span>
+<span class="k">for</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="mi">500</span> <span class="o">%</span><span class="k">for</span> <span class="n">each</span> <span class="n">sweep</span>
+    <span class="o">%</span><span class="n">enforce</span> <span class="n">boundary</span> <span class="n">conditions</span> <span class="n">on</span> <span class="n">fictitious</span> <span class="n">nodes</span>
+    <span class="n">U</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="o">=</span><span class="n">U</span><span class="p">(</span><span class="mi">3</span><span class="p">,:);</span> <span class="n">U</span><span class="p">(</span><span class="n">n</span><span class="p">,:)</span><span class="o">=</span><span class="n">U</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">,:);</span>   
+    <span class="n">U</span><span class="p">(:,</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="n">U</span><span class="p">(:,</span><span class="mi">3</span><span class="p">);</span> <span class="n">U</span><span class="p">(:,</span><span class="n">m</span><span class="p">)</span><span class="o">=</span><span class="n">U</span><span class="p">(:,</span><span class="n">m</span><span class="o">-</span><span class="mi">2</span><span class="p">);</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">:</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span>
+            <span class="n">Unew</span> <span class="o">=</span> <span class="p">(</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="mi">4</span><span class="o">-</span><span class="n">h</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="n">F</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span>
+            <span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="o">=</span> <span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span><span class="o">+</span><span class="n">r</span><span class="o">*</span><span class="p">(</span><span class="n">Unew</span><span class="o">-</span><span class="n">U</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">));</span>
+        <span class="n">end</span>
+    <span class="n">end</span>
+<span class="n">end</span>
+
+<span class="n">figure</span>
+<span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">U</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="n">end</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Note: If <span class="math notranslate nohighlight">\(\phi_{sol}\)</span> is a solution of this problem, which satisfies the boundary conditions, then <span class="math notranslate nohighlight">\(\phi_{sol}+C\)</span> is also a solution. Hence, it is possible for the surface to appear shifted up or down in your answers.</p>
+<p><strong>Alternatively, using a simultaneous equations technique</strong></p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">cdiffM</span></code> below was written to solve the Poisson problem</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\nabla^2\phi=f
+\end{equation*}\]</div>
+<p>using a matrix method for any possible combination of boundary conditions.
+The function sets up the coefficient matrix for the problem <span class="math notranslate nohighlight">\(A\Phi=F\)</span>, where <span class="math notranslate nohighlight">\(F,Phi\)</span> are the function value and unknown solution at each grid node <span class="math notranslate nohighlight">\((x,y)\)</span>, arranged as vectors.
+Array <span class="math notranslate nohighlight">\(A\)</span>  is the (sparse) coefficient matrix that relates each node to its neighbours using the five-point formula. The boundary equations are modified to use any specified boundary conditions.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span> <span class="n">Question</span> <span class="mi">1</span>
+<span class="o">%</span> <span class="nb">set</span> <span class="n">up</span> <span class="n">the</span> <span class="n">grid</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span> <span class="n">y</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span><span class="o">=</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+
+<span class="o">%</span><span class="n">determine</span> <span class="n">grid</span> <span class="n">size</span>
+<span class="n">h</span> <span class="o">=</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">RHS</span> <span class="k">with</span> <span class="n">enforced</span> <span class="n">boundary</span> <span class="n">conditions</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">h</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">-</span><span class="n">pi</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">X</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span><span class="o">.*</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">Y</span><span class="p">);</span>
+<span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span>   <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">;</span>   <span class="n">F</span><span class="p">(</span><span class="n">end</span><span class="p">,:)</span> <span class="o">=-</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">F</span><span class="p">(:,</span><span class="mi">1</span><span class="p">)</span>   <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">y</span><span class="p">);</span>  <span class="n">F</span><span class="p">(:,</span><span class="n">end</span><span class="p">)</span> <span class="o">=</span><span class="mi">4</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">y</span><span class="p">);</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">F</span><span class="p">(:);</span> <span class="o">%</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">a</span> <span class="nb">list</span>
+
+<span class="o">%</span> <span class="n">LHS</span> <span class="k">with</span> <span class="n">enforced</span> <span class="n">boundary</span> <span class="n">conditions</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">cdiffM</span><span class="p">(</span><span class="n">n</span><span class="p">,{</span><span class="s1">&#39;dirichlet&#39;</span><span class="p">,</span><span class="s1">&#39;dirichlet&#39;</span><span class="p">,</span><span class="s1">&#39;dirichlet&#39;</span><span class="p">,</span><span class="s1">&#39;dirichlet&#39;</span><span class="p">},</span><span class="n">F</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">compare</span> <span class="n">to</span> <span class="n">analytic</span> <span class="n">results</span>
+<span class="n">U_exact</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">X</span><span class="p">)</span><span class="o">.^</span><span class="mf">2.</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="n">Y</span><span class="p">);</span>
+
+<span class="n">figure</span><span class="p">;</span> <span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">U</span><span class="p">);</span>
+
+<span class="o">%%</span> <span class="n">Question</span> <span class="mi">2</span>
+<span class="n">n</span><span class="o">=</span><span class="mi">30</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;; y = linspace(0,1,n).&#39;</span><span class="p">;</span> <span class="p">[</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">]</span><span class="o">=</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">);</span>
+
+<span class="o">%</span><span class="n">determine</span> <span class="n">grid</span> <span class="n">size</span>
+<span class="n">h</span> <span class="o">=</span><span class="n">x</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">x</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">RHS</span> <span class="k">with</span> <span class="n">enforced</span> <span class="n">boundary</span> <span class="n">conditions</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">h</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">X</span><span class="p">)</span><span class="o">.*</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">Y</span><span class="p">));</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">padarray</span><span class="p">(</span><span class="n">F</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="mi">0</span><span class="p">);</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">F</span><span class="p">(:);</span> <span class="o">%</span> <span class="n">convert</span> <span class="n">to</span> <span class="n">a</span> <span class="nb">list</span>
+
+<span class="o">%</span> <span class="n">LHS</span> <span class="k">with</span> <span class="n">enforced</span> <span class="n">boundary</span> <span class="n">conditions</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">cdiffM</span><span class="p">(</span><span class="n">n</span><span class="p">,{</span><span class="s1">&#39;neumann&#39;</span><span class="p">,</span><span class="s1">&#39;neumann&#39;</span><span class="p">,</span><span class="s1">&#39;neumann&#39;</span><span class="p">,</span><span class="s1">&#39;neumann&#39;</span><span class="p">},</span><span class="n">F</span><span class="p">);</span>
+
+<span class="n">figure</span><span class="p">;</span> <span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">U</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">function</span> <span class="n">U</span> <span class="o">=</span> <span class="n">cdiffM</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">LRUD</span><span class="p">,</span><span class="n">F</span><span class="p">)</span>
+<span class="o">%</span> <span class="n">Construct</span> <span class="n">the</span> <span class="n">coefficient</span> <span class="n">matrix</span> <span class="k">for</span> <span class="p">(</span><span class="n">nxn</span><span class="p">)</span> <span class="n">implementation</span> <span class="n">of</span> <span class="n">central</span>
+<span class="o">%</span> <span class="n">difference</span> <span class="n">formula</span><span class="p">,</span> <span class="k">with</span> <span class="n">dirichlet</span> <span class="ow">or</span> <span class="n">neumann</span> <span class="n">boundary</span> <span class="n">conditions</span><span class="p">,</span> <span class="ow">and</span>
+<span class="o">%</span> <span class="n">solve</span> <span class="k">for</span> <span class="n">given</span> <span class="n">forcing</span>
+<span class="o">%</span>
+<span class="o">%</span> <span class="n">INPUTS</span>
+<span class="o">%</span> <span class="n">n</span>    <span class="p">:</span> <span class="n">dimensions</span> <span class="n">of</span> <span class="n">grid</span>
+<span class="o">%</span> <span class="n">LRUD</span> <span class="p">:</span> <span class="n">cell</span> <span class="n">array</span> <span class="n">of</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">down</span> <span class="n">boundary</span> <span class="n">types</span>
+<span class="o">%</span>        <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="p">{</span><span class="s1">&#39;neumann&#39;</span><span class="p">,</span><span class="s1">&#39;neumann&#39;</span><span class="p">,</span><span class="s1">&#39;neumann&#39;</span><span class="p">,</span><span class="s1">&#39;neumann&#39;</span><span class="p">}</span>
+<span class="o">%</span> <span class="n">F</span>    <span class="p">:</span> <span class="n">RHS</span> <span class="n">of</span> <span class="n">equation</span>
+<span class="o">%</span>
+<span class="o">%</span> <span class="n">OUTPUTS</span>
+<span class="o">%</span> <span class="n">U</span>    <span class="p">:</span> <span class="n">solutions</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
+
+<span class="o">%</span> <span class="n">Introduce</span> <span class="n">fictitious</span> <span class="n">nodes</span> <span class="n">at</span> <span class="nb">any</span> <span class="n">neumann</span> <span class="n">boundaries</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">),</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">end</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">2</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">),</span> <span class="n">m</span><span class="o">=</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">end</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">3</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">end</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">4</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">end</span>
+
+<span class="n">nodes</span> <span class="o">=</span> <span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">n</span><span class="o">*</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">);</span> <span class="o">%</span> <span class="n">number</span> <span class="n">the</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">our</span> <span class="p">(</span><span class="n">n</span> <span class="n">x</span> <span class="n">m</span><span class="p">)</span> <span class="n">domain</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>  <span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">:</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>      <span class="o">%</span> <span class="n">location</span> <span class="n">of</span> <span class="n">interior</span> <span class="n">nodes</span>
+
+<span class="o">%</span> <span class="n">nodes</span> <span class="ow">and</span> <span class="n">neighbours</span> <span class="ow">in</span> <span class="n">five</span><span class="o">-</span><span class="n">point</span> <span class="n">formula</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="n">R</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">);</span> <span class="n">D</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">order</span> <span class="n">the</span> <span class="n">five</span><span class="o">-</span><span class="n">point</span>  <span class="n">indices</span> <span class="k">as</span> <span class="n">a</span> <span class="nb">list</span>
+<span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">D</span><span class="p">(:),</span> <span class="n">L</span><span class="p">(:),</span> <span class="n">C</span><span class="p">(:),</span> <span class="n">R</span><span class="p">(:),</span> <span class="n">U</span><span class="p">(:)];</span>
+
+<span class="o">%</span> <span class="n">construct</span> <span class="n">the</span> <span class="n">array</span> <span class="n">by</span> <span class="n">looping</span> <span class="n">over</span> <span class="n">the</span> <span class="n">rows</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="o">*</span><span class="n">m</span><span class="p">);</span> <span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">numel</span><span class="p">(</span><span class="n">C</span><span class="p">),</span> <span class="n">M</span><span class="p">(</span><span class="n">C</span><span class="p">(</span><span class="n">k</span><span class="p">),</span><span class="n">idx</span><span class="p">(</span><span class="n">k</span><span class="p">,:))</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="mi">1</span> <span class="o">-</span><span class="mi">4</span> <span class="mi">1</span> <span class="mi">1</span><span class="p">];</span> <span class="n">end</span>
+
+<span class="o">%%</span> <span class="n">apply</span> <span class="n">boundary</span> <span class="n">conditions</span>
+
+<span class="o">%</span> <span class="n">left</span> <span class="n">boundary</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">neumann</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">nodes</span><span class="p">(:,</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">),[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]);</span>
+<span class="k">else</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">dirichlet</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">nodes</span><span class="p">(:,</span><span class="mi">1</span><span class="p">));</span>
+<span class="n">end</span>
+
+<span class="o">%</span> <span class="n">right</span> <span class="n">boundary</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">2</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">neumann</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">fliplr</span><span class="p">(</span><span class="n">nodes</span><span class="p">(:,</span><span class="n">end</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="n">end</span><span class="p">)),[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+<span class="k">else</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">dirichlet</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">fliplr</span><span class="p">(</span><span class="n">nodes</span><span class="p">(:,</span><span class="n">end</span><span class="p">)));</span>
+<span class="n">end</span>
+
+<span class="o">%</span> <span class="n">upper</span> <span class="n">boundary</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">3</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">neumann</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">nodes</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">,:)</span><span class="o">.</span><span class="s1">&#39;,[-1,1]);</span>
+<span class="k">else</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">dirichlet</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">nodes</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="o">.</span><span class="s1">&#39;);</span>
+<span class="n">end</span>
+
+<span class="o">%</span> <span class="n">lower</span> <span class="n">boundary</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">4</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">)</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">neumann</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">fliplr</span><span class="p">(</span><span class="n">nodes</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="n">end</span><span class="p">,:)</span><span class="o">.</span><span class="s1">&#39;),[1,-1]);</span>
+<span class="k">else</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">dirichlet</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">nodes</span><span class="p">(</span><span class="n">end</span><span class="p">,:)</span><span class="o">.</span><span class="s1">&#39;);</span>
+<span class="n">end</span>
+
+<span class="o">%%</span> <span class="n">solve</span> <span class="n">the</span> <span class="n">system</span>
+<span class="n">U</span> <span class="o">=</span> <span class="n">reshape</span><span class="p">(</span><span class="n">M</span>\<span class="n">F</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">m</span><span class="p">);</span>
+
+<span class="o">%</span> <span class="n">cut</span> <span class="n">off</span> <span class="nb">any</span> <span class="n">fictitious</span> <span class="n">nodes</span> <span class="n">that</span> <span class="n">were</span> <span class="n">introduced</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">1</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">),</span><span class="n">U</span><span class="p">(:,</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="p">[];</span><span class="n">end</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">2</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">),</span><span class="n">U</span><span class="p">(:,</span><span class="n">end</span><span class="p">)</span><span class="o">=</span><span class="p">[];</span><span class="n">end</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">3</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">),</span><span class="n">U</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="o">=</span><span class="p">[];</span><span class="n">end</span>
+<span class="k">if</span> <span class="n">strcmpi</span><span class="p">(</span><span class="n">LRUD</span><span class="p">{</span><span class="mi">4</span><span class="p">},</span><span class="s1">&#39;neumann&#39;</span><span class="p">),</span><span class="n">U</span><span class="p">(</span><span class="n">end</span><span class="p">,:)</span><span class="o">=</span><span class="p">[];</span><span class="n">end</span>
+
+<span class="n">end</span>
+
+<span class="n">function</span> <span class="n">M</span> <span class="o">=</span> <span class="n">dirichlet</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">C</span><span class="p">)</span>
+<span class="o">%</span> <span class="n">Apply</span> <span class="n">dirirchlet</span> <span class="n">boundary</span> <span class="n">conditions</span> <span class="n">at</span> <span class="n">nodes</span> <span class="n">numbered</span> <span class="ow">in</span> <span class="n">vector</span> <span class="n">C</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">numel</span><span class="p">(</span><span class="n">C</span><span class="p">),</span> <span class="n">M</span><span class="p">(</span><span class="n">C</span><span class="p">(</span><span class="n">k</span><span class="p">),</span><span class="n">C</span><span class="p">(</span><span class="n">k</span><span class="p">))</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">end</span>
+<span class="n">end</span>
+
+<span class="n">function</span> <span class="n">M</span> <span class="o">=</span> <span class="n">neumann</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">idx</span><span class="p">,</span><span class="n">coeffs</span><span class="p">)</span>
+<span class="o">%</span> <span class="n">Apply</span> <span class="n">neumann</span> <span class="n">boundary</span> <span class="n">conditions</span> <span class="n">at</span> <span class="n">nodes</span> <span class="n">idx</span> <span class="o">=</span> <span class="p">[</span><span class="n">L</span> <span class="n">C</span> <span class="n">R</span><span class="p">]</span> <span class="ow">or</span> <span class="p">[</span><span class="n">U</span> <span class="n">C</span> <span class="n">D</span><span class="p">]</span><span class="o">.</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="p">:</span><span class="n">size</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">M</span><span class="p">(</span><span class="n">idx</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">),[</span><span class="n">idx</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">idx</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="mi">3</span><span class="p">)])</span> <span class="o">=</span> <span class="n">coeffs</span><span class="p">;</span> <span class="n">end</span>
+<span class="n">end</span>
+</pre></div>
+</div>
+<div class="section" id="neumann">
+<h3><span class="section-number">8.4.1. </span>Neumann<a class="headerlink" href="#neumann" title="Permalink to this headline">¶</a></h3>
+<p>Examples</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}+y=0, \qquad y^{\prime}(a)=\alpha, \quad y^{\prime}(b)=\beta
+\end{equation*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\nabla^2 y + y = 0 \qquad \nabla y(x).\hat{\underline{n}}=f(\underline{x}), \ \forall \underline{x} \in \partial\underline{\Omega}
+\end{equation*}\]</div>
+<p>Uses fictitious nodes at each end (give single example)</p>
+</div>
+<div class="section" id="new-section">
+<h3><span class="section-number">8.4.2. </span>new section<a class="headerlink" href="#new-section" title="Permalink to this headline">¶</a></h3>
+<p><strong>Schr”{o}dinger equation</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}(x)+y(x)=\lambda q(x)y(x), \qquad q(x)=\frac{1}{1+e^{(x-r)/\epsilon}}
+\end{equation*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y(0)=0, \qquad \lim_{x\rightarrow\infty}y(x)=0
+\end{equation*}\]</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./finitediff"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="cauchy-pde.html" title="previous page"><span class="section-number">7. </span>Cauchy problem - PDE</a>
+    <a class='right-next' id="next-link" href="further_problems.html" title="next page"><span class="section-number">9. </span>Partial differential equations</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Natural Sciences<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

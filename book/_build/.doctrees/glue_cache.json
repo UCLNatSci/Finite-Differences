@@ -1,1 +1,36 @@
-{}
+{
+  "finitediff\\dirichlet-ode": {
+    "1dheat_fig": {
+      "output_type": "display_data",
+      "metadata": {
+        "scrapbook": {
+          "name": "1dheat_fig",
+          "mime_prefix": "application/papermill.record/"
+        },
+        "filenames": {
+          "image/png": "C:\\Users\\Ella Metcalfe\\OneDrive - University College London\\Finite-Differences\\book\\_build\\jupyter_execute\\finitediff\\dirichlet-ode_3_0.png"
+        }
+      },
+      "data": {
+        "application/papermill.record/text/plain": "<Figure size 432x288 with 2 Axes>",
+        "application/papermill.record/image/png": null
+      }
+    },
+    "axisymm_fig": {
+      "output_type": "display_data",
+      "metadata": {
+        "scrapbook": {
+          "name": "axisymm_fig",
+          "mime_prefix": "application/papermill.record/"
+        },
+        "filenames": {
+          "image/png": "C:\\Users\\Ella Metcalfe\\OneDrive - University College London\\Finite-Differences\\book\\_build\\jupyter_execute\\finitediff\\dirichlet-ode_18_0.png"
+        }
+      },
+      "data": {
+        "application/papermill.record/text/plain": "<Figure size 432x288 with 2 Axes>",
+        "application/papermill.record/image/png": null
+      }
+    }
+  }
+}

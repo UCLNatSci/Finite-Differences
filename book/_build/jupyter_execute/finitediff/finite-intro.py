@@ -131,11 +131,11 @@ plt.show()
 import numpy as np
 import matplotlib.pyplot as plt
 
-y= lambda x: np.sin(x)+x          #function to be differentiated
-xk = np.linspace(-np.pi,np.pi)    #array of 100 equally spaced values
+y= lambda x: np.sin(x)+x            #function to be differentiated
+xk = np.linspace(-np.pi,np.pi,100)  #array of 100 equally spaced values
 
-h=1e-4                            #step size
-d = (y(xk+h)-y(xk))/h             #derivative estimate
+h=1e-4                              #step size
+d = (y(xk+h)-y(xk))/h               #derivative estimate
 
 plt.plot(xk,d)
 plt.xlabel('x')
