@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Higher order IVP
+# Second order IVP
 
 This section is concerned with the solution of a general class of second order ODE, in which we are given the initial value of the function and its derivative.
 

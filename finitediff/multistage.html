@@ -56,7 +56,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="6. Higher order IVP" href="cauchy-ode.html" />
+    <link rel="next" title="6. Second order IVP" href="cauchy-ode.html" />
     <link rel="prev" title="4. Initial value problem" href="ivp.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -120,12 +120,27 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="cauchy-ode.html">
-   6. Higher order IVP
+   6. Second order IVP
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="dirichlet-ode.html">
-   7. Higher order BVP
+   7. Second order BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="heat.html">
+   8. Partial BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-pde.html">
+   9. Non-steady BVPs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pde_theory.html">
+   10. (some) PDE theory
   </a>
  </li>
 </ul>
@@ -273,11 +288,11 @@
 <div class="section" id="modified-euler-method">
 <h2><span class="section-number">5.1. </span>Modified Euler method<a class="headerlink" href="#modified-euler-method" title="Permalink to this headline">¶</a></h2>
 <p>If we approximate the derivative using the central differences formula, then we obtain</p>
-<div class="amsmath math notranslate nohighlight" id="equation-de3a95e0-108c-42cf-bd5c-8815300ea5c6">
-<span class="eqno">(5.1)<a class="headerlink" href="#equation-de3a95e0-108c-42cf-bd5c-8815300ea5c6" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)\simeq y(x_k)+f\biggr(x_k+\frac{h}{2},y\left(x_k+\frac{h}{2}\right)\biggr)\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-f3e7ec64-bfa4-4e33-8015-5f37ad7b18d7">
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-f3e7ec64-bfa4-4e33-8015-5f37ad7b18d7" title="Permalink to this equation">¶</a></span>\[\begin{equation}y(x_k+h)\simeq y(x_k)+f\biggr(x_k+\frac{h}{2},y\left(x_k+\frac{h}{2}\right)\biggr)\end{equation}\]</div>
 <p>This result requires the solutions for both the previous value <span class="math notranslate nohighlight">\(y_k\)</span> and <span class="math notranslate nohighlight">\(y_{k+1/2}\)</span>. However, we can use Euler’s explicit formula with a half-step to estimate this value. Due to the nesting of the approximation this does not affect the accuracy of the method, which remains quadratic order. The resulting explicit algorithm, which is known as the modified Euler scheme can be calculated via a two-stage process:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-8498233f-80ad-4e7d-954f-094fd8d0aab6">
-<span class="eqno">(5.2)<a class="headerlink" href="#equation-8498233f-80ad-4e7d-954f-094fd8d0aab6" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_1\right), \qquad y_{k+1}=y_k+h s_2\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-118e6764-7d06-4dca-8523-09edd0a6fef2">
+<span class="eqno">(5.2)<a class="headerlink" href="#equation-118e6764-7d06-4dca-8523-09edd0a6fef2" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f\left(x_k+\frac{h}{2},y_k+\frac{h}{2}s_1\right), \qquad y_{k+1}=y_k+h s_2\end{equation}\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(s_1\)</span> is the first estimate for the slope, using the left-hand derivative rule <span class="math notranslate nohighlight">\(s_2\)</span> is the modified estimate for the slope at the midpoint.</p>
 <p>An example implementation is shown below:</p>
 <div class="cell docutils container">
@@ -302,11 +317,11 @@
 <div class="section" id="improved-euler-method-heuns-method">
 <h2><span class="section-number">5.2. </span>Improved Euler method (Heun’s method)<a class="headerlink" href="#improved-euler-method-heuns-method" title="Permalink to this headline">¶</a></h2>
 <p>Recall that the trapezoidal rule <a class="reference internal" href="ivp.html#equation-trapz">(4.9)</a> also gave quadratic order accuracy, but using it involved solving an implicit relationship involving <span class="math notranslate nohighlight">\(y_{k+1}\)</span>.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c7f97a6f-1636-44fc-b5f5-b32b44cf2bf1">
-<span class="eqno">(5.3)<a class="headerlink" href="#equation-c7f97a6f-1636-44fc-b5f5-b32b44cf2bf1" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+\frac{h}{2}\biggr[f(x_k,y_k)+f(x_{k+1},y_{k+1})\biggr]\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-a398065f-fb27-48ac-b9f5-147066c33caf">
+<span class="eqno">(5.3)<a class="headerlink" href="#equation-a398065f-fb27-48ac-b9f5-147066c33caf" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+\frac{h}{2}\biggr[f(x_k,y_k)+f(x_{k+1},y_{k+1})\biggr]\end{equation}\]</div>
 <p>Again, we can replace this value on the right-hand side of the equation by the explicit Euler method, giving the following quadratic order multi-stage method:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-6de1f83a-6f1e-4975-8857-74ae78e244d8">
-<span class="eqno">(5.4)<a class="headerlink" href="#equation-6de1f83a-6f1e-4975-8857-74ae78e244d8" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f(x_{k+1},y_k+h s_1), \qquad y_{k+1}=y_k+\frac{h}{2}(s_1+s_2)\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-271b9b06-d021-4d03-975c-bbb8e31638f6">
+<span class="eqno">(5.4)<a class="headerlink" href="#equation-271b9b06-d021-4d03-975c-bbb8e31638f6" title="Permalink to this equation">¶</a></span>\[\begin{equation}s_1=f(x_k,y_k), \quad s_2=f(x_{k+1},y_k+h s_1), \qquad y_{k+1}=y_k+\frac{h}{2}(s_1+s_2)\end{equation}\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(s_1\)</span> is the first estimate for the slope, using the left-hand derivative rule <span class="math notranslate nohighlight">\(s_2\)</span> is the modified estimate for the slope at the right-hand point.</p>
 <p>An example implementation is shown below</p>
 <div class="cell docutils container">
@@ -331,12 +346,12 @@
 <div class="section" id="runge-kutta-methods">
 <h2><span class="section-number">5.3. </span>Runge Kutta methods<a class="headerlink" href="#runge-kutta-methods" title="Permalink to this headline">¶</a></h2>
 <p>By using more locations (stages) we can improve the local accuracy of the method at the expense of performing additional calculations. The computation time for each step increases linearly with the number of stages, but this is usually offset by the ability to use fewer steps to obtain the required accuracy. Runge-kutta methods are general one-step, multi-stage methods of the form</p>
-<div class="amsmath math notranslate nohighlight" id="equation-999517d6-76bd-4fe4-861f-1e7b6d566263">
-<span class="eqno">(5.5)<a class="headerlink" href="#equation-999517d6-76bd-4fe4-861f-1e7b6d566263" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+h\sum_{i=1}^n b_i s_i, \qquad s_i = f\left(x_k+c_i h,y_k+h\sum_{j=1}^{n}a_{i,j}s_j\right)\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-b57a749a-08f2-4665-afd3-931250cae244">
+<span class="eqno">(5.5)<a class="headerlink" href="#equation-b57a749a-08f2-4665-afd3-931250cae244" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_{k+1}=y_k+h\sum_{i=1}^n b_i s_i, \qquad s_i = f\left(x_k+c_i h,y_k+h\sum_{j=1}^{n}a_{i,j}s_j\right)\end{equation}\]</div>
 <p>where <span class="math notranslate nohighlight">\(k\)</span> is the number of stages, <span class="math notranslate nohighlight">\(A =(a_{i,j})\)</span> is a (<span class="math notranslate nohighlight">\(n\times n\)</span>) constant matrix, and <span class="math notranslate nohighlight">\(B=(b_i)\)</span>, <span class="math notranslate nohighlight">\(C=(c_i)\)</span> are constant vectors. The method takes a weighted average of several adjusted slopes and is explicit only if <span class="math notranslate nohighlight">\(A\)</span> is lower diagonal.</p>
 <p>The choice of coefficients follows from expanding expression the expression for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> fully in terms of <span class="math notranslate nohighlight">\(f(x_k,y_k)\)</span> and its derivatives. The result can then be compared to the Taylor expansion for <span class="math notranslate nohighlight">\(y_{k+1}\)</span> which satisfies the initial value problem to determine the coefficients. Results for the coefficients are often represented as a “Butcher Tableau”, which you can look up:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-74eed029-1361-4304-bbab-6f790bdfa389">
-<span class="eqno">(5.6)<a class="headerlink" href="#equation-74eed029-1361-4304-bbab-6f790bdfa389" title="Permalink to this equation">¶</a></span>\[\begin{equation}\begin{array}{c|ccccc}c_1=0 &amp; \\c_2 &amp; a_{2,1}\\c_3&amp; a_{3,1} &amp; a_{3,2}\\\vdots&amp;\vdots &amp; &amp; \ddots\\c_n&amp;a_{n,1}&amp; a_{n,2} &amp;\dots &amp;a_{n,n-1}\\\hline &amp;b_1 &amp;b_2&amp; &amp;\dots &amp;b_n\end{array} \quad \begin{array}{cl}\phantom{c_0}&amp;s_1 = (x_k,y_k)\\\phantom{c_1} &amp;s_2 = f(x_k+c_2 h,y_k+ha_{2,1}s_1)\\\phantom{c_2}&amp;s_3 = f(x_k+c_3 ,y_k+h(a_{3,1}s_1+a_{3,2}s_2)\\\vdots{}\\\phantom{c_n} &amp;s_n = f(x_k+c_n h,y_k+h(a_{n,1}s_1+a_{n,2}s_2+\dots))\\ &amp;y_{k+1}=y_k+h(b_1 s_1 + b_2 s_2 +\dots) +b_k s_n\end{array}\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-194e3dea-e584-4c96-a3c3-a647e3f246cf">
+<span class="eqno">(5.6)<a class="headerlink" href="#equation-194e3dea-e584-4c96-a3c3-a647e3f246cf" title="Permalink to this equation">¶</a></span>\[\begin{equation}\begin{array}{c|ccccc}c_1=0 &amp; \\c_2 &amp; a_{2,1}\\c_3&amp; a_{3,1} &amp; a_{3,2}\\\vdots&amp;\vdots &amp; &amp; \ddots\\c_n&amp;a_{n,1}&amp; a_{n,2} &amp;\dots &amp;a_{n,n-1}\\\hline &amp;b_1 &amp;b_2&amp; &amp;\dots &amp;b_n\end{array} \quad \begin{array}{cl}\phantom{c_0}&amp;s_1 = (x_k,y_k)\\\phantom{c_1} &amp;s_2 = f(x_k+c_2 h,y_k+ha_{2,1}s_1)\\\phantom{c_2}&amp;s_3 = f(x_k+c_3 ,y_k+h(a_{3,1}s_1+a_{3,2}s_2)\\\vdots{}\\\phantom{c_n} &amp;s_n = f(x_k+c_n h,y_k+h(a_{n,1}s_1+a_{n,2}s_2+\dots))\\ &amp;y_{k+1}=y_k+h(b_1 s_1 + b_2 s_2 +\dots) +b_k s_n\end{array}\end{equation}\]</div>
 <p>For example, the modified Euler and Heun’s improved Euler methods are both examples of two stage RK methods, which demonstrate quadratic order accuracy.</p>
 <p><strong>Modified Euler</strong>:</p>
 <div class="math notranslate nohighlight">
@@ -397,7 +412,7 @@ In this manner, you can build up a matrix of values</p>
         <div class='prev-next-bottom'>
             
     <a class='left-prev' id="prev-link" href="ivp.html" title="previous page"><span class="section-number">4. </span>Initial value problem</a>
-    <a class='right-next' id="next-link" href="cauchy-ode.html" title="next page"><span class="section-number">6. </span>Higher order IVP</a>
+    <a class='right-next' id="next-link" href="cauchy-ode.html" title="next page"><span class="section-number">6. </span>Second order IVP</a>
 
         </div>
         

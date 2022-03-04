@@ -118,12 +118,27 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="cauchy-ode.html">
-   6. Higher order IVP
+   6. Second order IVP
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="dirichlet-ode.html">
-   7. Higher order BVP
+   7. Second order BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="heat.html">
+   8. Partial BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-pde.html">
+   9. Non-steady BVPs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pde_theory.html">
+   10. (some) PDE theory
   </a>
  </li>
 </ul>
@@ -214,13 +229,48 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-stage-methods-span-style-color-red-coding-challenge-span">
+   Multi-stage methods -
+   <span style="color: red;">
+    Coding challenge
+   </span>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#problem-2-1d-heat-equation-with-dirichlet-boundary-conditions">
    Problem 2 : 1D heat equation with Dirichlet boundary conditions
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#problem-3-simple-harmonic-motion">
-   Problem 3: Simple harmonic motion
+  <a class="reference internal nav-link" href="#leapfrog-simple-harmonic-motion">
+   LEAPFROG: Simple harmonic motion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-diffusion">
+   1D diffusion
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#more-hyperbolic-problems">
+   More hyperbolic problems
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#new-section">
+     new section
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#general-form">
+     General form
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dalembert-problem">
+   D’Alembert problem,
   </a>
  </li>
 </ul>
@@ -236,33 +286,201 @@
                 
   <div class="section" id="junkyard">
 <h1>Junkyard<a class="headerlink" href="#junkyard" title="Permalink to this headline">¶</a></h1>
-<p>For example,</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">xlist(1,h=0.01,n=20)</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">xlist(1,2,h=0.01)</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">xlist(1,2,n=20)</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">xlist(1,2)</span></code></p></li>
-</ul>
+<p>Let us first import the relevant packages that will be required for the below coding problems:</p>
+<div class="section" id="multi-stage-methods-span-style-color-red-coding-challenge-span">
+<h2>Multi-stage methods - <span style="color: red;">Coding challenge</span><a class="headerlink" href="#multi-stage-methods-span-style-color-red-coding-challenge-span" title="Permalink to this headline">¶</a></h2>
+<p>You can find hidden the various functions described in the previous chapter that are being used to solve the challenge.</p>
+</div>
 <div class="section" id="problem-2-1d-heat-equation-with-dirichlet-boundary-conditions">
 <h2>Problem 2 : 1D heat equation with Dirichlet boundary conditions<a class="headerlink" href="#problem-2-1d-heat-equation-with-dirichlet-boundary-conditions" title="Permalink to this headline">¶</a></h2>
 <p>Use the central differences formula, to set up a system of algebraic equations for the value of the nodes <span class="math notranslate nohighlight">\([u_1,u_2,...,u_n]\)</span> in the following problem, ensuring that you enforce the boundary conditions at the endpoints</p>
-<div class="amsmath math notranslate nohighlight" id="equation-810f185d-d449-43f6-8cc9-73fe8295cfd1">
-<span class="eqno">()<a class="headerlink" href="#equation-810f185d-d449-43f6-8cc9-73fe8295cfd1" title="Permalink to this equation">¶</a></span>\[\begin{equation}u^{\prime\prime}(x)=\sin(2\pi x), \quad u(x_1) = 0, \quad u(x_n)=0.\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-cc82a9b3-9d5c-4db1-856d-d4f1b77c9575">
+<span class="eqno">()<a class="headerlink" href="#equation-cc82a9b3-9d5c-4db1-856d-d4f1b77c9575" title="Permalink to this equation">¶</a></span>\[\begin{equation}u^{\prime\prime}(x)=\sin(2\pi x), \quad u(x_1) = 0, \quad u(x_n)=0.\end{equation}\]</div>
 <p>Solve and plot your solution.</p>
 </div>
-<div class="section" id="problem-3-simple-harmonic-motion">
-<h2>Problem 3: Simple harmonic motion<a class="headerlink" href="#problem-3-simple-harmonic-motion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="leapfrog-simple-harmonic-motion">
+<h2>LEAPFROG: Simple harmonic motion<a class="headerlink" href="#leapfrog-simple-harmonic-motion" title="Permalink to this headline">¶</a></h2>
 <p>We consider the equation of motion for a particle of unit mass moving in one dimension under the influence of a restoring force <span class="math notranslate nohighlight">\(F(x)=-x\)</span>. The particle is initially at rest at a displacement of <span class="math notranslate nohighlight">\(x=1\)</span>, and we will solve for motion during the first 100 seconds using discretisation with a time step <span class="math notranslate nohighlight">\(\Delta t =0.1\)</span>
 The equations are given by:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-1c501b29-ec9a-43e5-a7e2-842c2039de31">
-<span class="eqno">()<a class="headerlink" href="#equation-1c501b29-ec9a-43e5-a7e2-842c2039de31" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}v}{\mathrm{d}t} = -x, \qquad \frac{\mathrm{d}x}{\mathrm{d}t} = v, \qquad t\in[0,100], \qquad x(0)=1, \qquad v(0)=0.\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-a50fe752-2c5c-4f4d-8eda-127dade53aa0">
+<span class="eqno">()<a class="headerlink" href="#equation-a50fe752-2c5c-4f4d-8eda-127dade53aa0" title="Permalink to this equation">¶</a></span>\[\begin{equation}\frac{\mathrm{d}v}{\mathrm{d}t} = -x, \qquad \frac{\mathrm{d}x}{\mathrm{d}t} = v, \qquad t\in[0,100], \qquad x(0)=1, \qquad v(0)=0.\end{equation}\]</div>
 <p>By using central difference formulas with a half-step <span class="math notranslate nohighlight">\(\Delta t/2\)</span>, we can obtain:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c06b2aa2-a43d-4f4c-8303-befaf0abf389">
-<span class="eqno">()<a class="headerlink" href="#equation-c06b2aa2-a43d-4f4c-8303-befaf0abf389" title="Permalink to this equation">¶</a></span>\[\begin{equation}v(t+\Delta t/2) = v(t-\Delta t/2)- x(t)\Delta t, \qquad x(t+\Delta t)=x(t)+v(t+\Delta t/2)\Delta t.\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-af279f99-fa56-44ce-b429-8f2801e07ab0">
+<span class="eqno">()<a class="headerlink" href="#equation-af279f99-fa56-44ce-b429-8f2801e07ab0" title="Permalink to this equation">¶</a></span>\[\begin{equation}v(t+\Delta t/2) = v(t-\Delta t/2)- x(t)\Delta t, \qquad x(t+\Delta t)=x(t)+v(t+\Delta t/2)\Delta t.\end{equation}\]</div>
 <p>This is called a “leapfrog’” method, because the successively computed solutions for <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(v\)</span> are obtained at staggered positions, as illustrated in the schematic diagram below. Use this approach to obtain solutions for <span class="math notranslate nohighlight">\(x(t)\)</span> and <span class="math notranslate nohighlight">\(v(t+\Delta t/2)\)</span>. To get your algorithm started, you can take <span class="math notranslate nohighlight">\(v_{-1/2}=0\)</span>.</p>
 <a class="reference internal image-reference" href="../_images/leapfrog.png"><img alt="leapfrog algorithm" class="align-center" src="../_images/leapfrog.png" style="height: 200px;" /></a>
 <p>Plot <span class="math notranslate nohighlight">\((v^2+x^2-1)/2\)</span>, which provides the difference between the estimated energy and exact (analytic) energy. To calculate <span class="math notranslate nohighlight">\(v(t)\)</span> you can use <span class="math notranslate nohighlight">\(v(t) = \frac{v(t-\Delta t/2)+v(t+\Delta t/2)}{2}.\)</span></p>
-<p><strong>Answers coming soon!</strong></p>
+</div>
+<div class="section" id="d-diffusion">
+<h2>1D diffusion<a class="headerlink" href="#d-diffusion" title="Permalink to this headline">¶</a></h2>
+<p>Enceladus is a small, icy moon of Saturn, which has been observed to emit molecules of water from “cracks” in its surface. The following differential equation represents the competition between outward diffusion of water molecules from the surface and destruction due to ionization:</p>
+<div class="math notranslate nohighlight">
+\[	2r\frac{\partial c}{\partial r} + r^2\frac{\partial^2 c}{\partial r^2}=r^2 c \beta_{LOSS}.\]</div>
+<p>In this equation, <span class="math notranslate nohighlight">\(r\)</span> is the radial distance from the centre of the moon, <span class="math notranslate nohighlight">\(c\)</span> is the steady state concentration of water molecules, and <span class="math notranslate nohighlight">\(\beta_{LOSS}\)</span> represents the relative importance of ionization compared to diffusion. We will take</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+	\beta_{LOSS}=0.01, \qquad c(1)=1, \qquad c(50)=0.1,\qquad r\in[1,50].
+\end{equation*}\]</div>
+<div class="exercise admonition" id="finitediff/junkyard-exercise-0">
+<p class="admonition-title"> </p>
+<div class="section" id="exercise-content">
+<ul class="simple">
+<li><p>Write down  a discretised form of these equations, using a central difference scheme.</p></li>
+<li><p>Solve the discretised system with 50 grid points simultaneously using a matrix method.</p></li>
+<li><p>Solve the discretised system with 50 grid points using a Gauss-Seidel technique. Determine the number of iterations required for agreement with your part (2) solution to within <span class="math notranslate nohighlight">\(10^{-4}\)</span>.</p></li>
+</ul>
+</div>
+</div>
+<p><strong>Solution</strong></p>
+<p><strong>Part 1: Discretisation</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+2r_i\frac{c_{i+1}-c_{i-1}}{2\Delta r}+r_i^2\frac{c_{i+1}-2c_i+c_{i-1}}{\Delta r^2}=\beta_{LOSS} r_i^2 c_i
+\end{equation*}\]</div>
+<p>We can also eliminate a factor of <span class="math notranslate nohighlight">\(\frac{r_i}{\Delta r^2}\)</span> to give:</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+(c_{i+1}-c_{i-1})\Delta r +r_i(c_{i+1}-2c_i+c_{i-1})=\beta_{LOSS}\Delta r^2 r_i c_i
+\end{equation*}\]</div>
+<p><strong>Part 2: Matrix method</strong></p>
+<p>Grouping together terms gives (for example):</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+(r_i-\Delta r)c_{i-1}-(2r_i+\beta_{LOSS}\Delta r^2 r_i)c_i +(r_i+\Delta r)c_{i+1}=0
+\end{equation*}\]</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="o">=</span><span class="mi">50</span><span class="p">;</span> <span class="n">bloss</span><span class="o">=</span><span class="mf">0.01</span><span class="p">;</span>   <span class="o">%</span> <span class="n">Values</span> <span class="n">defined</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">question</span>
+
+<span class="n">r</span><span class="o">=</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="n">n</span><span class="p">);</span> <span class="o">%</span> <span class="n">Set</span> <span class="n">up</span> <span class="n">the</span> <span class="n">radial</span> <span class="n">coordinate</span>
+<span class="n">hr</span><span class="o">=</span><span class="n">r</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">r</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>       <span class="o">%</span> <span class="n">Determine</span> <span class="n">the</span> <span class="n">grid</span> <span class="n">spacing</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>     <span class="o">%</span> <span class="n">Construct</span> <span class="n">the</span> <span class="n">grid</span>
+
+
+<span class="o">%</span> <span class="n">CONSTRUCTION</span> <span class="n">OF</span> <span class="n">COEFFICIENTS</span> <span class="n">FOR</span> <span class="n">INTERIOR</span> <span class="n">NODES</span>
+<span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+    <span class="n">M</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">-</span><span class="n">hr</span><span class="p">);</span>            
+    <span class="n">M</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="o">=-</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">bloss</span><span class="o">*</span><span class="n">hr</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">));</span>
+    <span class="n">M</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">hr</span><span class="p">);</span>
+<span class="n">end</span>
+
+<span class="o">%</span> <span class="n">alternative</span> <span class="n">approach</span> <span class="n">using</span> <span class="n">diag</span><span class="p">:</span>
+<span class="o">%</span> <span class="n">rint</span> <span class="o">=</span> <span class="n">r</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+<span class="o">%</span> <span class="n">diag</span><span class="p">(</span><span class="n">rint</span><span class="o">-</span><span class="n">hr</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="n">diag</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="o">+</span><span class="n">bloss</span><span class="o">*</span><span class="n">hr</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">rint</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">diag</span><span class="p">(</span><span class="n">rint</span><span class="o">+</span><span class="n">hr</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="o">%</span> <span class="n">CONSTRUCTION</span> <span class="n">OF</span> <span class="n">COEFFICIENTS</span> <span class="n">FOR</span> <span class="n">BOUNDARY</span> <span class="n">NODES</span>
+<span class="n">M</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="n">M</span><span class="p">(</span><span class="n">end</span><span class="p">,</span><span class="n">end</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="o">%</span> <span class="n">CONSTRUCTION</span> <span class="n">OF</span> <span class="n">RHS</span>
+<span class="n">b</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">b</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">=</span><span class="mf">0.1</span><span class="p">;</span> <span class="o">%</span> <span class="n">interior</span> <span class="o">+</span> <span class="n">boundary</span>
+
+<span class="n">sol1</span><span class="o">=</span><span class="p">(</span><span class="n">M</span>\<span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39;;</span>
+</pre></div>
+</div>
+<p><strong>Part 3: Gauss-Seidel method</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">Set</span> <span class="n">up</span> <span class="n">an</span> <span class="n">initial</span> <span class="n">grid</span> <span class="k">for</span> <span class="n">the</span> <span class="n">solution</span>
+<span class="n">c</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span> <span class="n">c</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">c</span><span class="p">(</span><span class="n">end</span><span class="p">)</span><span class="o">=</span><span class="mf">0.1</span><span class="p">;</span>
+
+<span class="k">for</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">1000</span> <span class="o">%</span><span class="n">bound</span> <span class="n">on</span> <span class="n">maximum</span> <span class="n">number</span> <span class="n">of</span> <span class="n">iterations</span>
+    <span class="k">for</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span>
+        <span class="n">c</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">=</span> <span class="p">((</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">hr</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span><span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">-</span><span class="n">hr</span><span class="p">)</span><span class="o">*</span><span class="n">c</span><span class="p">(</span><span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="n">bloss</span><span class="o">*</span><span class="n">hr</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">r</span><span class="p">(</span><span class="n">k</span><span class="p">));</span>
+    <span class="n">end</span>
+    <span class="k">if</span> <span class="n">norm</span><span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">sol1</span><span class="p">)</span><span class="o">&lt;</span><span class="mf">1e-4</span>
+         <span class="n">fprintf</span><span class="p">(</span><span class="s1">&#39;Converged after </span><span class="si">%d</span><span class="s1"> iterations,&#39;</span><span class="p">,</span><span class="n">j</span><span class="p">)</span>
+        <span class="k">break</span>
+    <span class="n">end</span>
+<span class="n">end</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">Plots</span>
+<span class="n">figure</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">sol1</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Solution by Matrix method&#39;</span><span class="p">)</span>
+<span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s1">&#39;Solution by Gauss-Seidel method&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Solution</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">clear</span><span class="p">;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">;</span> <span class="n">g</span><span class="o">=</span><span class="mf">0.5</span><span class="p">;</span> <span class="n">L</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">T</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="o">%</span> <span class="n">given</span> <span class="n">parameters</span>
+
+<span class="n">Nt</span><span class="o">=</span><span class="mi">81</span><span class="p">;</span> <span class="n">Nx</span><span class="o">=</span><span class="mi">200</span><span class="p">;</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">L</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>  <span class="o">%</span> <span class="n">discretisation</span> <span class="n">of</span> <span class="n">spatial</span> <span class="n">dimension</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">T</span><span class="p">,</span><span class="n">Nt</span><span class="p">);</span>  <span class="o">%</span> <span class="n">discretisation</span> <span class="n">of</span> <span class="n">spatial</span> <span class="n">parameter</span>
+<span class="n">Dt</span><span class="o">=</span><span class="n">T</span><span class="o">/</span><span class="p">(</span><span class="n">Nt</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="n">Dx</span><span class="o">=</span><span class="n">L</span><span class="o">/</span><span class="p">(</span><span class="n">Nx</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="n">r</span><span class="o">=</span><span class="n">c</span><span class="o">*</span><span class="n">Dt</span><span class="o">/</span><span class="n">Dx</span>              <span class="o">%</span> <span class="n">ensure</span> <span class="n">it</span><span class="s1">&#39;s less than 1</span>
+
+<span class="n">F</span><span class="o">=</span><span class="n">zeros</span><span class="p">(</span><span class="n">Nt</span><span class="p">,</span><span class="n">Nx</span><span class="p">);</span>
+<span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)</span><span class="o">=</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="n">x</span><span class="p">);</span>            <span class="o">%</span><span class="n">phi</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="n">F</span><span class="p">(</span><span class="mi">2</span><span class="p">,:)</span> <span class="o">=</span> <span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">c</span><span class="o">*</span><span class="n">Dt</span><span class="p">));</span>   <span class="o">%</span><span class="n">phi</span><span class="p">(</span><span class="n">Dt</span><span class="p">,</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">see</span> <span class="n">comment</span> <span class="n">at</span> <span class="n">end</span>
+
+<span class="o">%</span><span class="n">w</span><span class="o">=</span><span class="n">sqrt</span><span class="p">(</span><span class="n">c</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">-</span><span class="n">g</span><span class="o">^</span><span class="mi">2</span><span class="o">/</span><span class="mi">4</span><span class="p">);</span>
+<span class="o">%</span><span class="n">cp</span><span class="o">=</span><span class="n">w</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span><span class="n">pi</span><span class="p">;</span>
+<span class="o">%</span><span class="n">F</span><span class="p">(</span><span class="mi">2</span><span class="p">,:)</span><span class="o">=</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">g</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">Dt</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">cp</span><span class="o">*</span><span class="n">Dt</span><span class="p">));</span>
+
+<span class="n">K0</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">g</span><span class="o">*</span><span class="n">Dt</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span> <span class="n">K2</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">g</span><span class="o">*</span><span class="n">Dt</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>  <span class="o">%</span><span class="n">constants</span> <span class="n">appearing</span> <span class="ow">in</span> <span class="n">update</span> <span class="n">rule</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="n">Nt</span><span class="o">-</span><span class="mi">1</span>
+   <span class="n">f</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="n">i</span><span class="p">,:);</span>
+    <span class="n">neigh</span><span class="o">=</span><span class="n">circshift</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="o">+</span><span class="n">circshift</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">F</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,:)</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">f</span><span class="o">+</span><span class="n">r</span><span class="o">^</span><span class="mi">2</span><span class="o">*</span><span class="n">neigh</span><span class="o">-</span><span class="n">K0</span><span class="o">*</span><span class="n">F</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,:))</span><span class="o">/</span><span class="n">K2</span><span class="p">;</span>
+<span class="n">end</span>
+
+<span class="n">surf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">t</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">end</span><span class="p">),</span><span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="n">end</span><span class="p">,:),</span><span class="s1">&#39;EdgeColor&#39;</span><span class="p">,</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">);</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">);</span><span class="n">zlabel</span><span class="p">(</span><span class="s1">&#39;\phi&#39;</span><span class="p">)</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="nb">max</span><span class="p">(</span><span class="n">F</span><span class="p">,[],</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">F</span><span class="p">(</span><span class="mi">1</span><span class="p">,:)))</span>
+<span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">);</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;\phi_</span><span class="si">{max}</span><span class="s1">&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="more-hyperbolic-problems">
+<h2>More hyperbolic problems<a class="headerlink" href="#more-hyperbolic-problems" title="Permalink to this headline">¶</a></h2>
+<p><strong>Sine-Gordon</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+u_{tt}=u_{xx}-\sin(u)
+\end{equation*}\]</div>
+<p><strong>Alternatively, using a simultaneous equations technique</strong></p>
+<p>The function <code class="docutils literal notranslate"><span class="pre">cdiffM</span></code> below was written to solve the Poisson problem</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+\nabla^2\phi=f
+\end{equation*}\]</div>
+<p>using a matrix method for any possible combination of boundary conditions.
+The function sets up the coefficient matrix for the problem <span class="math notranslate nohighlight">\(A\Phi=F\)</span>, where <span class="math notranslate nohighlight">\(F,\Phi\)</span> are the function value and unknown solution at each grid node <span class="math notranslate nohighlight">\((x,y)\)</span>, arranged as vectors.
+Array <span class="math notranslate nohighlight">\(A\)</span>  is the (sparse) coefficient matrix that relates each node to its neighbours using the five-point formula. The boundary equations are modified to use any specified boundary conditions.</p>
+<div class="section" id="new-section">
+<h3>new section<a class="headerlink" href="#new-section" title="Permalink to this headline">¶</a></h3>
+<p><strong>Schr”{o}dinger equation</strong></p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y^{\prime\prime}(x)+y(x)=\lambda q(x)y(x), \qquad q(x)=\frac{1}{1+e^{(x-r)/\epsilon}}
+\end{equation*}\]</div>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{equation*}
+y(0)=0, \qquad \lim_{x\rightarrow\infty}y(x)=0
+\end{equation*}\]</div>
+</div>
+<div class="section" id="general-form">
+<h3>General form<a class="headerlink" href="#general-form" title="Permalink to this headline">¶</a></h3>
+<p>Or, to a general second order PDE</p>
+<div class="amsmath math notranslate nohighlight">
+\[\begin{align*}
+&amp; A(x,y)\psi_{xx}+B(x,y)\psi_{xy}+C(x,y)\psi_{yy}=f(x,y,\psi,\psi_x,\psi_y),\\
+&amp; \psi(x,y)=\alpha(x,y), \quad \underline{n}.\psi = \beta(x,y).
+\end{align*}\]</div>
+<p>The solution can only be found in the region between the characteristic drawn through the initial domain <span class="math notranslate nohighlight">\(D\)</span>. The solution at all points in space is determined by the points they are projected from.</p>
+</div>
+</div>
+<div class="section" id="dalembert-problem">
+<h2>D’Alembert problem,<a class="headerlink" href="#dalembert-problem" title="Permalink to this headline">¶</a></h2>
+<p>Generally use forward stepping (do first!)</p>
+<p><span class="math notranslate nohighlight">\(x=0: \quad u(0,0)=2e^{-L^2/4}\)</span>
+<span class="math notranslate nohighlight">\(x=L: \quad u(0,L)=2e^{-L^2/4}\)</span></p>
+<p>(both very small)</p>
 </div>
 </div>
 
