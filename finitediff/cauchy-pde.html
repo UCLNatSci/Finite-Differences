@@ -297,6 +297,10 @@ x_{i}&amp;=i\Delta_x,\quad \ &amp; i=0, \ldots,N_{x} \thinspace.
 u^{n+1}_{i}=-u^{n-1}_{i}+2u^{n}_{i}+\left(c\frac{\Delta_t}{\Delta_x}\right)^{2}\left(u^{n}_{i+1}-2u^{n}_{i}+u^{n}_{i-1}\right),  \quad i=[1,\dots N_x-1 ],
 \end{equation*}\]</div>
 <p>where a  superscript has been used to denote the temporal discretisation and a subscript has been used to denote the temporal discretisation. This formula uses the result at two previous time steps. The given conditions for the spatial boundary can be applied by forced modification of the boundary nodes, <span class="math notranslate nohighlight">\(u^{n}_0=u^{n}_{N_x}=0\)</span>, <span class="math notranslate nohighlight">\(n\in[0,\dots N_t]\)</span>.</p>
+<p>A visual summary is shown below</p>
+<br>
+<a class="reference internal image-reference" href="../_images/dalembert.png"><img alt="secant" class="align-center" src="../_images/dalembert.png" style="width: 687.6px; height: 133.2px;" /></a>
+<br>
 <p>The initial conditions allow a forward-stepping algorithm to be used. The starting value for <span class="math notranslate nohighlight">\(u^1_i \)</span> is given by combining the initial condition for the derivative with the ODE formula, which gives</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}\tag{interior}u_{i}^{1}=u^{0}_{i}-\frac{1}{2}\left(c\frac{\Delta_t}{\Delta_x}\right)^{2}\left(u^{0}_{i+1}-2u^{0}_{i}+u^{0}_{i-1}\right)\thinspace., \quad i=[1,\dots N_x-1 ].\end{equation*}\]</div>
@@ -607,42 +611,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img5c356bbf5ed64bdba6cdd0292b055301">
+  <img id="_anim_img320fb879152947d5bf25e72607591fd3">
   <div class="anim-controls">
-    <input id="_anim_slider5c356bbf5ed64bdba6cdd0292b055301" type="range" class="anim-slider"
+    <input id="_anim_slider320fb879152947d5bf25e72607591fd3" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim5c356bbf5ed64bdba6cdd0292b055301.set_frame(parseInt(this.value));"></input>
+           oninput="anim320fb879152947d5bf25e72607591fd3.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim5c356bbf5ed64bdba6cdd0292b055301.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim320fb879152947d5bf25e72607591fd3.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim5c356bbf5ed64bdba6cdd0292b055301.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim320fb879152947d5bf25e72607591fd3.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim5c356bbf5ed64bdba6cdd0292b055301.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim320fb879152947d5bf25e72607591fd3.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim5c356bbf5ed64bdba6cdd0292b055301.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim320fb879152947d5bf25e72607591fd3.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim5c356bbf5ed64bdba6cdd0292b055301.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim320fb879152947d5bf25e72607591fd3.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim5c356bbf5ed64bdba6cdd0292b055301.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim320fb879152947d5bf25e72607591fd3.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim5c356bbf5ed64bdba6cdd0292b055301.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim320fb879152947d5bf25e72607591fd3.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim5c356bbf5ed64bdba6cdd0292b055301.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim320fb879152947d5bf25e72607591fd3.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim5c356bbf5ed64bdba6cdd0292b055301.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim320fb879152947d5bf25e72607591fd3.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select5c356bbf5ed64bdba6cdd0292b055301"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select320fb879152947d5bf25e72607591fd3"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_5c356bbf5ed64bdba6cdd0292b055301"
+      <input type="radio" name="state" value="once" id="_anim_radio1_320fb879152947d5bf25e72607591fd3"
              >
-      <label for="_anim_radio1_5c356bbf5ed64bdba6cdd0292b055301">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_5c356bbf5ed64bdba6cdd0292b055301"
+      <label for="_anim_radio1_320fb879152947d5bf25e72607591fd3">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_320fb879152947d5bf25e72607591fd3"
              checked>
-      <label for="_anim_radio2_5c356bbf5ed64bdba6cdd0292b055301">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_5c356bbf5ed64bdba6cdd0292b055301"
+      <label for="_anim_radio2_320fb879152947d5bf25e72607591fd3">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_320fb879152947d5bf25e72607591fd3"
              >
-      <label for="_anim_radio3_5c356bbf5ed64bdba6cdd0292b055301">Reflect</label>
+      <label for="_anim_radio3_320fb879152947d5bf25e72607591fd3">Reflect</label>
     </form>
   </div>
 </div>
@@ -652,9 +656,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img5c356bbf5ed64bdba6cdd0292b055301";
-    var slider_id = "_anim_slider5c356bbf5ed64bdba6cdd0292b055301";
-    var loop_select_id = "_anim_loop_select5c356bbf5ed64bdba6cdd0292b055301";
+    var img_id = "_anim_img320fb879152947d5bf25e72607591fd3";
+    var slider_id = "_anim_slider320fb879152947d5bf25e72607591fd3";
+    var loop_select_id = "_anim_loop_select320fb879152947d5bf25e72607591fd3";
     var frames = new Array(104);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -17207,7 +17211,7 @@ AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim5c356bbf5ed64bdba6cdd0292b055301 = new Animation(frames, img_id, slider_id, 240.0,
+        anim320fb879152947d5bf25e72607591fd3 = new Animation(frames, img_id, slider_id, 240.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -17246,8 +17250,8 @@ The stability is sensitive to the Courant parameter . For <span class="math notr
 <br>
 <p><strong>Could we take a shortcut?</strong></p>
 <p>Naively, we might choose initial conditions to match the analytic solution for the undamped case (when <span class="math notranslate nohighlight">\(\gamma=0\)</span>), in the hope that it may give a good approximation to the analytic solution for the damped case :</p>
-<div class="amsmath math notranslate nohighlight" id="equation-e4ca065f-64b2-4f94-b5c4-101bba317ec3">
-<span class="eqno">(9.3)<a class="headerlink" href="#equation-e4ca065f-64b2-4f94-b5c4-101bba317ec3" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-32ebcd66-7fc3-4118-a4a8-cb846b49903f">
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-32ebcd66-7fc3-4118-a4a8-cb846b49903f" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \phi(t=0) = \sin\left(2\pi x\right), \quad \phi(t=\Delta t) = \sin\left(2\pi (x-c\Delta t)\right).
 \end{equation}\]</div>
 <p>However, the result given by using this condition is unphysical. If you solve with these conditions you will find that the numeric solution rightly shows a travelling wave of decaying amplitude, but the rate of decay is staggered, which does not match reality.</p>
