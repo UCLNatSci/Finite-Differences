@@ -146,6 +146,15 @@ U[:,-1]=4*np.cos(np.pi*y)
 
 # The final step is to apply the iterative formula, sweeping sequentially through the grid from top-left to bottom right. Here, we use $r=1$, which corresponds to the Gauss-Seidel algorithm, but you could try some higher values for relaxation.
 # 
+# <br>
+# 
+# ```{image} images/relax_sweep.png
+# :alt: secant
+# :align: center
+# :scale: 80%
+# ```
+# <br>
+# 
 # In this implementation, we update only the interior points during the sweep, so the boundary conditions do not need to be re-enforced after each sweep.
 
 # In[3]:

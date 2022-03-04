@@ -32,23 +32,5 @@
         "application/papermill.record/image/png": null
       }
     }
-  },
-  "finitediff\\heat": {
-    "heatneu_fig": {
-      "output_type": "display_data",
-      "metadata": {
-        "scrapbook": {
-          "name": "heatneu_fig",
-          "mime_prefix": "application/papermill.record/"
-        },
-        "filenames": {
-          "image/png": "C:\\Users\\Ella Metcalfe\\OneDrive - University College London\\Finite-Differences\\book\\_build\\jupyter_execute\\finitediff\\heat_9_0.png"
-        }
-      },
-      "data": {
-        "application/papermill.record/text/plain": "<Figure size 720x432 with 1 Axes>",
-        "application/papermill.record/image/png": null
-      }
-    }
   }
 }

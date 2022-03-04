@@ -285,8 +285,8 @@
 <div class="section" id="laplace-equation">
 <h2><span class="section-number">8.1. </span>Laplace equation<a class="headerlink" href="#laplace-equation" title="Permalink to this headline">¶</a></h2>
 <p>The steady-state version of the two-dimensional heat equation is given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-531832ce-0091-42b8-83dc-d4771722ea36">
-<span class="eqno">(8.1)<a class="headerlink" href="#equation-531832ce-0091-42b8-83dc-d4771722ea36" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-f229b5bf-a5d6-43dd-846c-94ecee916b32">
+<span class="eqno">(8.1)<a class="headerlink" href="#equation-f229b5bf-a5d6-43dd-846c-94ecee916b32" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 \nabla^2 u=f(x,y), \qquad \nabla^2 = \frac{\partial^2}{\partial x^2}+\frac{\partial^2}{\partial y^2}.
 \end{equation}\]</div>
 <p>Applying the second derivative central difference formula at the interior points gives</p>
@@ -355,8 +355,8 @@ u_{yy}(x_i,y_j) = \frac{u_{i,j+1}-2u_{i,j}+u_{i,j-1}}{h^2},
 <div class="section" id="using-an-iterative-approach">
 <h3><span class="section-number">8.1.2. </span>Using an iterative approach<a class="headerlink" href="#using-an-iterative-approach" title="Permalink to this headline">¶</a></h3>
 <p>Instead of starting with the toy problem given above, we will illustrate for the case where:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-5bb06a3b-9b1a-490b-8938-a55115922012">
-<span class="eqno">(8.3)<a class="headerlink" href="#equation-5bb06a3b-9b1a-490b-8938-a55115922012" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-c85b2567-e75d-4554-b988-371705a15c20">
+<span class="eqno">(8.3)<a class="headerlink" href="#equation-c85b2567-e75d-4554-b988-371705a15c20" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 f(x,y) = 2\cos(\pi y)-\pi^2(1+x)^2\cos(\pi y),
 \end{equation}\]</div>
 <p>subject to the conditions</p>
@@ -366,8 +366,8 @@ u(x,0)&amp;=(1+x)^2, \quad &amp;u(x,1)&amp;=-(1+x)^2,\\
 u(0,y)&amp;=\cos(\pi y), \quad &amp;u(1,y)&amp;=4\cos(\pi y).
 \end{align*}\]</div>
 <p>We will compare the solution to the analytic result, which is given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-fad66001-7061-41a5-8ac8-79ee7a4d992e">
-<span class="eqno">(8.4)<a class="headerlink" href="#equation-fad66001-7061-41a5-8ac8-79ee7a4d992e" title="Permalink to this equation">¶</a></span>\[\begin{equation}
+<div class="amsmath math notranslate nohighlight" id="equation-4e6b0bad-1dc7-47b6-904e-fc6bc0556af1">
+<span class="eqno">(8.4)<a class="headerlink" href="#equation-4e6b0bad-1dc7-47b6-904e-fc6bc0556af1" title="Permalink to this equation">¶</a></span>\[\begin{equation}
 u(x,y)=(1+x)^2\cos(\pi y).
 \end{equation}\]</div>
 <p>As before, we begin by creating an mesh, this time in two dimensions <span class="math notranslate nohighlight">\((x,y)\)</span> by using meshgrid. We need to obtain <span class="math notranslate nohighlight">\(f(x,y)\)</span> at each point on the mesh.</p>
@@ -411,6 +411,9 @@ u(x,y)=(1+x)^2\cos(\pi y).
 </div>
 </div>
 <p>The final step is to apply the iterative formula, sweeping sequentially through the grid from top-left to bottom right. Here, we use <span class="math notranslate nohighlight">\(r=1\)</span>, which corresponds to the Gauss-Seidel algorithm, but you could try some higher values for relaxation.</p>
+<br>
+<a class="reference internal image-reference" href="../_images/relax_sweep.png"><img alt="secant" class="align-center" src="../_images/relax_sweep.png" style="width: 421.6px; height: 281.6px;" /></a>
+<br>
 <p>In this implementation, we update only the interior points during the sweep, so the boundary conditions do not need to be re-enforced after each sweep.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
