@@ -13,6 +13,6 @@ chapters:
 - file: finitediff/multistage
 - file: finitediff/cauchy-ode
 - file: finitediff/dirichlet-ode
-#- file: finitediff/cauchy-pde
-#- file: finitediff/dirichlet-pde
-#- file: finitediff/further_problems
+- file: finitediff/heat
+- file: finitediff/cauchy-pde
+- file: finitediff/pde_theory

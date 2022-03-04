@@ -120,12 +120,27 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="cauchy-ode.html">
-   6. Higher order IVP
+   6. Second order IVP
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="dirichlet-ode.html">
-   7. Higher order BVP
+   7. Second order BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="heat.html">
+   8. Partial BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-pde.html">
+   9. Non-steady BVPs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pde_theory.html">
+   10. (some) PDE theory
   </a>
  </li>
 </ul>
@@ -290,8 +305,8 @@
 <p class="admonition-title"><span class="caption-number">Exercise 1.1 </span> </p>
 <div class="section" id="exercise-content">
 <p>According to formula <a class="reference internal" href="#equation-finite1">(1.1)</a> we can estimate that the derivative of <span class="math notranslate nohighlight">\(y(x)=\sin(x)\)</span> at the point <span class="math notranslate nohighlight">\(x=\frac{\pi}{3}\)</span> is given by</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c8fcd785-71fb-4cd3-b3a3-a2d62e3758c9">
-<span class="eqno">(1.2)<a class="headerlink" href="#equation-c8fcd785-71fb-4cd3-b3a3-a2d62e3758c9" title="Permalink to this equation">¶</a></span>\[\begin{equation}y^{\prime}\left(\frac{\pi}{3}\right)\approx \frac{1}{h}\left[\sin\left(\frac{\pi}{3}+h\right)-\sin\left(\frac{\pi}{3}\right)\right]\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-fbed4c3a-1896-4101-8546-ad56fc3ad35b">
+<span class="eqno">(1.2)<a class="headerlink" href="#equation-fbed4c3a-1896-4101-8546-ad56fc3ad35b" title="Permalink to this equation">¶</a></span>\[\begin{equation}y^{\prime}\left(\frac{\pi}{3}\right)\approx \frac{1}{h}\left[\sin\left(\frac{\pi}{3}+h\right)-\sin\left(\frac{\pi}{3}\right)\right]\end{equation}\]</div>
 <p>Use Python to estimate the size of the error in this expression for some different step sizes <span class="math notranslate nohighlight">\(h\)</span> and produce a plot of the result.</p>
 </div>
 </div>
@@ -332,11 +347,11 @@
 <p>A description of the issues and limitations can be found in the Python documentation on <a class="reference external" href="https://docs.python.org/3/tutorial/floatingpoint.html">Floating Point Arithmetic</a>. The terminology refers to the fact that there isn’t a fixed number of digits before/after the point separating the integer part of the number from its fractional part, so the point can “float” during calculation.</p>
 </div>
 <p>For this example, at step size <span class="math notranslate nohighlight">\(h=10^{-9}\)</span> the difference between the two sine terms can be accurately computed (using high precision arithmetic) as</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a9109f04-66f9-41fb-8d38-558a96cf8cff">
-<span class="eqno">(1.3)<a class="headerlink" href="#equation-a9109f04-66f9-41fb-8d38-558a96cf8cff" title="Permalink to this equation">¶</a></span>\[\begin{equation}\sin(x_k+10^{-9})-\sin(x_k) = 4.999999995669873\times 10^{-10}\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-4f04a379-a594-4a5d-a37a-980347c145d5">
+<span class="eqno">(1.3)<a class="headerlink" href="#equation-4f04a379-a594-4a5d-a37a-980347c145d5" title="Permalink to this equation">¶</a></span>\[\begin{equation}\sin(x_k+10^{-9})-\sin(x_k) = 4.999999995669873\times 10^{-10}\end{equation}\]</div>
 <p>However, with the precision available to <code class="docutils literal notranslate"><span class="pre">float</span></code> it is determined to be</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ff275067-447a-4bf3-a6b1-85d66bee7f2e">
-<span class="eqno">(1.4)<a class="headerlink" href="#equation-ff275067-447a-4bf3-a6b1-85d66bee7f2e" title="Permalink to this equation">¶</a></span>\[\begin{equation}\sin(x_k+10^{-9})-\sin(x_k) = 5.000000413701855\times 10^{-10}\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-1b2aaa4b-b8f9-424d-9d30-26185ff4605d">
+<span class="eqno">(1.4)<a class="headerlink" href="#equation-1b2aaa4b-b8f9-424d-9d30-26185ff4605d" title="Permalink to this equation">¶</a></span>\[\begin{equation}\sin(x_k+10^{-9})-\sin(x_k) = 5.000000413701855\times 10^{-10}\end{equation}\]</div>
 <p>The difference occurs in the seventh significant figure and this explains why the error in the computed answer is around <span class="math notranslate nohighlight">\(10^{-7}\)</span></p>
 <p>We can eliminate roundoff errors by increasing the number of digits used in internal computations to obtain a graph like the one below, in which the errors are seen to continue decreasing linearly for smaller step sizes.</p>
 <div class="cell tag_hide-input docutils container">
@@ -403,14 +418,14 @@
 </div>
 </div>
 <p>In this example, the step size <span class="math notranslate nohighlight">\(h\)</span> used in the finite difference formula was not the same as the spacing between the chosen <span class="math notranslate nohighlight">\(x\)</span> values. It is convenient to match the two. This approach will also allow us to produce an estimate for the derivative of a function that is represented by a set of points, such as experimental data:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-29bd8434-8af4-47b8-ad76-06cdefb30a11">
-<span class="eqno">(1.5)<a class="headerlink" href="#equation-29bd8434-8af4-47b8-ad76-06cdefb30a11" title="Permalink to this equation">¶</a></span>\[\begin{equation}(x_1,y_1),(x_2,y_2),\dots,(x_n,y_n).\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-f38eca51-4253-431f-b5c2-3e5e63754008">
+<span class="eqno">(1.5)<a class="headerlink" href="#equation-f38eca51-4253-431f-b5c2-3e5e63754008" title="Permalink to this equation">¶</a></span>\[\begin{equation}(x_1,y_1),(x_2,y_2),\dots,(x_n,y_n).\end{equation}\]</div>
 <p>We can approximate the derivative of the hypothetical function described by these points, using the following formula</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a6df9ae9-6564-437c-ab65-539289d659fe">
-<span class="eqno">(1.6)<a class="headerlink" href="#equation-a6df9ae9-6564-437c-ab65-539289d659fe" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_k^{\prime}\simeq\frac{y_{k+1}-y_k}{x_{k+1}-x_k}.\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-21db4675-5c71-404e-843e-2aa19e18ee8c">
+<span class="eqno">(1.6)<a class="headerlink" href="#equation-21db4675-5c71-404e-843e-2aa19e18ee8c" title="Permalink to this equation">¶</a></span>\[\begin{equation}y_k^{\prime}\simeq\frac{y_{k+1}-y_k}{x_{k+1}-x_k}.\end{equation}\]</div>
 <p>For simplicity we will assume that the spacing <span class="math notranslate nohighlight">\(h_k=(x_{k+1}-x_k)\)</span> is the same value <span class="math notranslate nohighlight">\(h\)</span> for all neighbours, though this isn’t strictly necessary, which gives:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-c2e0106e-15ad-4351-a54a-478fa365e4b5">
-<span class="eqno">(1.7)<a class="headerlink" href="#equation-c2e0106e-15ad-4351-a54a-478fa365e4b5" title="Permalink to this equation">¶</a></span>\[\begin{align}y^{\prime}&amp;=\biggr[\frac{y_2-y_1}{h},\frac{y_3-y_2}{h},\dots,\frac{y_n-y_{n-1}}{h}\biggr]\\&amp;=\frac{[y_2,y_3,\dots,y_n]-[y_1,y_2,\dots,y_{n-1}]}{h}\end{align}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-bd6d4a43-82d9-4122-adc4-6aeb58d1cd9c">
+<span class="eqno">(1.7)<a class="headerlink" href="#equation-bd6d4a43-82d9-4122-adc4-6aeb58d1cd9c" title="Permalink to this equation">¶</a></span>\[\begin{align}y^{\prime}&amp;=\biggr[\frac{y_2-y_1}{h},\frac{y_3-y_2}{h},\dots,\frac{y_n-y_{n-1}}{h}\biggr]\\&amp;=\frac{[y_2,y_3,\dots,y_n]-[y_1,y_2,\dots,y_{n-1}]}{h}\end{align}\]</div>
 <p>The idea is illustrated in the schematic diagram below. Essentially, we are joining up the points with straight lines and using the slope of those line segments to estimate the gradient at the left-hand point of each interval.</p>
 <br>
 <a class="reference internal image-reference" href="../_images/griddly3.png"><img alt="computing the derivative from secant lines" class="align-center" src="../_images/griddly3.png" style="width: 360.0px; height: 234.0px;" /></a>

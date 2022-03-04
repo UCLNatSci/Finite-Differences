@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7. Higher order BVP &#8212; Finite Differences</title>
+    <title>7. Second order BVP &#8212; Finite Differences</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -56,7 +56,8 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="6. Higher order IVP" href="cauchy-ode.html" />
+    <link rel="next" title="8. Partial BVP" href="heat.html" />
+    <link rel="prev" title="6. Second order IVP" href="cauchy-ode.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -119,12 +120,27 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="cauchy-ode.html">
-   6. Higher order IVP
+   6. Second order IVP
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   7. Higher order BVP
+   7. Second order BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="heat.html">
+   8. Partial BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-pde.html">
+   9. Non-steady BVPs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="pde_theory.html">
+   10. (some) PDE theory
   </a>
  </li>
 </ul>
@@ -277,8 +293,8 @@
         
               <div>
                 
-  <div class="section" id="higher-order-bvp">
-<h1><span class="section-number">7. </span>Higher order BVP<a class="headerlink" href="#higher-order-bvp" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="second-order-bvp">
+<h1><span class="section-number">7. </span>Second order BVP<a class="headerlink" href="#second-order-bvp" title="Permalink to this headline">¶</a></h1>
 <p>This section is concerned with the solution of a general class of second order ODE, in which we are given a value for the function on two boundaries.</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
@@ -287,7 +303,7 @@ y^{\prime\prime}=f(y(x),y^{\prime}(x),x), \qquad y(a)=\alpha, \quad y(b)=\beta.
 <p>Boundary value problems are generally more tricky than initial value problems. In 1D problems the problem can be solved by setting up a matrix system of equations for each node. This approach can be generalised to higher dimensions, but it becomes challenging to implement.</p>
 <p>In this chapter we will also demonstrate an iterative <strong>relaxation</strong> approach that we will be able to generalise to higher dimensions.</p>
 <div class="section" id="example">
-<h2><span class="section-number">7.1. </span>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<span id="dirode"></span><h2><span class="section-number">7.1. </span>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>By way of example, we will solve the second order linear ODE that we considered in <a class="reference internal" href="cauchy-ode.html#cauchy-example"><span class="std std-numref">Section 6.1</span></a>, this time using Dirichlet-type boundary conditions at <span class="math notranslate nohighlight">\(x=0,1\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-2order-dir">
 <span class="eqno">(7.1)<a class="headerlink" href="#equation-2order-dir" title="Permalink to this equation">¶</a></span>\[\frac{\mathrm{d}^2 y}{\mathrm{d}x^2} + \frac{\mathrm{d}y}{\mathrm{d}x}-6 y = 0, \qquad y(0)=1, \quad y(1)=2.\]</div>
@@ -297,16 +313,15 @@ y^{\prime\prime}=f(y(x),y^{\prime}(x),x), \qquad y(a)=\alpha, \quad y(b)=\beta.
 <br>
 <p>The guess can be repeatedly modified using a root-finding technique to obtain a value which works. This clever technique is called a <strong>shooting method</strong>. It is fairly straightforward to implement and you may wish to give it a try. However, it does not generalise well to solve PDE problems, so we will use other methods.</p>
 <p>We could use the matrix technique that we introduced in <a class="reference internal" href="cauchy-ode.html#matrix-cauchy"><span class="std std-numref">Section 6.4</span></a>. Here, there is no need to introduce a fictitious node. The boundary conditions can be implemented in the first and last rows and we obtain the following matrix system to solve.</p>
-<div class="amsmath math notranslate nohighlight" id="equation-a362a7af-05f1-4267-947f-fba4feac41c6">
-<span class="eqno">(7.2)<a class="headerlink" href="#equation-a362a7af-05f1-4267-947f-fba4feac41c6" title="Permalink to this equation">¶</a></span>\[\begin{equation}\left[\begin{array}{cccccc}
+<div class="math notranslate nohighlight" id="equation-dirmatr1">
+<span class="eqno">(7.2)<a class="headerlink" href="#equation-dirmatr1" title="Permalink to this equation">¶</a></span>\[\begin{split}\left[\begin{array}{cccccc}
 1 &amp;0 &amp; 0 &amp; 0 &amp; \dots &amp; 0\\
 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; 0 &amp; \ddots &amp;\vdots\\
 0 &amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2 &amp; \ddots&amp;\vdots\\
 \vdots&amp; \ddots &amp; \ddots &amp;\ddots &amp;\ddots &amp; 0\\
 0 &amp; \ddots &amp; 0&amp; 1-h/2 &amp; -(2+6h^2) &amp; 1+h/2\\
 0 &amp;\dots &amp; 0 &amp; 0 &amp; 0 &amp; 1\end{array}\right]
-\left[\begin{array}{cc} y_0\phantom{\vdots}&amp;\\y_1&amp;\phantom{\vdots}\\y_2\phantom{\vdots}&amp;\\ \vdots&amp;\\y_{N-1}\\y_N\end{array}\right]=\left[\begin{array}{cc}1&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\\vdots&amp;\\0\\2\end{array}\right]
-\end{equation}\]</div>
+\left[\begin{array}{cc} y_0\phantom{\vdots}&amp;\\y_1&amp;\phantom{\vdots}\\y_2\phantom{\vdots}&amp;\\ \vdots&amp;\\y_{N-1}\\y_N\end{array}\right]=\left[\begin{array}{cc}1&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\0&amp;\phantom{\vdots}\\\vdots&amp;\\0\\2\end{array}\right]\end{split}\]</div>
 <p>The result obtained by numerically solving this system is shown below.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -430,8 +445,8 @@ u_{k+1}-2u_k+u_{k-1}=h^2\sin(2\pi x_k)
 <h2><span class="section-number">7.2. </span>Fixed point method<a class="headerlink" href="#fixed-point-method" title="Permalink to this headline">¶</a></h2>
 <p>As an alternative to using the simultaneous system of equations, the solution can often be found iteratively, by starting with a suitable initial guess for the whole field <span class="math notranslate nohighlight">\(u\)</span> and applying the formulas until (hopefully!) a fixed solution is determined.</p>
 <p>To demonstrate, we will return to the 1d heat problem that was given as an exercise in the previous section</p>
-<div class="amsmath math notranslate nohighlight" id="equation-22cccc5f-4779-4d6b-a533-d325d49d063d">
-<span class="eqno">(7.3)<a class="headerlink" href="#equation-22cccc5f-4779-4d6b-a533-d325d49d063d" title="Permalink to this equation">¶</a></span>\[\begin{equation}u^{\prime\prime}(x)=\sin(2\pi x), \qquad u(0)=0, \quad u(1)=0\end{equation}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-88d6f28f-bb2d-41bc-938b-5c2c06809097">
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-88d6f28f-bb2d-41bc-938b-5c2c06809097" title="Permalink to this equation">¶</a></span>\[\begin{equation}u^{\prime\prime}(x)=\sin(2\pi x), \qquad u(0)=0, \quad u(1)=0\end{equation}\]</div>
 <p>We again apply the central finite difference scheme, but this time we rearrange to the form <span class="math notranslate nohighlight">\(u=F(u)\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-itsolver">
 <span class="eqno">(7.4)<a class="headerlink" href="#equation-itsolver" title="Permalink to this equation">¶</a></span>\[u_k=\frac{u_{k+1}+u_{k-1}}{2}-\frac{h^2}{2}\sin(2\pi x_k)\]</div>
@@ -716,7 +731,8 @@ The equation can be written out using the central differences formula as:</p>
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="cauchy-ode.html" title="previous page"><span class="section-number">6. </span>Higher order IVP</a>
+    <a class='left-prev' id="prev-link" href="cauchy-ode.html" title="previous page"><span class="section-number">6. </span>Second order IVP</a>
+    <a class='right-next' id="next-link" href="heat.html" title="next page"><span class="section-number">8. </span>Partial BVP</a>
 
         </div>
         

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Partial differential equations &#8212; Finite Differences</title>
+    <title>11. Partial differential equations &#8212; Finite Differences</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet" />
   <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -56,6 +56,7 @@
     <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="10. Dirichlet - PDE" href="dirichlet-pde.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -90,7 +91,7 @@
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="finite-intro.html">
    1. Basic concept
@@ -118,12 +119,32 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="cauchy-ode.html">
-   6. Higher order IVP
+   6. Second order IVP
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="dirichlet-ode.html">
-   7. Higher order BVP
+   7. Second order BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="heat.html">
+   8. Partial BVP
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cauchy-pde.html">
+   9. Cauchy problem - PDE
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dirichlet-pde.html">
+   10. Dirichlet - PDE
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   11. Partial differential equations
   </a>
  </li>
 </ul>
@@ -235,51 +256,51 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#boundary-and-initial-conditions">
-   Boundary and initial conditions
+   11.1. Boundary and initial conditions
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#existence-and-uniqueness-of-solutions">
-     Existence and uniqueness of solutions
+     11.1.1. Existence and uniqueness of solutions
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#methodological-implications">
-     Methodological implications
+     11.1.2. Methodological implications
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#a-note-on-method-of-characteristics">
-   A note on method of characteristics
+   11.2. A note on method of characteristics
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#example-1-1d-wave-equation">
-     Example 1 : 1D wave equation
+     11.2.1. Example 1 : 1D wave equation
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#example-2-inviscid-burgers-equation">
-     Example 2: Inviscid Burgers’ equation
+     11.2.2. Example 2: Inviscid Burgers’ equation
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#classification">
-   Classification
+   11.3. Classification
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#first-order-problems">
-     First order problems
+     11.3.1. First order problems
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#second-order-problems">
-     Second order problems
+     11.3.2. Second order problems
     </a>
    </li>
   </ul>
@@ -296,10 +317,10 @@
               <div>
                 
   <div class="section" id="partial-differential-equations">
-<h1>Partial differential equations<a class="headerlink" href="#partial-differential-equations" title="Permalink to this headline">¶</a></h1>
+<h1><span class="section-number">11. </span>Partial differential equations<a class="headerlink" href="#partial-differential-equations" title="Permalink to this headline">¶</a></h1>
 <p>Partial differential equations can be classified as either hyperbolic, parabolic, or elliptic, with the classification determining the types of conditions that can be applied and the appropriate choice of finite difference scheme. In the next chapters we will see some examples for classic problems such as heat, wave, Laplace, diffusion.</p>
 <div class="section" id="boundary-and-initial-conditions">
-<h2>Boundary and initial conditions<a class="headerlink" href="#boundary-and-initial-conditions" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.1. </span>Boundary and initial conditions<a class="headerlink" href="#boundary-and-initial-conditions" title="Permalink to this headline">¶</a></h2>
 <p>The boundary and/or initial conditions are just as important as the PDE itself, and are often where the biggest complications arise. There are three main types of condition that may be given, which are named below.</p>
 <ul class="simple">
 <li><p><strong>Dirichlet conditions</strong> : The solution is specified on each boundary. For instance, in a thermodynamics problem a boundary may be maintained at a constant temperature, or in fluid dynamics problem a “no-slip” condition may be imposed so that the velocity is fixed on a rigid boundary.<br><br></p></li>
@@ -308,21 +329,21 @@
 </ul>
 <p>Sometimes Dirichlet/Neumann conditions must be applied together in the form of a linear combination called a <strong>Robin condition</strong>. Such constraints can arise in electromagnetic or heat transfer problems. They can be dealt with in similar approach to the Neumann type.</p>
 <div class="section" id="existence-and-uniqueness-of-solutions">
-<h3>Existence and uniqueness of solutions<a class="headerlink" href="#existence-and-uniqueness-of-solutions" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.1. </span>Existence and uniqueness of solutions<a class="headerlink" href="#existence-and-uniqueness-of-solutions" title="Permalink to this headline">¶</a></h3>
 <p>The type of conditions that can be provided depends on the nature of the differential equation being solved. In some cases, boundary conditions of one type will lead to a problem that is not well-posed. Either the conditions do not give a unique solution, or they are too restrictive for any solution to be found.</p>
 <p>Fortunately, we may often rely on physical intuition rather than careful mathematical derivations to tell us which conditions are appropriate. Nevertheless, this chapter provides a rough mathematical outline of problems that we may encounter.</p>
 </div>
 <div class="section" id="methodological-implications">
-<h3>Methodological implications<a class="headerlink" href="#methodological-implications" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.1.2. </span>Methodological implications<a class="headerlink" href="#methodological-implications" title="Permalink to this headline">¶</a></h3>
 <p>The nature of the boundary conditions also restricts the type of finite difference method that we can use. In the case of Cauchy conditions it is possible to use an explicit or implicit time-stepping method in a similar manner to how we did it in section 4, whilst for Dirichlet or Neumann conditions it is necessary to modify the approach as discussed in Chapter 8.</p>
 <p>Many realistic problems involve Dirichlet/Neumann conditions in space together with Cauchy conditions in time. In these cases a combined scheme is required, such as the <em>Crank-Nicholson scheme</em> or <em>Friedrichs-Lax</em> schemes.</p>
 </div>
 </div>
 <div class="section" id="a-note-on-method-of-characteristics">
-<h2>A note on method of characteristics<a class="headerlink" href="#a-note-on-method-of-characteristics" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.2. </span>A note on method of characteristics<a class="headerlink" href="#a-note-on-method-of-characteristics" title="Permalink to this headline">¶</a></h2>
 <p>The method of characteristics is a technique by which some PDEs may be reduced to a simpler or more standard <strong>canonical form</strong> through the use of transformed variables called <strong>characteristic variables</strong>. It may be easier to solve the canonical equation or it may be possible to infer from the characteristic variables how boundary or initial information is communicated throughout the solution domain</p>
 <div class="section" id="example-1-1d-wave-equation">
-<h3>Example 1 : 1D wave equation<a class="headerlink" href="#example-1-1d-wave-equation" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.1. </span>Example 1 : 1D wave equation<a class="headerlink" href="#example-1-1d-wave-equation" title="Permalink to this headline">¶</a></h3>
 <p>Consider the 1D wave equation, which can be reduced to canonical form by introducing characteristic variables <span class="math notranslate nohighlight">\(\xi=x-ct\)</span>, <span class="math notranslate nohighlight">\(\eta=x+ct.\)</span></p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
@@ -340,7 +361,7 @@ u(x,t)=F(x-ct)+G(x+ct).
 <br>
 </div>
 <div class="section" id="example-2-inviscid-burgers-equation">
-<h3>Example 2: Inviscid Burgers’ equation<a class="headerlink" href="#example-2-inviscid-burgers-equation" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.2.2. </span>Example 2: Inviscid Burgers’ equation<a class="headerlink" href="#example-2-inviscid-burgers-equation" title="Permalink to this headline">¶</a></h3>
 <p>Consider the following first order problem</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{align*}
@@ -356,10 +377,10 @@ u(x,t)=F(x-ct)+G(x+ct).
 </div>
 </div>
 <div class="section" id="classification">
-<h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
+<h2><span class="section-number">11.3. </span>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
 <p>PDEs can be classified into three types, which are called hyperbolic, parabolic and elliptic. The classification of the problem is related to the type of boundary/initial conditions that can be given. If the wrong type of conditions are specified for a parabolic or elliptic problem it is likely that there will be insufficient information to determine the solution at all points on the solution domain. If the wrong type of conditions are specified for a hyperbolic problem it is likely that the problem will be over-determined such that it will not be possible to satisfy both the equations and the given conditions.</p>
 <div class="section" id="first-order-problems">
-<h3>First order problems<a class="headerlink" href="#first-order-problems" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.3.1. </span>First order problems<a class="headerlink" href="#first-order-problems" title="Permalink to this headline">¶</a></h3>
 <p>All first order PDEs are hyperbolic type. The solutions of this type of ODE demonstrate wave-like properties, in which solutions travel along characteristics of the equation.</p>
 <p>Linear hyperbolic equations require as many initial conditions as the number of characteristics that come out of every point in the surface <span class="math notranslate nohighlight">\(t=0\)</span>, and as many boundary conditions as the number of characteristics that cross a point in the space boundary pointing inwards into the domain.</p>
 <p>For example, consider the following problem:</p>
@@ -372,7 +393,7 @@ u_t=-c u_x, \quad x&gt;0,t&gt;0
 <br>
 </div>
 <div class="section" id="second-order-problems">
-<h3>Second order problems<a class="headerlink" href="#second-order-problems" title="Permalink to this headline">¶</a></h3>
+<h3><span class="section-number">11.3.2. </span>Second order problems<a class="headerlink" href="#second-order-problems" title="Permalink to this headline">¶</a></h3>
 <p>The general (linear) form of a second order PDE is given by:</p>
 <div class="amsmath math notranslate nohighlight">
 \[\begin{equation*}
@@ -444,6 +465,7 @@ A(x,y)u_{xx}+B(x,y)u_{xy}+C(x,y) u_{yy}+D(x,y)u_x+E(x,y)u_y+F(x,y)u+G(x,y)=0.
         
         <div class='prev-next-bottom'>
             
+    <a class='left-prev' id="prev-link" href="dirichlet-pde.html" title="previous page"><span class="section-number">10. </span>Dirichlet - PDE</a>
 
         </div>
         

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Higher order BVP
+# # Second order BVP
 # 
 # This section is concerned with the solution of a general class of second order ODE, in which we are given a value for the function on two boundaries.
 # 
@@ -13,6 +13,7 @@
 # 
 # In this chapter we will also demonstrate an iterative **relaxation** approach that we will be able to generalise to higher dimensions.
 # 
+# (dirode)=
 # ## Example
 # 
 # By way of example, we will solve the second order linear ODE that we considered in {numref}`cauchy_example`, this time using Dirichlet-type boundary conditions at $x=0,1$.
@@ -37,7 +38,9 @@
 # 
 # We could use the matrix technique that we introduced in {numref}`matrix-cauchy`. Here, there is no need to introduce a fictitious node. The boundary conditions can be implemented in the first and last rows and we obtain the following matrix system to solve.
 # 
-# \begin{equation}\left[\begin{array}{cccccc}
+# ```{math}
+# :label: dirmatr1
+# \left[\begin{array}{cccccc}
 # 1 &0 & 0 & 0 & \dots & 0\\
 # 1-h/2 & -(2+6h^2) & 1+h/2 & 0 & \ddots &\vdots\\
 # 0 & 1-h/2 & -(2+6h^2) & 1+h/2 & \ddots&\vdots\\
@@ -45,7 +48,7 @@
 # 0 & \ddots & 0& 1-h/2 & -(2+6h^2) & 1+h/2\\
 # 0 &\dots & 0 & 0 & 0 & 1\end{array}\right]
 # \left[\begin{array}{cc} y_0\phantom{\vdots}&\\y_1&\phantom{\vdots}\\y_2\phantom{\vdots}&\\ \vdots&\\y_{N-1}\\y_N\end{array}\right]=\left[\begin{array}{cc}1&\phantom{\vdots}\\0&\phantom{\vdots}\\0&\phantom{\vdots}\\\vdots&\\0\\2\end{array}\right]
-# \end{equation}
+# ```
 # 
 # The result obtained by numerically solving this system is shown below.
 

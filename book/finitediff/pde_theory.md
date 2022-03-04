@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Partial differential equations
+# (some) PDE theory
 
 Partial differential equations can be classified as either hyperbolic, parabolic, or elliptic, with the classification determining the types of conditions that can be applied and the appropriate choice of finite difference scheme. In the next chapters we will see some examples for classic problems such as heat, wave, Laplace, diffusion.
 
